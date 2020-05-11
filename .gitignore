@@ -1,0 +1,4 @@
+out/
+.idea/
+!.gitignore
+/ValkyaCore.iml

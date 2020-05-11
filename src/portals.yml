@@ -1,0 +1,6 @@
+portals:
+  create-nether: false
+  create-end: false
+  enter-nether: false
+  enter-end: false
+  dispenser-can-use-flint: false

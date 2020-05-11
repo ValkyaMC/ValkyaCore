@@ -1,0 +1,36 @@
+name: ValkyaCore
+main: fr.volax.valkyacore.ValkyaCore
+version: 1.0.01a
+author: Volax
+description: ValorionCore plugin for Valorion V3
+commands:
+  staff:
+    description: Aide du ValorionCore
+  ban:
+    description: Bannir un joueur
+  unban:
+    description: Débannir un joueur
+  kick:
+    description: Kick un joueur
+  check:
+    description: Avoir les informations de sanctions d'un joueur
+  mute:
+    description: Mute un joueur
+  unmute:
+    description: Démute un joueur
+  getmat:
+    description: Avoir le nom d'un bloc
+  xpbottle:
+    description: Bouteille d'xp
+  ec:
+    description: Enderchest portable
+    aliases: [enderchest]
+  mod:
+    description: Aide et interfaces pour la modération
+    aliases: [moderator, moderation, moderateur, modo]
+  report:
+    description: Report un joueur
+    aliases: [reports]
+  failles:
+    description: Event
+    aliases: [faille]
