@@ -1,5 +1,6 @@
 package fr.volax.valkyacore.utils;
 
+import fr.volax.valkyacore.ValkyaCore;
 import org.bukkit.Bukkit;
 
 import java.sql.*;
@@ -24,7 +25,7 @@ public class Database {
         if(!isConnected()){
             try {
                 connection = DriverManager.getConnection(urlbase + host + "/" + database,user,pass);
-                Bukkit.getConsoleSender().sendMessage("[ValorionCore] §aConnection à la BDD : YEA");
+                Bukkit.getConsoleSender().sendMessage(ValkyaCore.LOGGER_PREFIX + " §aConnection à la BDD : YEA");
             }catch (SQLException e){
                 e.printStackTrace();
             }

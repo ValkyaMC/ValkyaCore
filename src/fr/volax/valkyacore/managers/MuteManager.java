@@ -28,7 +28,7 @@ public class MuteManager {
 
         if(playerP != null){
             if(playerP.hasPermission(new PermissionsManager().muteBypass)){
-                moderator.sendMessage("§6Valorion » §cVous ne pouvez pas mute ce joueur !");
+                moderator.sendMessage(ValkyaCore.PREFIX + " §cVous ne pouvez pas mute ce joueur !");
                 return false;
             }
         }
@@ -57,7 +57,7 @@ public class MuteManager {
             }
 
             if(playerP != null){
-                playerP.sendMessage("§6Valorion » §cVous avez été mute ! §6Raison:§f " + ChatColor.translateAlternateColorCodes('&', String.join(" ", reason)) + "\n" + "§6Valorion » §aTemps restant: §f" + getTimeLeft(playeruuid));
+                playerP.sendMessage(ValkyaCore.PREFIX + " §cVous avez été mute ! §6Raison:§f " + ChatColor.translateAlternateColorCodes('&', String.join(" ", reason)) + "\n" + "§6Valorion » §aTemps restant: §f" + getTimeLeft(playeruuid));
                 return true;
             }
         }else{
