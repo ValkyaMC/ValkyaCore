@@ -2,6 +2,7 @@ package fr.volax.valkyacore.utils;
 
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.tools.ConfigBuilder;
+import fr.volax.valkyacore.tools.ConfigType;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -21,7 +22,7 @@ public class PlayerUtils {
      */
     public boolean isPlayer(CommandSender sender){
         if(!(sender instanceof Player)){
-            sender.sendMessage(ConfigBuilder.getString("messages.no-player"));
+            sender.sendMessage(ConfigBuilder.getCString("messages.no-player", ConfigType.MESSAGES));
             return false;
         }
         return true;

@@ -1,7 +1,3 @@
-messages:
-  no-player: "Vous devez être un joueur pour executer cette commande !"
-  no-perm: "&cVous n'avez pas la permission d'executer cette commande !"
-
 permissions:
   staff-use: "valkya.use"
   ban-use: "valkya.ban.use"

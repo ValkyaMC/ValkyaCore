@@ -32,7 +32,7 @@ public class ValkyaCore extends JavaPlugin {
     public Map<Inventory, UUID> admin;
     public HashMap<UUID, Long> cooldown;
     public ArrayList<UUID> staff;
-    public HashMap<UUID, PlayerManager> players;
+    //public HashMap<UUID, PlayerManager> players;
 
     public static String PREFIX, LOGGER_PREFIX, pluginName;
 
@@ -64,7 +64,7 @@ public class ValkyaCore extends JavaPlugin {
         registeredMenus = new HashMap<>();
         cooldown = new HashMap<>();
         staff = new ArrayList<>();
-        players = new HashMap<>();
+       // players = new HashMap<>();
         admin = new HashMap<>();
         //********************************************
         // Sauvegarde config.yml
@@ -77,16 +77,17 @@ public class ValkyaCore extends JavaPlugin {
         // Sauvegarde des config custom
         //********************************************
         ConfigBuilder.configs.getConfig("messages.yml").saveDefaultConfig();
+        ConfigBuilder.configs.getConfig("cooldownchat.yml").saveDefaultConfig();
         ConfigBuilder.configs.getConfig("portals.yml").saveDefaultConfig();
-        ConfigBuilder.configs.getConfig("failles.yml").saveDefaultConfig();
+        //ConfigBuilder.configs.getConfig("failles.yml").saveDefaultConfig();
 
 
         //********************************************
         // Setup & connexion du mysql
         //********************************************
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dSetup et connexion au mysql...");
-        sql = new Database("jdbc:mysql://", ConfigBuilder.getString("sql.host"), ConfigBuilder.getString("sql.database"), ConfigBuilder.getString("sql.user"), ConfigBuilder.getString("sql.pass"));
-        sql.connection();
+        //sql = new Database("jdbc:mysql://", ConfigBuilder.getString("sql.host"), ConfigBuilder.getString("sql.database"), ConfigBuilder.getString("sql.user"), ConfigBuilder.getString("sql.pass"));
+        //sql.connection();
 
 
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dChargement des menus...");

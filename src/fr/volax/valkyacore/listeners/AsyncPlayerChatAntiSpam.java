@@ -3,6 +3,7 @@ package fr.volax.valkyacore.listeners;
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.managers.PermissionsManager;
 import fr.volax.valkyacore.tools.ConfigBuilder;
+import fr.volax.valkyacore.tools.ConfigType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,9 +20,9 @@ public class AsyncPlayerChatAntiSpam implements Listener {
             if(player.hasPermission(new PermissionsManager().cooldownChatBypass)) return;
             if(ValkyaCore.getInstance().cooldown.containsKey(uuid)){
                 float time = (System.currentTimeMillis() - ValkyaCore.getInstance().cooldown.get(uuid)) / 1000;
-                if(time < ConfigBuilder.getCInt("cooldownchat.time", "cooldownchat.yml")){
+                if(time < ConfigBuilder.getCInt("cooldownchat.time", ConfigType.COOLDOWNCHAT)){
                     event.setCancelled(true);
-                    player.sendMessage(ConfigBuilder.getString("messages.prefix") + ConfigBuilder.getCString("messages.cooldownchat", "cooldownchat.yml"));
+                    player.sendMessage(ConfigBuilder.getString("messages.prefix") + ConfigBuilder.getCString("messages.cooldownchat", ConfigType.COOLDOWNCHAT));
                 }else { ValkyaCore.getInstance().cooldown.put(uuid, System.currentTimeMillis()); }
             } else{ ValkyaCore.getInstance().cooldown.put(uuid, System.currentTimeMillis()); }
         }

@@ -2,6 +2,8 @@ package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.managers.PermissionsManager;
+import fr.volax.valkyacore.tools.ConfigBuilder;
+import fr.volax.valkyacore.tools.ConfigType;
 import fr.volax.valkyacore.utils.TimeUnit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -27,7 +29,7 @@ public class BanCommand implements CommandExecutor {
         UUID targetUUID = ValkyaCore.getInstance().getPlayerUtils().getUUID(targetName);
 
         if (ValkyaCore.getInstance().getBanManager().isBanned(targetUUID)) {
-            sender.sendMessage(ValkyaCore.PREFIX + " §cCe joueur est déjà banni !");
+            sender.sendMessage(ConfigBuilder.getCString("messages.bans.already-ban", ConfigType.MESSAGES));
             return false;
         }
 
@@ -41,7 +43,7 @@ public class BanCommand implements CommandExecutor {
                 return false;
             if (!ValkyaCore.getInstance().getBanManager().ban(targetUUID, sender, -1, reason.toString(), args))
                 return false;
-            sender.sendMessage(ValkyaCore.PREFIX + " §eVous avez banni §6" + targetName + " §c(Permanent) §epour : §6" + ChatColor.translateAlternateColorCodes('&', String.join(" ", reason.toString())));
+            sender.sendMessage(ConfigBuilder.getCString("messages.bans.have-been-permaban", ConfigType.MESSAGES).replaceAll("%player%", targetName).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason.toString()))));
             ValkyaCore.getInstance().getBanManager().ban(targetUUID, sender, -1, reason.toString(), args);
             return false;
         }
@@ -55,12 +57,12 @@ public class BanCommand implements CommandExecutor {
         try {
             duration = Integer.parseInt(args[1].split(":")[0]);
         } catch (NumberFormatException e) {
-            sender.sendMessage(ValkyaCore.PREFIX + " §cVous devez entrer un nombre pour la durée du ban !");
+            sender.sendMessage(ConfigBuilder.getCString("messages.bans.enter-number", ConfigType.MESSAGES));
             return false;
         }
 
         if (!TimeUnit.existFromShortcut(args[1].split(":")[1])) {
-            sender.sendMessage(ValkyaCore.PREFIX + " §cCette unité de temps n'existe pas !");
+            sender.sendMessage(ConfigBuilder.getCString("messages.bans.invalid-format-time", ConfigType.MESSAGES));
             for (TimeUnit units : TimeUnit.values()) {
                 sender.sendMessage(ValkyaCore.PREFIX + " §b" + units.getName() + " §f: §e" + units.getShortcut());
             }
@@ -72,13 +74,12 @@ public class BanCommand implements CommandExecutor {
 
         if (!ValkyaCore.getInstance().getBanManager().ban(targetUUID, sender, bantime, reason.toString(), args))
             return false;
-        sender.sendMessage(ValkyaCore.PREFIX + "§eVous avez banni §6 " + targetName + " §c(" + duration + " " + unit.getName() + ") §epour : §6" + ChatColor.translateAlternateColorCodes('&', String.join(" ", reason.toString())));
+        sender.sendMessage(ConfigBuilder.getCString("messages.bans.have-been-tempban", ConfigType.MESSAGES).replaceAll("%player%", targetName).replaceAll("%duration%", duration + " " + unit.getName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason.toString()))));
         ValkyaCore.getInstance().getBanManager().ban(targetUUID, sender, bantime, reason.toString(), args);
         return false;
     }
 
     private void helpMessage(CommandSender sender) {
-        sender.sendMessage(ValkyaCore.PREFIX + " §c/ban <joueur> perm <raison>");
-        sender.sendMessage(ValkyaCore.PREFIX + " §c/ban <joueur> <durée>:<unité> <raison>");
+        sender.sendMessage(ConfigBuilder.getCString("messages.bans.help-message", ConfigType.MESSAGES));
     }
 }

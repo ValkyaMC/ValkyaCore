@@ -1,0 +1,24 @@
+messages:
+  no-player: "Vous devez être un joueur pour executer cette commande !"
+  no-perm: "&cVous n'avez pas la permission d'executer cette commande !"
+  bans:
+    already-ban: "%prefix% &cCe joueur est déjà banni !"
+    have-been-permaban: "%prefix% &eVous avez banni &6%player% &c(Permanent) &epour : &6%reason%"
+    have-been-tempban: "%prefix% &eVous avez banni &6%player% &c(%duration%) &epour : &6%reason%"
+    enter-number: "%prefix% &cVous devez entrer un nombre pour la durée du ban !"
+    invalid-format-time: "%prefix% &cCette unité de temps n'existe pas !"
+    help-message1: "%prefix% &c/ban <joueur> perm <raison> \n %prefix% &c/ban <joueur> <durée>:<unité> <raison>"
+  check:
+    help-message: "%prefix% &c/check <joueur>"
+    separator: "&7-----------------------------------------------------"
+    player: "&ePseudo : &b%player%"
+    uuid: "&eUUID : &b%uuid%"
+    mute: "&eMute : %isMute%"
+    ban: "&eBanni : %isBan%"
+    reason: "&6Raison : &c%reason%"
+    time: "&6Temps restant : &f%duration%"
+  kick:
+    cant-kick: "%prefix% &cVous ne pouvez pas kick ce joueur !"
+    have-been-kick: "&cVous avez été kick ! \n \n &6Raison:&f %reason%"
+    kick: "%prefix% &aVous avez kick &e%player% &apour &e%reason%"
+    help-message: "%prefix% &c/kick <joueur> <raison>"

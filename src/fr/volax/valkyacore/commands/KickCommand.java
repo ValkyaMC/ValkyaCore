@@ -2,6 +2,8 @@ package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.managers.PermissionsManager;
+import fr.volax.valkyacore.tools.ConfigBuilder;
+import fr.volax.valkyacore.tools.ConfigType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -27,15 +29,15 @@ public class KickCommand implements CommandExecutor {
             reason += args[i] + " ";
         }
         if(player.hasPermission(new PermissionsManager().kickBypass)){
-            sender.sendMessage(ValkyaCore.PREFIX + " §cVous ne pouvez pas kick ce joueur !");
+            sender.sendMessage(ConfigBuilder.getCString("messages.kick.cant-kick", ConfigType.MESSAGES));
             return false;
         }
-        player.kickPlayer("§cVous avez été kick ! \n" + "\n" + "§6Raison:§f " + ChatColor.translateAlternateColorCodes('&', String.join(" ", reason)));
-        sender.sendMessage(ValkyaCore.PREFIX + " §aVous avez kick §e" + player.getName() + " §apour §e" + ChatColor.translateAlternateColorCodes('&', String.join(" ", reason)));
+        player.kickPlayer(ConfigBuilder.getCString("messages.kick.have-been-kick", ConfigType.MESSAGES).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
+        sender.sendMessage(ConfigBuilder.getCString("messages.kick.kick", ConfigType.MESSAGES).replaceAll("%player%", player.getName()).replaceAll("%reason%",ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
         return false;
     }
 
     private void helpMessage(CommandSender sender){
-        sender.sendMessage(ValkyaCore.PREFIX + " §c/kick <joueur> <raison>");
+        sender.sendMessage(ConfigBuilder.getCString("messages.kick.help-message", ConfigType.MESSAGES));
     }
 }

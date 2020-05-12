@@ -13,8 +13,8 @@ public class ConfigBuilder {
      * @param config Config dans la quel il faut get la value
      * @return Contenue de "value" dans la config
      */
-    public static String getCString(String value, String config) {
-        return configs.getConfig(config).get().getString(value).replaceAll("&", "§");
+    public static String getCString(String value, ConfigType config) {
+        return configs.getConfig(config.getConfigName()).get().getString(value).replaceAll("&", "§").replaceAll("%prefix%", ValkyaCore.PREFIX).replaceAll("%logger_prefix%", ValkyaCore.LOGGER_PREFIX);
     }
 
     /**
@@ -24,8 +24,8 @@ public class ConfigBuilder {
      * @param config Config dans la quel il faut get la value
      * @return Contenue de "value" dans la config
      */
-    public static int getCInt(String value, String config) {
-        return configs.getConfig(config).get().getInt(value);
+    public static int getCInt(String value, ConfigType config) {
+        return configs.getConfig(config.getConfigName()).get().getInt(value);
     }
 
     /**
@@ -35,8 +35,8 @@ public class ConfigBuilder {
      * @param config Config dans la quel il faut get la value
      * @return Contenue de "value" dans la config
      */
-    public static Boolean getCBool(String value, String config) {
-        return configs.getConfig(config).get().getBoolean(value);
+    public static Boolean getCBool(String value, ConfigType config) {
+        return configs.getConfig(config.getConfigName()).get().getBoolean(value);
     }
 
     /**
@@ -46,9 +46,9 @@ public class ConfigBuilder {
      * @param data   String à modifier dans la config
      * @param config Config dans la quel il faut modifier la value
      */
-    public static void setCString(String value, String data, String config) {
-        configs.getConfig(config).set(value, data);
-        configs.getConfig(config).save();
+    public static void setCString(String value, String data, ConfigType config) {
+        configs.getConfig(config.getConfigName()).set(value, data);
+        configs.getConfig(config.getConfigName()).save();
     }
 
     /**
@@ -58,10 +58,10 @@ public class ConfigBuilder {
      * @param data   int à modifier dans la config
      * @param config Config dans la quel il faut modifier la value
      */
-    public static void setCInt(String value, int data, String config) {
-        configs.getConfig(config).set(value, data);
-        configs.getConfig(config).save();
-        configs.getConfig(config).reload();
+    public static void setCInt(String value, int data, ConfigType config) {
+        configs.getConfig(config.getConfigName()).set(value, data);
+        configs.getConfig(config.getConfigName()).save();
+        configs.getConfig(config.getConfigName()).reload();
     }
 
     /**
@@ -71,9 +71,9 @@ public class ConfigBuilder {
      * @param data   Boolean à modifier dans la config
      * @param config Config dans la quel il faut modifier la value
      */
-    public static void setCBool(String value, boolean data, String config) {
-        configs.getConfig(config).set(value, data);
-        configs.getConfig(config).save();
+    public static void setCBool(String value, boolean data, ConfigType config) {
+        configs.getConfig(config.getConfigName()).set(value, data);
+        configs.getConfig(config.getConfigName()).save();
     }
 
     /**
@@ -83,7 +83,7 @@ public class ConfigBuilder {
      * @return Contenue de "value" dans la config
      */
     public static String getString(String value) {
-        return ValkyaCore.getInstance().getConfig().getString(value).replaceAll("&", "§");
+        return ValkyaCore.getInstance().getConfig().getString(value).replaceAll("&", "§").replaceAll("%prefix%", ValkyaCore.PREFIX).replaceAll("%logger_prefix%", ValkyaCore.LOGGER_PREFIX);
     }
 
     /**
