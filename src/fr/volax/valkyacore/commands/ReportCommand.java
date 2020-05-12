@@ -2,6 +2,8 @@ package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.managers.PermissionsManager;
+import fr.volax.valkyacore.tools.ConfigBuilder;
+import fr.volax.valkyacore.tools.ConfigType;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -29,19 +31,19 @@ public class ReportCommand implements CommandExecutor {
         for (int i = 1; i < args.length; i++) {
             reason += args[i] + " ";
         }
-        player.sendMessage(ValkyaCore.PREFIX + " §eVous venez de signaler §6" + target.getName() + " §epour §6" + reason + " §e.");
+        player.sendMessage(ConfigBuilder.getCString("messages.report.have-been-reported", ConfigType.MESSAGES).replaceAll("%player%", target.getName()).replaceAll("%reason%", reason));
         sendToMods(reason, target.getName(), player.getName());
         return false;
     }
 
     private void helpMessage(Player player) {
-        player.sendMessage(ValkyaCore.PREFIX + " §c/report <joueur> <raison(s)>");
+        player.sendMessage(ConfigBuilder.getCString("messages.report.help-messsage", ConfigType.MESSAGES));
     }
 
     private void sendToMods(String reason, String targetName, String playerName) {
         for (Player players : Bukkit.getServer().getOnlinePlayers()) {
             if (players.hasPermission(new PermissionsManager().reportReceive)) {
-                players.sendMessage(ValkyaCore.PREFIX + " §eLe joueur §6" + targetName + " §ea été signalé pour §6" + reason + "§e(Signalé par: " + playerName + ").");
+                players.sendMessage(ConfigBuilder.getCString("messages.report.report-message", ConfigType.MESSAGES).replaceAll("%reportedPlayer%", targetName).replaceAll("%reason%", reason).replaceAll("%player%", playerName));
             }
         }
     }

@@ -7,7 +7,7 @@ messages:
     have-been-tempban: "%prefix% &eVous avez banni &6%player% &c(%duration%) &epour : &6%reason%"
     enter-number: "%prefix% &cVous devez entrer un nombre pour la durée du ban !"
     invalid-format-time: "%prefix% &cCette unité de temps n'existe pas !"
-    help-message1: "%prefix% &c/ban <joueur> perm <raison> \n %prefix% &c/ban <joueur> <durée>:<unité> <raison>"
+    help-message: "%prefix% &c/ban <joueur> perm <raison> \n %prefix% &c/ban <joueur> <durée>:<unité> <raison>"
   check:
     help-message: "%prefix% &c/check <joueur>"
     separator: "&7-----------------------------------------------------"
@@ -22,3 +22,16 @@ messages:
     have-been-kick: "&cVous avez été kick ! \n \n &6Raison:&f %reason%"
     kick: "%prefix% &aVous avez kick &e%player% &apour &e%reason%"
     help-message: "%prefix% &c/kick <joueur> <raison>"
+  mutes:
+    already-mute: "%prefix% &cCe joueur est déjà mute !"
+    have-been-permamute: "%prefix% &eVous avez mute &6%player% &c(Permanent) &epour : &6%reason%"
+    have-been-tempmute: "%prefix% &eVous avez mute &6%player% &c(%duration%) &epour : &6%reason%"
+    enter-number: "%prefix% &cVous devez entrer un nombre pour la durée du mute !"
+    invalid-format-time: "%prefix% &cCette unité de temps n'existe pas !"
+    help-message: "%prefix% &c/mute <joueur> perm <raison> \n %prefix% &c/mute <joueur> <durée>:<unité> <raison>"
+  report:
+    have-been-reported: "%prefix% &eVous venez de signaler &6%player% &epour &6%reason% &e."
+    report-message: "%prefix% &eLe joueur &6%reportedPlayer% &ea été signalé pour &6%reason%&e(Signalé par: %player%)."
+    help-message: "%prefix% &c/report <joueur> <raison(s)>"
+  cooldownchat:
+
