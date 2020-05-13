@@ -28,7 +28,7 @@ public class MuteCommand implements CommandExecutor {
         UUID targetUUID = ValkyaCore.getInstance().getPlayerUtils().getUUID(targetName);
 
         if(ValkyaCore.getInstance().getMuteManager().isMuted(targetUUID)){
-            sender.sendMessage(ConfigBuilder.getCString("messages.mutes.already-mute", ConfigType.MESSAGES));
+            sender.sendMessage(ConfigBuilder.getCString("messages.mute.already-mute", ConfigType.MESSAGES));
             return false;
         }
 
@@ -41,7 +41,7 @@ public class MuteCommand implements CommandExecutor {
             if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsManager().mutePermUse)) return false;
             if(!ValkyaCore.getInstance().getMuteManager().mute(targetUUID, sender, -1, reason, args)) return false;
             ValkyaCore.getInstance().getMuteManager().mute(targetUUID, sender, -1, reason, args);
-            sender.sendMessage(ConfigBuilder.getCString("messages.mutes.have-been-permamute", ConfigType.MESSAGES).replaceAll("%player%", targetName).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
+            sender.sendMessage(ConfigBuilder.getCString("messages.mute.have-been-permamute", ConfigType.MESSAGES).replaceAll("%player%", targetName).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
             return false;
         }
 
@@ -54,12 +54,12 @@ public class MuteCommand implements CommandExecutor {
         try {
             duration = Integer.parseInt(args[1].split(":")[0]);
         } catch (NumberFormatException e){
-            sender.sendMessage(ConfigBuilder.getCString("messages.mutes.enter-number", ConfigType.MESSAGES));
+            sender.sendMessage(ConfigBuilder.getCString("messages.mute.enter-number", ConfigType.MESSAGES));
             return false;
         }
 
         if(!TimeUnit.existFromShortcut(args[1].split(":")[1])){
-            sender.sendMessage(ConfigBuilder.getCString("messages.mutes.invalid-format-time", ConfigType.MESSAGES));
+            sender.sendMessage(ConfigBuilder.getCString("messages.mute.invalid-format-time", ConfigType.MESSAGES));
             for(TimeUnit units : TimeUnit.values()){
                 sender.sendMessage(ValkyaCore.PREFIX + " §b" + units.getName() + " §f: §e" + units.getShortcut());
             }
@@ -71,11 +71,11 @@ public class MuteCommand implements CommandExecutor {
 
         if(!ValkyaCore.getInstance().getMuteManager().mute(targetUUID, sender, muteTime, reason, args)) return false;
         ValkyaCore.getInstance().getMuteManager().mute(targetUUID, sender, muteTime, reason, args);
-        sender.sendMessage(ConfigBuilder.getCString("messages.mutes.have-been-tempmute", ConfigType.MESSAGES).replaceAll("%player%", targetName).replaceAll("%duration%", duration + " " + unit.getName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
+        sender.sendMessage(ConfigBuilder.getCString("messages.mute.have-been-tempmute", ConfigType.MESSAGES).replaceAll("%player%", targetName).replaceAll("%duration%", duration + " " + unit.getName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
         return false;
     }
 
     private void helpMessage(CommandSender sender){
-        sender.sendMessage(ConfigBuilder.getCString("messages.mutes.help-message", ConfigType.MESSAGES));
+        sender.sendMessage(ConfigBuilder.getCString("messages.mute.help-message", ConfigType.MESSAGES));
     }
 }

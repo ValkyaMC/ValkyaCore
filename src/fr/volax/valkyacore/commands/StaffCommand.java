@@ -24,13 +24,13 @@ public class StaffCommand implements CommandExecutor {
         } else if (args[0].equalsIgnoreCase("spamchat") || args[0].equalsIgnoreCase("cooldownchat")) {
             if (!ValkyaCore.getInstance().getPlayerUtils().hasPerm(player, new PermissionsManager().cooldownChatModif)) return false;
             if (args.length != 2) {
-                    player.sendMessage(ValkyaCore.PREFIX + " §eLe cooldownchat est actuellement défini sur §6" + ConfigBuilder.getCInt("cooldownchat.time", ConfigType.COOLDOWNCHAT) + " §eseconde(s) !");
+                player.sendMessage(ConfigBuilder.getCString("messages.cooldownchat.current-cooldownchat", ConfigType.MESSAGES).replaceAll("%secondes%", String.valueOf(ConfigBuilder.getCInt("cooldownchat.time", ConfigType.COOLDOWNCHAT))));
             } else {
                 if (ValkyaCore.getInstance().isInt(args[1])) {
                     ConfigBuilder.setCInt("cooldownchat.time", Integer.parseInt(args[1]), ConfigType.COOLDOWNCHAT);
-                    player.sendMessage(ValkyaCore.PREFIX + ConfigBuilder.getCString("messages.cooldownchat-set", ConfigType.COOLDOWNCHAT).replaceAll("%secondes%", args[1]));
+                    player.sendMessage(ConfigBuilder.getCString("messages.cooldownchat.cooldownchat-set", ConfigType.MESSAGES).replaceAll("%secondes%", args[1]));
                 } else {
-                    player.sendMessage(ValkyaCore.PREFIX + ConfigBuilder.getCString("messages.pas-chiffre", ConfigType.COOLDOWNCHAT).replaceAll("%arg1%", args[1]));
+                    player.sendMessage(ConfigBuilder.getCString("messages.cooldownchat.pas-chiffre", ConfigType.MESSAGES).replaceAll("%arg1%", args[1]));
                     return false;
                 }
             }

@@ -1,6 +1,8 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
+import fr.volax.valkyacore.managers.FileManager;
+import fr.volax.valkyacore.tools.ConfigType;
 import fr.volax.valkyacore.tools.ItemBuilder;
 import fr.volax.valkyacore.managers.PermissionsManager;
 import fr.volax.valkyacore.tools.ConfigBuilder;
@@ -15,8 +17,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class XPBottleCommand implements CommandExecutor {
-    private String help = ValkyaCore.PREFIX + " §7/xp [<level>]";
-    private String helpGive = ValkyaCore.PREFIX + " §7/xp give <level> [<joueur>]";
+    private String help = ConfigBuilder.getCString("messages.xpbottle.help-message", ConfigType.MESSAGES);
+    private String helpGive = ConfigBuilder.getCString("messages.xpbottle.help-message-give", ConfigType.MESSAGES);
+    private String noXP = ConfigBuilder.getCString("messages.xpbottle.no-level", ConfigType.MESSAGES);
+    private String noNumber = ConfigBuilder.getCString("messages.xpbottle.no-number", ConfigType.MESSAGES);
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -30,7 +34,7 @@ public class XPBottleCommand implements CommandExecutor {
 
         if(args.length == 0) {
             if (xplevel <= 0) {
-                player.sendMessage(ValkyaCore.PREFIX + " §cVous n'avez pas assez de niveaux !");
+                player.sendMessage(noXP);
                 return false;
             }else{
                 ItemStack xpbottle = new ItemBuilder(Material.EXP_BOTTLE, xplevel).setName("§aBouteille d'xp - §c1 niveau").setLore("§2Faites un clique droit pour vous regive l'xp.").toItemStack();
@@ -42,7 +46,7 @@ public class XPBottleCommand implements CommandExecutor {
             if(ValkyaCore.getInstance().isInt(args[0])){
                 int xpd = Integer.parseInt(args[0]);
                 if(xpd > xplevel){
-                    player.sendMessage(ValkyaCore.PREFIX + " §cVous n'avez pas assez de niveaux !");
+                    player.sendMessage(noXP);
                     return false;
                 }else{
                     ItemStack xpbottle = new ItemBuilder(Material.EXP_BOTTLE, xpd).setName("§aBouteille d'xp - §c1 niveau").setLore("§2Faites un clique droit pour vous regive l'xp.").toItemStack();
@@ -70,7 +74,7 @@ public class XPBottleCommand implements CommandExecutor {
         }else if(args[0].equalsIgnoreCase("give") && args.length == 2){
             if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsManager().xpBottleGive)) return false;
             if(!ValkyaCore.getInstance().isInt(args[1])){
-                player.sendMessage(ValkyaCore.PREFIX + " §cVeillez fournir un chiffre valide !");
+                player.sendMessage(noNumber);
                 return false;
             }else{
                 ItemStack xpbottle = new ItemBuilder(Material.EXP_BOTTLE, Integer.parseInt(args[1])).setName("§aBouteille d'xp - §c1 niveau").setLore("§2Faites un clique droit pour vous regive l'xp.").toItemStack();
@@ -81,12 +85,12 @@ public class XPBottleCommand implements CommandExecutor {
         }else if(args[0].equalsIgnoreCase("give") && args.length == 3){
             if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsManager().xpBottleGive)) return false;
             if(!ValkyaCore.getInstance().isInt(args[1])){
-                player.sendMessage(ValkyaCore.PREFIX + " §cVeillez fournir un chiffre valide !");
+                player.sendMessage(noNumber);
                 return false;
             }else{
                 Player target = Bukkit.getPlayer(args[2]);
                 if(target == null){
-                    player.sendMessage(ValkyaCore.PREFIX + " §7Le joueur" + args[2] + " n'est pas en ligne !");
+                    player.sendMessage(ConfigBuilder.getCString("messages.xpbottle.not-online", ConfigType.MESSAGES).replaceAll("%player%", args[2]));
                     return false;
                 }else{
                     Inventory inventaireT = target.getInventory();
@@ -94,8 +98,8 @@ public class XPBottleCommand implements CommandExecutor {
                     inventaireT.addItem(xpbottle);
                     player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 10, 1);
 
-                    player.sendMessage(ValkyaCore.PREFIX + " §eVous venez de donner §6" + args[1] + " §ebouteille(s) d'xp à §6" + target.getName() + "§e.");
-                    target.sendMessage(ValkyaCore.PREFIX + " §eVous venez de recevoir §6" + args[1] + " §ebouteille(s) d'xp.");
+                    player.sendMessage(ConfigBuilder.getCString("messages.xpbottle.give-message", ConfigType.MESSAGES).replaceAll("%nombre%", args[1]).replaceAll("%player%", target.getName()));
+                    target.sendMessage(ConfigBuilder.getCString("messages.xpbottle.receive-message", ConfigType.MESSAGES).replaceAll("%nombre%", args[1]));
                     return false;
                 }
             }

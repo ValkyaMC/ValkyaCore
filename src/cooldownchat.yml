@@ -1,7 +1,2 @@
-messages:
-  cooldownchat-set: " &eVous venez de mettre le cooldownchat à §6%secondes% §eseconde(s)."
-  cooldownchat: " &eAttends un peu avant de parler!"
-  pas-chiffre: " &c%arg1% n'est pas un chiffre !"
-
 cooldownchat:
   time: 3

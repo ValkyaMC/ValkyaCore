@@ -22,7 +22,7 @@ public class AsyncPlayerChatAntiSpam implements Listener {
                 float time = (System.currentTimeMillis() - ValkyaCore.getInstance().cooldown.get(uuid)) / 1000;
                 if(time < ConfigBuilder.getCInt("cooldownchat.time", ConfigType.COOLDOWNCHAT)){
                     event.setCancelled(true);
-                    player.sendMessage(ConfigBuilder.getString("messages.prefix") + ConfigBuilder.getCString("messages.cooldownchat", ConfigType.COOLDOWNCHAT));
+                    player.sendMessage(ConfigBuilder.getCString("messages.cooldownchat.cooldownchat", ConfigType.MESSAGES));
                 }else { ValkyaCore.getInstance().cooldown.put(uuid, System.currentTimeMillis()); }
             } else{ ValkyaCore.getInstance().cooldown.put(uuid, System.currentTimeMillis()); }
         }

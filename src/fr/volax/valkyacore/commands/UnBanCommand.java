@@ -2,6 +2,8 @@ package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.managers.PermissionsManager;
+import fr.volax.valkyacore.tools.ConfigBuilder;
+import fr.volax.valkyacore.tools.ConfigType;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,7 +16,7 @@ public class UnBanCommand implements CommandExecutor {
         if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsManager().unbanUse)) return false;
 
         if(args.length != 1){
-            sender.sendMessage(ValkyaCore.PREFIX + " §c/unban <joueur>");
+            sender.sendMessage(ConfigBuilder.getCString("messages.unban.help-message", ConfigType.MESSAGES));
             return false;
         }
 
@@ -22,12 +24,12 @@ public class UnBanCommand implements CommandExecutor {
         UUID targetUUID = ValkyaCore.getInstance().getPlayerUtils().getUUID(args[0]);
 
         if(!ValkyaCore.getInstance().getBanManager().isBanned(targetUUID)){
-            sender.sendMessage(ValkyaCore.PREFIX + " §cCe joueur n'est pas banni !");
+            sender.sendMessage(ConfigBuilder.getCString("messages.unban.no-ban", ConfigType.MESSAGES));
             return false;
         }
 
         ValkyaCore.getInstance().getBanManager().unban(targetUUID);
-        sender.sendMessage(ValkyaCore.PREFIX + " §aVous avez débanni §6" + args[0]);
+        sender.sendMessage(ConfigBuilder.getCString("messages.unban.unban", ConfigType.MESSAGES).replaceAll("%player%", args[0]));
         return false;
     }
 }
