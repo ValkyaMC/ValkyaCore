@@ -4,6 +4,9 @@ messages:
   no-command: "%prefix% &eCommande introuvable."
   anti-insult: "&7***&r"
   ban:
+    not-ban: "&cNon Banni"
+    permanent: "&fPermanent"
+    cant-ban: "%prefix% &cVous ne pouvez pas bannir ce joueur !"
     already-ban: "%prefix% &cCe joueur est déjà banni !"
     have-been-permaban: "%prefix% &eVous avez banni &6%player% &c(Permanent) &epour : &6%reason%"
     have-been-tempban: "%prefix% &eVous avez banni &6%player% &c(%duration%) &epour : &6%reason%"
@@ -26,6 +29,9 @@ messages:
     kick: "%prefix% &aVous avez kick &e%player% &apour &e%reason%"
     help-message: "%prefix% &c/kick <joueur> <raison>"
   mute:
+    not-mute: "&cNon Mute"
+    permanent: "&fPermanent"
+    cant-mute: "%prefix% &cVous ne pouvez pas mute ce joueur !"
     already-mute: "%prefix% &cCe joueur est déjà mute !"
     have-been-permamute: "%prefix% &eVous avez mute &6%player% &c(Permanent) &epour : &6%reason%"
     have-been-tempmute: "%prefix% &eVous avez mute &6%player% &c(%duration%) &epour : &6%reason%"
@@ -33,6 +39,8 @@ messages:
     invalid-format-time: "%prefix% &cCette unité de temps n'existe pas !"
     help-message: "%prefix% &c/mute <joueur> perm <raison> \n %prefix% &c/mute <joueur> <durée>:<unité> <raison>"
     player-talking: "%prefix% &cVous êtes mute pour &6%reason% \n %prefix% &aTemps restant: &f%time%"
+    muted-player-message: "&cVous avez été mute ! \n §6Raison:§f %reason% \n &aTemps restant: §f%time%"
+    muted-player-message2: "%prefix% §cVous avez été mute ! §6Raison:§f %reason% \n %prefix% &aTemps restant: %time%"
   report:
     have-been-reported: "%prefix% &eVous venez de signaler &6%player% &epour &6%reason% &e."
     report-message: "%prefix% &eLe joueur &6%reportedPlayer% &ea été signalé pour &6%reason%&e(Signalé par: %player%)."

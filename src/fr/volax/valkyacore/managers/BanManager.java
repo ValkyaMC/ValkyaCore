@@ -1,6 +1,8 @@
 package fr.volax.valkyacore.managers;
 
 import fr.volax.valkyacore.ValkyaCore;
+import fr.volax.valkyacore.tools.ConfigBuilder;
+import fr.volax.valkyacore.tools.ConfigType;
 import fr.volax.valkyacore.utils.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -28,7 +30,7 @@ public class BanManager {
 
         if (playerP != null) {
             if (playerP.hasPermission(new PermissionsManager().banBypass)) {
-                moderator.sendMessage(ValkyaCore.PREFIX + " §cVous ne pouvez pas bannir ce joueur !");
+                moderator.sendMessage(ConfigBuilder.getCString("messages.ban.cant-ban", ConfigType.MESSAGES));
                 return false;
             }
         }
@@ -57,7 +59,7 @@ public class BanManager {
             }
 
             if (playerP != null) {
-                playerP.kickPlayer("§cVous avez été banni ! \n" + "\n" + "§6Raison:§f " + ChatColor.translateAlternateColorCodes('&', String.join(" ", reason)) + "\n" + "§aTemps restant: §f" + getTimeLeft(playeruuid));
+                playerP.kickPlayer(ConfigBuilder.getCString("messages.ban.banned-player-join", ConfigType.MESSAGES).replaceAll("%reason%", ValkyaCore.getInstance().getBanManager().getReason(playerP.getUniqueId())).replaceAll("%time%", ValkyaCore.getInstance().getBanManager().getTimeLeft(playerP.getUniqueId())));
                 return true;
             }
         } else {
@@ -84,7 +86,7 @@ public class BanManager {
             }
 
             if (playerP != null) {
-                playerP.kickPlayer("§cVous avez été banni ! \n" + "\n" + "§6Raison:§f " + ChatColor.translateAlternateColorCodes('&', String.join(" ", reason)) + "\n" + "§aTemps restant: §f" + getTimeLeft(playeruuid));
+                playerP.kickPlayer(ConfigBuilder.getCString("messages.ban.banned-player-join", ConfigType.MESSAGES).replaceAll("%reason%", ValkyaCore.getInstance().getBanManager().getReason(playerP.getUniqueId())).replaceAll("%time%", ValkyaCore.getInstance().getBanManager().getTimeLeft(playerP.getUniqueId())));
                 return true;
             }
         }
@@ -140,8 +142,8 @@ public class BanManager {
     }
 
     public String getTimeLeft(UUID uuid) {
-        if (!isBanned(uuid)) return "§cNon Banni";
-        if (getEnd(uuid) == -1) return "§fPermanent";
+        if (!isBanned(uuid)) return ConfigBuilder.getCString("messages.ban.not-ban", ConfigType.MESSAGES);
+        if (getEnd(uuid) == -1) return ConfigBuilder.getCString("messages.ban.permanent", ConfigType.MESSAGES);
 
         long timeLeft = (getEnd(uuid) - System.currentTimeMillis()) / 1000;
         int mois = 0;
@@ -179,7 +181,7 @@ public class BanManager {
     }
 
     public String getReason(UUID uuid) {
-        if (!isBanned(uuid)) return "§cNon Banni";
+        if (!isBanned(uuid)) return ConfigBuilder.getCString("messages.ban.not-ban", ConfigType.MESSAGES);
         try {
             PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT * FROM bans WHERE playerUUID=?");
             query.setString(1, uuid.toString());
@@ -191,6 +193,6 @@ public class BanManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "§cNon Banni";
+        return ConfigBuilder.getCString("messages.ban.not-ban", ConfigType.MESSAGES);
     }
 }

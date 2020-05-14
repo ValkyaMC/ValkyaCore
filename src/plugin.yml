@@ -1,6 +1,6 @@
 name: ValkyaCore
 main: fr.volax.valkyacore.ValkyaCore
-version: 1.0.01e
+version: 1.0.01f  
 author: Volax
 description: ValkyaCore plugin for Valkya
 commands:
