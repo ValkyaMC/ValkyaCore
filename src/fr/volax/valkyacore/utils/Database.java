@@ -1,6 +1,8 @@
 package fr.volax.valkyacore.utils;
 
 import fr.volax.valkyacore.ValkyaCore;
+import fr.volax.valkyacore.tools.ConfigBuilder;
+import fr.volax.valkyacore.tools.ConfigType;
 import org.bukkit.Bukkit;
 
 import java.sql.*;
@@ -25,7 +27,7 @@ public class Database {
         if(!isConnected()){
             try {
                 connection = DriverManager.getConnection(urlbase + host + "/" + database,user,pass);
-                Bukkit.getConsoleSender().sendMessage(ValkyaCore.LOGGER_PREFIX + " §aConnection à la BDD : YEA");
+                Bukkit.getConsoleSender().sendMessage(ConfigBuilder.getCString("messages.logger.connected-bdd", ConfigType.MESSAGES));
             }catch (SQLException e){
                 e.printStackTrace();
             }
@@ -39,6 +41,7 @@ public class Database {
         if(isConnected()){
             try {
                 connection.close();
+                Bukkit.getConsoleSender().sendMessage(ConfigBuilder.getCString("messages.logger.unconnected-bdd", ConfigType.MESSAGES));
             } catch (SQLException e) {
                 e.printStackTrace();
             }

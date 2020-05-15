@@ -2,6 +2,8 @@ messages:
   no-player: "Vous devez être un joueur pour executer cette commande !"
   no-perm: "&cVous n'avez pas la permission d'executer cette commande !"
   no-command: "%prefix% &eCommande introuvable."
+  not-online: "%prefix% &cCe joueur n'est pas connecté !"
+  never-join: "%prefix% &cCe joueur ne s'est jamais connecté au serveur !"
   anti-insult: "&7***&r"
   ban:
     not-ban: "&cNon Banni"
@@ -66,3 +68,6 @@ messages:
     not-online: "%prefix% &7Le joueur %player% n'est pas en ligne !"
     give-message: "%prefix% &eVous venez de donner &6%nombre% &ebouteille(s) d'xp à &6%player%&e."
     receive-message: "%prefix% &eVous venez de recevoir &6%nombre% &ebouteille(s) d'xp."
+  logger:
+    connected-bdd: "%logger_prefix% &aBDD : ON"
+    unconnected-bdd: "%logger_prefix% &cBDD : OFF"

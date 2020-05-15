@@ -31,7 +31,7 @@ public class PlayerUtils {
     public boolean isOnlinePlayer(CommandSender sender, String target){
         if(!doesPlayerExist(sender, target)) return false;
         if(Bukkit.getPlayer(target) == null){
-            sender.sendMessage(ValkyaCore.PREFIX + " §cCe joueur n'est pas connecté !");
+            sender.sendMessage(ConfigBuilder.getCString("messages.not-online", ConfigType.MESSAGES));
             return false;
         }
         return true;
@@ -40,7 +40,7 @@ public class PlayerUtils {
 
     public boolean doesPlayerExist(CommandSender sender, String target){
         if(!exist(target)){
-            sender.sendMessage( ValkyaCore.PREFIX + " §cCe joueur ne s'est jamais connecté au serveur !");
+            sender.sendMessage( ConfigBuilder.getCString("messages.never-join", ConfigType.MESSAGES));
             return false;
         }
         return true;
