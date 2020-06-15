@@ -1,7 +1,7 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.managers.PermissionsManager;
+import fr.volax.valkyacore.utils.PermissionsHelper;
 import fr.volax.valkyacore.tools.ConfigBuilder;
 import fr.volax.valkyacore.tools.ConfigType;
 import org.bukkit.command.Command;
@@ -11,9 +11,12 @@ import org.bukkit.command.CommandSender;
 import java.util.UUID;
 
 public class UnBanCommand implements CommandExecutor {
+    UnBanCommand(String string) {
+        ValkyaCore.getInstance().getCommand(string).setExecutor(this);
+    }
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsManager().unbanUse)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsHelper().unbanUse)) return false;
 
         if(args.length != 1){
             sender.sendMessage(ConfigBuilder.getCString("messages.unban.help-message", ConfigType.MESSAGES));

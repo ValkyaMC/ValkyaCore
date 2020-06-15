@@ -8,6 +8,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class EcCommand implements CommandExecutor {
+    EcCommand(String string) {
+        ValkyaCore.getInstance().getCommand(string).setExecutor(this);
+    }
+
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!ValkyaCore.getInstance().getPlayerUtils().isPlayer(sender)) return false;

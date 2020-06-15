@@ -1,11 +1,10 @@
-package fr.volax.valkyacore.listeners;
+package fr.volax.valkyacore.listener;
 
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.tools.ConfigBuilder;
 import fr.volax.valkyacore.tools.ConfigType;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;

@@ -3,6 +3,7 @@ package fr.volax.valkyacore.managers;
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.tools.ConfigBuilder;
 import fr.volax.valkyacore.tools.ConfigType;
+import fr.volax.valkyacore.utils.PermissionsHelper;
 import fr.volax.valkyacore.utils.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -29,7 +30,7 @@ public class MuteManager {
         Player playerP = Bukkit.getPlayer(playeruuid);
 
         if(playerP != null){
-            if(playerP.hasPermission(new PermissionsManager().muteBypass)){
+            if(playerP.hasPermission(new PermissionsHelper().muteBypass)){
                 moderator.sendMessage(ConfigBuilder.getCString("messages.mute.cant-mute", ConfigType.MESSAGES));
                 return false;
             }

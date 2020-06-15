@@ -1,7 +1,7 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.managers.PermissionsManager;
+import fr.volax.valkyacore.utils.PermissionsHelper;
 import fr.volax.valkyacore.tools.ConfigBuilder;
 import fr.volax.valkyacore.tools.ConfigType;
 import org.bukkit.command.Command;
@@ -11,18 +11,22 @@ import org.bukkit.entity.Player;
 
 public class StaffCommand implements CommandExecutor {
 
+    StaffCommand(String string) {
+        ValkyaCore.getInstance().getCommand(string).setExecutor(this);
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!ValkyaCore.getInstance().getPlayerUtils().isPlayer(sender)) return false;
         Player player = (Player) sender;
 
-        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsManager().staffUse)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsHelper().staffUse)) return false;
 
         if (args.length == 0) {
             //player.openInventory(Managers.getManagers().getInventoriesManager().getStaffInventory());
             return false;
         } else if (args[0].equalsIgnoreCase("spamchat") || args[0].equalsIgnoreCase("cooldownchat")) {
-            if (!ValkyaCore.getInstance().getPlayerUtils().hasPerm(player, new PermissionsManager().cooldownChatModif)) return false;
+            if (!ValkyaCore.getInstance().getPlayerUtils().hasPerm(player, new PermissionsHelper().cooldownChatModif)) return false;
             if (args.length != 2) {
                 player.sendMessage(ConfigBuilder.getCString("messages.cooldownchat.current-cooldownchat", ConfigType.MESSAGES).replaceAll("%secondes%", String.valueOf(ConfigBuilder.getCInt("cooldownchat.time", ConfigType.COOLDOWNCHAT))));
             } else {

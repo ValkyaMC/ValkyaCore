@@ -3,8 +3,7 @@ package fr.volax.valkyacore.tools;
 public enum ConfigType {
     MESSAGES("messages.yml"),
     PORTALS("portals.yml"),
-    COOLDOWNCHAT("cooldownchat.yml"),
-    FAILLES("failles.yml");
+    COOLDOWNCHAT("cooldownchat.yml");
 
     public String configName;
 

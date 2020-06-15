@@ -1,6 +1,6 @@
-package fr.volax.valkyacore.listeners;
+package fr.volax.valkyacore.listener;
 
-import fr.volax.valkyacore.managers.PermissionsManager;
+import fr.volax.valkyacore.utils.PermissionsHelper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,7 +10,7 @@ public class XPNoDeath implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent event){
         Player player = event.getEntity();
-        if(player.hasPermission(new PermissionsManager().xpDeath)){
+        if(player.hasPermission(new PermissionsHelper().xpDeath)){
             event.setKeepLevel(true);
             event.setDroppedExp(0);
         }

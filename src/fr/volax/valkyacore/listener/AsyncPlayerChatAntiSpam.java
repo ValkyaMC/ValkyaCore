@@ -1,7 +1,7 @@
-package fr.volax.valkyacore.listeners;
+package fr.volax.valkyacore.listener;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.managers.PermissionsManager;
+import fr.volax.valkyacore.utils.PermissionsHelper;
 import fr.volax.valkyacore.tools.ConfigBuilder;
 import fr.volax.valkyacore.tools.ConfigType;
 import org.bukkit.entity.Player;
@@ -17,7 +17,7 @@ public class AsyncPlayerChatAntiSpam implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
         if(!ValkyaCore.getInstance().getMuteManager().isMuted(uuid)){
-            if(player.hasPermission(new PermissionsManager().cooldownChatBypass)) return;
+            if(player.hasPermission(new PermissionsHelper().cooldownChatBypass)) return;
             if(ValkyaCore.getInstance().cooldown.containsKey(uuid)){
                 float time = (System.currentTimeMillis() - ValkyaCore.getInstance().cooldown.get(uuid)) / 1000;
                 if(time < ConfigBuilder.getCInt("cooldownchat.time", ConfigType.COOLDOWNCHAT)){

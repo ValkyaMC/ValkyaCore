@@ -1,7 +1,7 @@
 package fr.volax.valkyacore.tools;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.managers.FileManager;
+import fr.volax.valkyacore.utils.FileManager;
 
 public class ConfigBuilder {
     public static FileManager configs = new FileManager(ValkyaCore.getInstance());

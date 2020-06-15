@@ -1,7 +1,7 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.managers.PermissionsManager;
+import fr.volax.valkyacore.utils.PermissionsHelper;
 import fr.volax.valkyacore.tools.ConfigBuilder;
 import fr.volax.valkyacore.tools.ConfigType;
 import fr.volax.valkyacore.utils.TimeUnit;
@@ -14,9 +14,12 @@ import java.util.UUID;
 
 public class BanCommand implements CommandExecutor {
 
+    BanCommand(String string) {
+        ValkyaCore.getInstance().getCommand(string).setExecutor(this);
+    }
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsManager().banUse)) return false;
+        if (!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsHelper().banUse)) return false;
 
         if (args.length < 3) {
             helpMessage(sender);
@@ -39,7 +42,7 @@ public class BanCommand implements CommandExecutor {
         }
 
         if (args[1].equalsIgnoreCase("perm") || args[1].equalsIgnoreCase("perma") || args[1].equalsIgnoreCase("permanent") || args[1].equalsIgnoreCase("p")) {
-            if (!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsManager().banPermUse))
+            if (!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsHelper().banPermUse))
                 return false;
             if (!ValkyaCore.getInstance().getBanManager().ban(targetUUID, sender, -1, reason.toString(), args))
                 return false;

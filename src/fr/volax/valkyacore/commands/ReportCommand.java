@@ -1,7 +1,7 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.managers.PermissionsManager;
+import fr.volax.valkyacore.utils.PermissionsHelper;
 import fr.volax.valkyacore.tools.ConfigBuilder;
 import fr.volax.valkyacore.tools.ConfigType;
 import org.bukkit.Bukkit;
@@ -11,13 +11,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class ReportCommand implements CommandExecutor {
+    ReportCommand(String string) {
+        ValkyaCore.getInstance().getCommand(string).setExecutor(this);
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!ValkyaCore.getInstance().getPlayerUtils().isPlayer(sender)) return false;
         Player player = (Player) sender;
 
-        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(player, new PermissionsManager().reportUse)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(player, new PermissionsHelper().reportUse)) return false;
         if (args.length <= 1) {
             helpMessage(player);
             return false;
@@ -42,7 +45,7 @@ public class ReportCommand implements CommandExecutor {
 
     private void sendToMods(String reason, String targetName, String playerName) {
         for (Player players : Bukkit.getServer().getOnlinePlayers()) {
-            if (players.hasPermission(new PermissionsManager().reportReceive)) {
+            if (players.hasPermission(new PermissionsHelper().reportReceive)) {
                 players.sendMessage(ConfigBuilder.getCString("messages.report.report-message", ConfigType.MESSAGES).replaceAll("%reportedPlayer%", targetName).replaceAll("%reason%", reason).replaceAll("%player%", playerName));
             }
         }

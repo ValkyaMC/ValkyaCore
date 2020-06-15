@@ -3,6 +3,7 @@ package fr.volax.valkyacore.managers;
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.tools.ConfigBuilder;
 import fr.volax.valkyacore.tools.ConfigType;
+import fr.volax.valkyacore.utils.PermissionsHelper;
 import fr.volax.valkyacore.utils.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -29,7 +30,7 @@ public class BanManager {
         Player playerP = Bukkit.getPlayer(playeruuid);
 
         if (playerP != null) {
-            if (playerP.hasPermission(new PermissionsManager().banBypass)) {
+            if (playerP.hasPermission(new PermissionsHelper().banBypass)) {
                 moderator.sendMessage(ConfigBuilder.getCString("messages.ban.cant-ban", ConfigType.MESSAGES));
                 return false;
             }

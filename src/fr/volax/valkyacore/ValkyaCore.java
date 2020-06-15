@@ -1,5 +1,9 @@
 package fr.volax.valkyacore;
 
+import fr.volax.valkyacore.commands.CommandManager;
+import fr.volax.valkyacore.gui.GuiManager;
+import fr.volax.valkyacore.gui.MenuStaffHelp;
+import fr.volax.valkyacore.listener.ListenerManager;
 import fr.volax.valkyacore.managers.InventoriesManager;
 import fr.volax.valkyacore.managers.*;
 import fr.volax.valkyacore.tools.ConfigBuilder;
@@ -15,7 +19,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * ValkyaCore for Valkya
+ * ValkyaCore for Valkya PvP-Faction Modded
  *
  * @author Volax
  */
@@ -32,7 +36,6 @@ public class ValkyaCore extends JavaPlugin {
     public Map<Inventory, UUID> admin;
     public HashMap<UUID, Long> cooldown;
     public ArrayList<UUID> staff;
-    //public HashMap<UUID, PlayerManager> players;
 
     public static String PREFIX, LOGGER_PREFIX, pluginName;
 
@@ -46,8 +49,8 @@ public class ValkyaCore extends JavaPlugin {
         // Load des Evénements et des Commandes
         //********************************************
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dEnregistrement des events et commandes...");
-        ListenersManager.registers(this);
-        CommandsManager.registers(this);
+        ListenerManager.registers(this);
+        CommandManager.registers();
 
 
         //********************************************
@@ -64,7 +67,6 @@ public class ValkyaCore extends JavaPlugin {
         registeredMenus = new HashMap<>();
         cooldown = new HashMap<>();
         staff = new ArrayList<>();
-       // players = new HashMap<>();
         admin = new HashMap<>();
         //********************************************
         // Sauvegarde config.yml
@@ -79,8 +81,6 @@ public class ValkyaCore extends JavaPlugin {
         ConfigBuilder.configs.getConfig("messages.yml").saveDefaultConfig();
         ConfigBuilder.configs.getConfig("cooldownchat.yml").saveDefaultConfig();
         ConfigBuilder.configs.getConfig("portals.yml").saveDefaultConfig();
-        //ConfigBuilder.configs.getConfig("failles.yml").saveDefaultConfig();
-
 
         //********************************************
         // Setup & connexion du mysql
@@ -91,8 +91,7 @@ public class ValkyaCore extends JavaPlugin {
 
 
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dChargement des menus...");
-        //guiManager.addMenu(new MenuStaffInventory());
-
+        guiManager.addMenu(new MenuStaffHelp());
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dChargement du " + pluginName + " fini !");
     }
 
@@ -114,38 +113,24 @@ public class ValkyaCore extends JavaPlugin {
         }
     }
 
-    /**
-     * @param x,y,z Coordonnées d'un coffre
-     * @return Es-ce que le coffre existe ?
-     */
-    public boolean isNull(int x, int y, int z) {
-        return x == 0 && y == 0 && z == 0;
-    }
-
     public static ValkyaCore getInstance() {
         return instance;
     }
-
     public BanManager getBanManager() {
         return banManager;
     }
-
     public MuteManager getMuteManager() {
         return muteManager;
     }
-
     public PlayerUtils getPlayerUtils() {
         return playerUtils;
     }
-
     public InventoriesManager getInventoriesManager() {
         return inventoriesManager;
     }
-
     public GuiManager getGuiManager() {
         return guiManager;
     }
-
     public Map<Class<? extends GuiBuilder>, GuiBuilder> getRegisteredMenus() {
         return registeredMenus;
     }

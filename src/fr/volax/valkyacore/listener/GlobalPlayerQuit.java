@@ -1,4 +1,4 @@
-package fr.volax.valkyacore.listeners;
+package fr.volax.valkyacore.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

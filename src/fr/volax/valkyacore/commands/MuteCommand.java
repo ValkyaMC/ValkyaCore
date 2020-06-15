@@ -1,7 +1,7 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.managers.PermissionsManager;
+import fr.volax.valkyacore.utils.PermissionsHelper;
 import fr.volax.valkyacore.tools.ConfigBuilder;
 import fr.volax.valkyacore.tools.ConfigType;
 import fr.volax.valkyacore.utils.TimeUnit;
@@ -13,9 +13,13 @@ import org.bukkit.command.CommandSender;
 import java.util.UUID;
 
 public class MuteCommand implements CommandExecutor {
+    MuteCommand(String string) {
+        ValkyaCore.getInstance().getCommand(string).setExecutor(this);
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsManager().muteUse)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsHelper().muteUse)) return false;
 
         if(args.length < 3){
             helpMessage(sender);
@@ -38,7 +42,7 @@ public class MuteCommand implements CommandExecutor {
         }
 
         if(args[1].equalsIgnoreCase("perm") || args[1].equalsIgnoreCase("perma") || args[1].equalsIgnoreCase("permanent") || args[1].equalsIgnoreCase("p")){
-            if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsManager().mutePermUse)) return false;
+            if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsHelper().mutePermUse)) return false;
             if(!ValkyaCore.getInstance().getMuteManager().mute(targetUUID, sender, -1, reason, args)) return false;
             ValkyaCore.getInstance().getMuteManager().mute(targetUUID, sender, -1, reason, args);
             sender.sendMessage(ConfigBuilder.getCString("messages.mute.have-been-permamute", ConfigType.MESSAGES).replaceAll("%player%", targetName).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));

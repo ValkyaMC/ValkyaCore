@@ -1,10 +1,9 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.managers.FileManager;
+import fr.volax.valkyacore.utils.PermissionsHelper;
 import fr.volax.valkyacore.tools.ConfigType;
 import fr.volax.valkyacore.tools.ItemBuilder;
-import fr.volax.valkyacore.managers.PermissionsManager;
 import fr.volax.valkyacore.tools.ConfigBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -17,17 +16,21 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class XPBottleCommand implements CommandExecutor {
-    private String help = ConfigBuilder.getCString("messages.xpbottle.help-message", ConfigType.MESSAGES);
-    private String helpGive = ConfigBuilder.getCString("messages.xpbottle.help-message-give", ConfigType.MESSAGES);
-    private String noXP = ConfigBuilder.getCString("messages.xpbottle.no-level", ConfigType.MESSAGES);
-    private String noNumber = ConfigBuilder.getCString("messages.xpbottle.no-number", ConfigType.MESSAGES);
+    private final String help = ConfigBuilder.getCString("messages.xpbottle.help-message", ConfigType.MESSAGES);
+    private final String helpGive = ConfigBuilder.getCString("messages.xpbottle.help-message-give", ConfigType.MESSAGES);
+    private final String noXP = ConfigBuilder.getCString("messages.xpbottle.no-level", ConfigType.MESSAGES);
+    private final String noNumber = ConfigBuilder.getCString("messages.xpbottle.no-number", ConfigType.MESSAGES);
+
+    XPBottleCommand(String string) {
+        ValkyaCore.getInstance().getCommand(string).setExecutor(this);
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!ValkyaCore.getInstance().getPlayerUtils().isPlayer(sender)) return false;
         Player player = (Player)sender;
 
-        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsManager().xpBottleUse)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsHelper().xpBottleUse)) return false;
 
         int xplevel = player.getLevel();
         Inventory inventaireP = player.getInventory();
@@ -72,7 +75,7 @@ public class XPBottleCommand implements CommandExecutor {
                 }
             }
         }else if(args[0].equalsIgnoreCase("give") && args.length == 2){
-            if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsManager().xpBottleGive)) return false;
+            if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsHelper().xpBottleGive)) return false;
             if(!ValkyaCore.getInstance().isInt(args[1])){
                 player.sendMessage(noNumber);
                 return false;
@@ -83,7 +86,7 @@ public class XPBottleCommand implements CommandExecutor {
                 return false;
             }
         }else if(args[0].equalsIgnoreCase("give") && args.length == 3){
-            if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsManager().xpBottleGive)) return false;
+            if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsHelper().xpBottleGive)) return false;
             if(!ValkyaCore.getInstance().isInt(args[1])){
                 player.sendMessage(noNumber);
                 return false;

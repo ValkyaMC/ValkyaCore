@@ -1,4 +1,4 @@
-package fr.volax.valkyacore.managers;
+package fr.volax.valkyacore.gui;
 
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.tools.GuiBuilder;

@@ -1,4 +1,4 @@
-package fr.volax.valkyacore.managers;
+package fr.volax.valkyacore.utils;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;

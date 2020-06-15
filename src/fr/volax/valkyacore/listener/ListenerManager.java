@@ -1,11 +1,11 @@
-package fr.volax.valkyacore.managers;
+package fr.volax.valkyacore.listener;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.listeners.*;
+import fr.volax.valkyacore.gui.GuiManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
-public class ListenersManager {
+public class ListenerManager {
     public static void registers(ValkyaCore instance) {
         PluginManager pm = Bukkit.getPluginManager();
 

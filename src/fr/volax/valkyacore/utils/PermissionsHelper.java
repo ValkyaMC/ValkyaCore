@@ -1,9 +1,9 @@
-package fr.volax.valkyacore.managers;
+package fr.volax.valkyacore.utils;
 
 import fr.volax.valkyacore.tools.ConfigBuilder;
 import org.bukkit.permissions.Permission;
 
-public class PermissionsManager {
+public class PermissionsHelper {
     public Permission getMatUse = new Permission(ConfigBuilder.getString("permissions.getmat-use"));
 
     public Permission banUse = new Permission(ConfigBuilder.getString("permissions.ban-use"));

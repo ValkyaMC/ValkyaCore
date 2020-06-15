@@ -1,7 +1,7 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.managers.PermissionsManager;
+import fr.volax.valkyacore.utils.PermissionsHelper;
 import fr.volax.valkyacore.tools.ConfigBuilder;
 import fr.volax.valkyacore.tools.ConfigType;
 import org.bukkit.Bukkit;
@@ -12,9 +12,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class KickCommand implements CommandExecutor {
+    KickCommand(String string) {
+        ValkyaCore.getInstance().getCommand(string).setExecutor(this);
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsManager().kickUse)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsHelper().kickUse)) return false;
 
         if(args.length < 2){
             helpMessage(sender);
@@ -28,7 +32,7 @@ public class KickCommand implements CommandExecutor {
         for(int i = 1; i < args.length; i++){
             reason += args[i] + " ";
         }
-        if(player.hasPermission(new PermissionsManager().kickBypass)){
+        if(player.hasPermission(new PermissionsHelper().kickBypass)){
             sender.sendMessage(ConfigBuilder.getCString("messages.kick.cant-kick", ConfigType.MESSAGES));
             return false;
         }

@@ -1,4 +1,4 @@
-package fr.volax.valkyacore.listeners;
+package fr.volax.valkyacore.listener;
 
 import fr.volax.valkyacore.tools.ItemBuilder;
 import org.bukkit.Material;
