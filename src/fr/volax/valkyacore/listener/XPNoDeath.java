@@ -1,6 +1,6 @@
 package fr.volax.valkyacore.listener;
 
-import fr.volax.valkyacore.utils.PermissionsHelper;
+import fr.volax.valkyacore.util.PermissionsHelper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

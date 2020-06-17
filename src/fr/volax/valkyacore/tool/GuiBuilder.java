@@ -1,4 +1,4 @@
-package fr.volax.valkyacore.tools;
+package fr.volax.valkyacore.tool;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;

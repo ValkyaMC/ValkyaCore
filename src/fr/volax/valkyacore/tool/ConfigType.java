@@ -1,4 +1,4 @@
-package fr.volax.valkyacore.tools;
+package fr.volax.valkyacore.tool;
 
 public enum ConfigType {
     MESSAGES("messages.yml"),

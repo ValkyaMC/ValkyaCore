@@ -1,4 +1,4 @@
-package fr.volax.valkyacore.utils;
+package fr.volax.valkyacore.util;
 
 import java.util.HashMap;
 

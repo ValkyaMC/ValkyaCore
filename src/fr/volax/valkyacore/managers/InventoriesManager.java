@@ -1,8 +1,7 @@
 package fr.volax.valkyacore.managers;
 
-import fr.volax.valkyacore.tools.ItemBuilder;
+import fr.volax.valkyacore.tool.ItemBuilder;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;

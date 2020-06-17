@@ -1,6 +1,6 @@
-package fr.volax.valkyacore.utils;
+package fr.volax.valkyacore.util;
 
-import fr.volax.valkyacore.tools.ConfigBuilder;
+import fr.volax.valkyacore.tool.ConfigBuilder;
 import org.bukkit.permissions.Permission;
 
 public class PermissionsHelper {

@@ -1,7 +1,7 @@
 package fr.volax.valkyacore.listener;
 
-import fr.volax.valkyacore.tools.ConfigBuilder;
-import fr.volax.valkyacore.tools.ConfigType;
+import fr.volax.valkyacore.tool.ConfigBuilder;
+import fr.volax.valkyacore.tool.ConfigType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -1,8 +1,7 @@
-package fr.volax.valkyacore.utils;
+package fr.volax.valkyacore.util;
 
-import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.tools.ConfigBuilder;
-import fr.volax.valkyacore.tools.ConfigType;
+import fr.volax.valkyacore.tool.ConfigBuilder;
+import fr.volax.valkyacore.tool.ConfigType;
 import org.bukkit.Bukkit;
 
 import java.sql.*;

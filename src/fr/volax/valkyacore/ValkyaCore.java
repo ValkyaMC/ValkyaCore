@@ -6,10 +6,10 @@ import fr.volax.valkyacore.gui.MenuStaffHelp;
 import fr.volax.valkyacore.listener.ListenerManager;
 import fr.volax.valkyacore.managers.InventoriesManager;
 import fr.volax.valkyacore.managers.*;
-import fr.volax.valkyacore.tools.ConfigBuilder;
-import fr.volax.valkyacore.tools.GuiBuilder;
-import fr.volax.valkyacore.utils.Database;
-import fr.volax.valkyacore.utils.PlayerUtils;
+import fr.volax.valkyacore.tool.ConfigBuilder;
+import fr.volax.valkyacore.tool.GuiBuilder;
+import fr.volax.valkyacore.util.Database;
+import fr.volax.valkyacore.util.PlayerUtils;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -46,14 +46,6 @@ public class ValkyaCore extends JavaPlugin {
         pluginName = this.getName();
 
         //********************************************
-        // Load des Evénements et des Commandes
-        //********************************************
-        this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dEnregistrement des events et commandes...");
-        ListenerManager.registers(this);
-        CommandManager.registers();
-
-
-        //********************************************
         // Setup des instances
         //********************************************
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dSetup des instances et des HashMaps/ArrayLists...");
@@ -68,6 +60,16 @@ public class ValkyaCore extends JavaPlugin {
         cooldown = new HashMap<>();
         staff = new ArrayList<>();
         admin = new HashMap<>();
+
+
+        //********************************************
+        // Load des Evénements et des Commandes
+        //********************************************
+        this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dEnregistrement des events et commandes...");
+        ListenerManager.registers(this);
+        CommandManager.registers();
+
+
         //********************************************
         // Sauvegarde config.yml
         //********************************************
@@ -97,7 +99,7 @@ public class ValkyaCore extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        sql.disconnect();
+        //if(sql.isConnected()) sql.disconnect();
     }
 
     /**

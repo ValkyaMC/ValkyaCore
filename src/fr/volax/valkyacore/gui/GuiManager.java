@@ -1,7 +1,7 @@
 package fr.volax.valkyacore.gui;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.tools.GuiBuilder;
+import fr.volax.valkyacore.tool.GuiBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
