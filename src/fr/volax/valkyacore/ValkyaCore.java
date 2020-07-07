@@ -9,6 +9,7 @@ import fr.volax.valkyacore.managers.*;
 import fr.volax.valkyacore.tool.ConfigBuilder;
 import fr.volax.valkyacore.tool.GuiBuilder;
 import fr.volax.valkyacore.util.Database;
+import fr.volax.valkyacore.util.PermissionsHelper;
 import fr.volax.valkyacore.util.PlayerUtils;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,7 +21,6 @@ import java.util.UUID;
 
 /**
  * ValkyaCore for Valkya PvP-Faction Modded
- *
  * @author Volax
  */
 public class ValkyaCore extends JavaPlugin {
@@ -29,6 +29,7 @@ public class ValkyaCore extends JavaPlugin {
     private MuteManager muteManager;
     private PlayerUtils playerUtils;
     private InventoriesManager inventoriesManager;
+    private PermissionsHelper permissionsHelper;
     public Database sql;
     private GuiManager guiManager;
 
@@ -41,20 +42,32 @@ public class ValkyaCore extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
         PREFIX = "§6Valkya »";
         LOGGER_PREFIX = "[Valkya-Logger]";
         pluginName = this.getName();
 
         //********************************************
+        // Sauvegarde config.yml
+        //********************************************
+        this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dSauvegarde et enregistrements des configs...");
+        this.saveDefaultConfig();
+
+        ConfigBuilder.configs.getConfig("messages.yml").saveDefaultConfig();
+        ConfigBuilder.configs.getConfig("cooldownchat.yml").saveDefaultConfig();
+        ConfigBuilder.configs.getConfig("portals.yml").saveDefaultConfig();
+
+
+        //********************************************
         // Setup des instances
         //********************************************
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dSetup des instances et des HashMaps/ArrayLists...");
-        instance = this;
         banManager = new BanManager();
         muteManager = new MuteManager();
         playerUtils = new PlayerUtils();
         inventoriesManager = new InventoriesManager();
         guiManager = new GuiManager();
+        permissionsHelper = new PermissionsHelper();
 
         registeredMenus = new HashMap<>();
         cooldown = new HashMap<>();
@@ -69,27 +82,12 @@ public class ValkyaCore extends JavaPlugin {
         ListenerManager.registers(this);
         CommandManager.registers();
 
-
-        //********************************************
-        // Sauvegarde config.yml
-        //********************************************
-        this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dSauvegarde et enregistrements des configs...");
-        this.saveDefaultConfig();
-
-
-        //********************************************
-        // Sauvegarde des config custom
-        //********************************************
-        ConfigBuilder.configs.getConfig("messages.yml").saveDefaultConfig();
-        ConfigBuilder.configs.getConfig("cooldownchat.yml").saveDefaultConfig();
-        ConfigBuilder.configs.getConfig("portals.yml").saveDefaultConfig();
-
         //********************************************
         // Setup & connexion du mysql
         //********************************************
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dSetup et connexion au mysql...");
-        //sql = new Database("jdbc:mysql://", ConfigBuilder.getString("sql.host"), ConfigBuilder.getString("sql.database"), ConfigBuilder.getString("sql.user"), ConfigBuilder.getString("sql.pass"));
-        //sql.connection();
+        sql = new Database("jdbc:mysql://", ConfigBuilder.getString("sql.host"), ConfigBuilder.getString("sql.database"), ConfigBuilder.getString("sql.user"), ConfigBuilder.getString("sql.pass"));
+        sql.connection();
 
 
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dChargement des menus...");
@@ -99,7 +97,7 @@ public class ValkyaCore extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        //if(sql.isConnected()) sql.disconnect();
+        if(sql.isConnected()) sql.disconnect();
     }
 
     /**
@@ -135,5 +133,9 @@ public class ValkyaCore extends JavaPlugin {
     }
     public Map<Class<? extends GuiBuilder>, GuiBuilder> getRegisteredMenus() {
         return registeredMenus;
+    }
+
+    public PermissionsHelper getPermissionsHelper() {
+        return permissionsHelper;
     }
 }

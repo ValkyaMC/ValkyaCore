@@ -1,6 +1,7 @@
 package fr.volax.valkyacore.util;
 
 import fr.volax.valkyacore.tool.ConfigBuilder;
+import org.bukkit.Statistic;
 import org.bukkit.permissions.Permission;
 
 public class PermissionsHelper {
@@ -37,11 +38,15 @@ public class PermissionsHelper {
     public Permission reportUse = new Permission(ConfigBuilder.getString("permissions.report-use"));
     public Permission reportReceive = new Permission(ConfigBuilder.getString("permissions.report-receive"));
 
-    public Permission staffModeUse = new Permission(ConfigBuilder.getString("permissions.staffmode-use"));
-
     public Permission moderationChat = new Permission(ConfigBuilder.getString("permissions.moderation-chat"));
 
-    public Permission faillesUse = new Permission(ConfigBuilder.getString("permissions.failles-use"));
+    public Permission gamemodeChange = new Permission(ConfigBuilder.getString("permissions.gamemode-change"));
+    public Permission gamemodeChangeOther = new Permission(ConfigBuilder.getString("permissions.gamemode-change-other"));
+    public Permission gamemodeNotify = new Permission(ConfigBuilder.getString("permissions.gamemode-notify"));
+    
+    public Permission kdrUse = new Permission(ConfigBuilder.getString("permissions.kdr-use"));
 
-
+    public Permission repairHand = new Permission(ConfigBuilder.getString("permissions.repair-hand"));
+    public Permission repairAll = new Permission(ConfigBuilder.getString("permissions.repair-all"));
+    public Permission repairBypassCooldown = new Permission(ConfigBuilder.getString("permissions.repair-bypass-cooldown"));
 }

@@ -1,6 +1,6 @@
 name: ValkyaCore
 main: fr.volax.valkyacore.ValkyaCore
-version: 1.0.04a
+version: 1.0.05a
 author: Volax
 description: ValkyaCore plugin for Valkya
 commands:
@@ -29,3 +29,7 @@ commands:
     description: Report un joueur
   gamemode:
     description: Gamemode commande
+  kdr:
+    description: KDR commande
+  repair:
+    description: Repair commande

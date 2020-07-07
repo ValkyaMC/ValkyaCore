@@ -53,7 +53,7 @@ public class PlayerUtils {
      */
     public boolean hasPerm(CommandSender sender, Permission permission){
         if(!sender.hasPermission(permission)){
-            sender.sendMessage(ConfigBuilder.getString("messages.no-perm"));
+            sender.sendMessage(ConfigBuilder.getCString("messages.no-perm", ConfigType.MESSAGES));
             return false;
         }
         return true;

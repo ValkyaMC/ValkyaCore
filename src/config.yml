@@ -17,11 +17,16 @@ permissions:
   xp-death: "valkya.xp.death"
   cooldownchat-bypass: "valkya.cooldownchat.bypass"
   cooldownchat-modif: "valkya.cooldownchat.modif"
-  #staffmode-use: "valkya.staffmode.use"
   report-use: "valkya.report.use"
   report-receive: "valkya.report.receive"
   moderation-chat: "valkya.moderation.chat"
-  failles-use: "valkya.failles.use"
+  gamemode-change: "valkya.gamemode.change"
+  gamemode-change-other: "valkya.gamemode.changeother"
+  gamemode-notify: "valkya.gamemode.notify"
+  kdr-use: "valkya.kdr.use"
+  repair-hand: "valkya.repair.hand"
+  repair-all: "valkya.repair.all"
+  repair-bypass-cooldown: "valkya.repair.bypass.cooldown"
 
 sql:
   host: "localhost"

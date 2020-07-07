@@ -15,6 +15,8 @@ public class CommandManager {
         new UnMuteCommand("unmute");
         new ReportCommand("report");
         new GamemodeCommand("gamemode");
+        new KDRCommand("kdr");
+        new RepairCommand("repair");
 
         if(Bukkit.getServer().getPluginCommand("ec").getPlugin().getDescription().getName().equals("CustomEnderChest")) Bukkit.getServer().getPluginCommand("ec").setExecutor(new EcCommand("ec"));
     }

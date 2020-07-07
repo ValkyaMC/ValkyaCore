@@ -22,6 +22,8 @@ public class StaffCommand implements CommandExecutor {
 
         if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsHelper().staffUse)) return false;
 
+        player.sendMessage(ValkyaCore.PREFIX + " §eSoon !");
+/**
         if (args.length == 0) {
             //player.openInventory(Managers.getManagers().getInventoriesManager().getStaffInventory());
             return false;
@@ -46,5 +48,7 @@ public class StaffCommand implements CommandExecutor {
         }
        //player.openInventory(Managers.getManagers().getInventoriesManager().getStaffInventory());
         return false;
+ */
+    return false;
     }
 }

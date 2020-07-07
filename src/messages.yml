@@ -14,7 +14,7 @@ messages:
     have-been-tempban: "%prefix% &eVous avez banni &6%player% &c(%duration%) &epour : &6%reason%"
     enter-number: "%prefix% &cVous devez entrer un nombre pour la durée du ban !"
     invalid-format-time: "%prefix% &cCette unité de temps n'existe pas !"
-    help-message: "%prefix% &c/ban <joueur> perm <raison> \n %prefix% &c/ban <joueur> <durée>:<unité> <raison>"
+    help-message: "%prefix% &c/ban <joueur> perm <raison> \n%prefix% &c/ban <joueur> <durée>:<unité> <raison>"
     banned-player-join: "&cVous êtes banni ! \n \n &6Raison:&f %reason% \n&aTemps restant: &f%time%"
   check:
     help-message: "%prefix% &c/check <joueur>"
@@ -39,7 +39,7 @@ messages:
     have-been-tempmute: "%prefix% &eVous avez mute &6%player% &c(%duration%) &epour : &6%reason%"
     enter-number: "%prefix% &cVous devez entrer un nombre pour la durée du mute !"
     invalid-format-time: "%prefix% &cCette unité de temps n'existe pas !"
-    help-message: "%prefix% &c/mute <joueur> perm <raison> \n %prefix% &c/mute <joueur> <durée>:<unité> <raison>"
+    help-message: "%prefix% &c/mute <joueur> perm <raison> \n%prefix% &c/mute <joueur> <durée>:<unité> <raison>"
     player-talking: "%prefix% &cVous êtes mute pour &6%reason% \n %prefix% &aTemps restant: &f%time%"
     muted-player-message: "&cVous avez été mute ! \n §6Raison:§f %reason% \n &aTemps restant: §f%time%"
     muted-player-message2: "%prefix% §cVous avez été mute ! §6Raison:§f %reason% \n %prefix% &aTemps restant: %time%"
