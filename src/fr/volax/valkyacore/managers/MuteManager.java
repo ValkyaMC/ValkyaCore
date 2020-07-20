@@ -1,10 +1,10 @@
 package fr.volax.valkyacore.managers;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.tool.ConfigBuilder;
 import fr.volax.valkyacore.tool.ConfigType;
 import fr.volax.valkyacore.util.PermissionsHelper;
-import fr.volax.valkyacore.util.TimeUnit;
+import fr.volax.volaxapi.tool.config.ConfigBuilder;
+import fr.volax.volaxapi.tool.time.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -31,7 +31,7 @@ public class MuteManager {
 
         if(playerP != null){
             if(playerP.hasPermission(new PermissionsHelper().muteBypass)){
-                moderator.sendMessage(ConfigBuilder.getCString("messages.mute.cant-mute", ConfigType.MESSAGES));
+                moderator.sendMessage(ConfigBuilder.getCString("messages.mute.cant-mute", ConfigType.MESSAGES.getConfigName()));
                 return false;
             }
         }
@@ -60,7 +60,7 @@ public class MuteManager {
             }
 
             if(playerP != null){
-                playerP.sendMessage(ConfigBuilder.getCString("messages.mute.muted-player-message2", ConfigType.MESSAGES).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))).replaceAll("%time%", getTimeLeft(playeruuid)));
+                playerP.sendMessage(ConfigBuilder.getCString("messages.mute.muted-player-message2", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))).replaceAll("%time%", getTimeLeft(playeruuid)));
                 return true;
             }
         }else{
@@ -87,7 +87,7 @@ public class MuteManager {
             }
 
             if(playerP != null){
-                playerP.sendMessage(ConfigBuilder.getCString("messages.mute.muted-player-message", ConfigType.MESSAGES).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))).replaceAll("%time%", getTimeLeft(playeruuid)));
+                playerP.sendMessage(ConfigBuilder.getCString("messages.mute.muted-player-message", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))).replaceAll("%time%", getTimeLeft(playeruuid)));
                 return true;
             }
         }
@@ -143,8 +143,8 @@ public class MuteManager {
     }
 
     public String getTimeLeft(UUID uuid){
-        if(!isMuted(uuid)) return ConfigBuilder.getCString("messages.mute.not-mute", ConfigType.MESSAGES);
-        if(getEnd(uuid) == -1 ) return ConfigBuilder.getCString("messages.mute.not-mute", ConfigType.MESSAGES);
+        if(!isMuted(uuid)) return ConfigBuilder.getCString("messages.mute.not-mute", ConfigType.MESSAGES.getConfigName());
+        if(getEnd(uuid) == -1 ) return ConfigBuilder.getCString("messages.mute.permanent", ConfigType.MESSAGES.getConfigName());
 
         long timeLeft = (getEnd(uuid) - System.currentTimeMillis()) / 1000;
         int mois = 0;
@@ -182,7 +182,7 @@ public class MuteManager {
     }
 
     public String getReason(UUID uuid){
-        if(!isMuted(uuid)) return ConfigBuilder.getCString("messages.mute.not-mute", ConfigType.MESSAGES);
+        if(!isMuted(uuid)) return ConfigBuilder.getCString("messages.mute.not-mute", ConfigType.MESSAGES.getConfigName());
         try {
             PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT * FROM mutes WHERE playerUUID=?");
             query.setString(1, uuid.toString());
@@ -194,6 +194,6 @@ public class MuteManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return ConfigBuilder.getCString("messages.mute.not-mute", ConfigType.MESSAGES);
+        return ConfigBuilder.getCString("messages.mute.not-mute", ConfigType.MESSAGES.getConfigName());
     }
 }

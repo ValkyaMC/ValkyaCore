@@ -2,8 +2,8 @@ package fr.volax.valkyacore.listener;
 
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.util.PermissionsHelper;
-import fr.volax.valkyacore.tool.ConfigBuilder;
 import fr.volax.valkyacore.tool.ConfigType;
+import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,12 +17,12 @@ public class AsyncPlayerChatAntiSpam implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
         if(!ValkyaCore.getInstance().getMuteManager().isMuted(uuid)){
-            if(player.hasPermission(new PermissionsHelper().cooldownChatBypass)) return;
+            if(player.hasPermission(ValkyaCore.getInstance().getPermissionsHelper().cooldownChatBypass)) return;
             if(ValkyaCore.getInstance().cooldown.containsKey(uuid)){
                 float time = (System.currentTimeMillis() - ValkyaCore.getInstance().cooldown.get(uuid)) / 1000;
-                if(time < ConfigBuilder.getCInt("cooldownchat.time", ConfigType.COOLDOWNCHAT)){
+                if(time < ConfigBuilder.getCInt("cooldownchat.time", ConfigType.COOLDOWNCHAT.getConfigName())){
                     event.setCancelled(true);
-                    player.sendMessage(ConfigBuilder.getCString("messages.cooldownchat.cooldownchat", ConfigType.MESSAGES));
+                    player.sendMessage(ConfigBuilder.getCString("messages.cooldownchat.cooldownchat", ConfigType.MESSAGES.getConfigName()));
                 }else { ValkyaCore.getInstance().cooldown.put(uuid, System.currentTimeMillis()); }
             } else{ ValkyaCore.getInstance().cooldown.put(uuid, System.currentTimeMillis()); }
         }

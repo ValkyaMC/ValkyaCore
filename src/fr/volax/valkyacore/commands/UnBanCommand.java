@@ -1,9 +1,8 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.util.PermissionsHelper;
-import fr.volax.valkyacore.tool.ConfigBuilder;
 import fr.volax.valkyacore.tool.ConfigType;
+import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,10 +15,10 @@ public class UnBanCommand implements CommandExecutor {
     }
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsHelper().unbanUse)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().unbanUse)) return false;
 
         if(args.length != 1){
-            sender.sendMessage(ConfigBuilder.getCString("messages.unban.help-message", ConfigType.MESSAGES));
+            sender.sendMessage(ConfigBuilder.getCString("messages.unban.help-message", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
 
@@ -27,12 +26,12 @@ public class UnBanCommand implements CommandExecutor {
         UUID targetUUID = ValkyaCore.getInstance().getPlayerUtils().getUUID(args[0]);
 
         if(!ValkyaCore.getInstance().getBanManager().isBanned(targetUUID)){
-            sender.sendMessage(ConfigBuilder.getCString("messages.unban.no-ban", ConfigType.MESSAGES));
+            sender.sendMessage(ConfigBuilder.getCString("messages.unban.no-ban", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
 
         ValkyaCore.getInstance().getBanManager().unban(targetUUID);
-        sender.sendMessage(ConfigBuilder.getCString("messages.unban.unban", ConfigType.MESSAGES).replaceAll("%player%", args[0]));
+        sender.sendMessage(ConfigBuilder.getCString("messages.unban.unban", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", args[0]));
         return false;
     }
 }

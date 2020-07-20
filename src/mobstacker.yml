@@ -1,0 +1,26 @@
+StackRadius: 4
+
+#Liste des mobs https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html
+MobTypes:
+  - ZOMBIE
+  - PIG_ZOMBIE
+  - SPIDER
+  - CREEPER
+
+UpdateTickDelay: 50
+MaxAllowedInStack: 500
+StackFormat: '&6&l%number% &e&l%type%'
+killMobStackOnFall: true
+MergeOnlySpawnerMobs: false
+MergeTamedMobs: false
+MergeLeashedMobs: false
+
+#DisabledWorlds:
+#    - disabled_world
+#    - disabled_world2
+DisabledWorlds: []
+
+#WorldGuardRegions:
+#    - disabled_region1
+#    - disabled_region2
+WorldGuardRegions: []

@@ -8,8 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class KDRCommand implements CommandExecutor {
-    KDRCommand(String name) {
+public class KDCommand implements CommandExecutor {
+    KDCommand(String name) {
         ValkyaCore.getInstance().getCommand(name).setExecutor(this);
     }
 
@@ -24,7 +24,6 @@ public class KDRCommand implements CommandExecutor {
             player.sendMessage(ValkyaCore.PREFIX + " §eStatistiques de §6"+ player.getName() +"§e:");
             player.sendMessage(ValkyaCore.PREFIX + " §eNombre de Kills: §6" + player.getStatistic(Statistic.PLAYER_KILLS) + "§e.");
             player.sendMessage(ValkyaCore.PREFIX + " §eNombre de Morts: §6" + player.getStatistic(Statistic.DEATHS) + "§e.");
-            player.sendMessage(ValkyaCore.PREFIX + " §eRatio §6" + (player.getStatistic(Statistic.PLAYER_KILLS) / player.getStatistic(Statistic.DEATHS)) + "§e.");
             return false;
         }else if(args.length == 1){
             Player target = Bukkit.getPlayer(args[0]);
@@ -35,7 +34,6 @@ public class KDRCommand implements CommandExecutor {
             player.sendMessage(ValkyaCore.PREFIX + " §eStatistiques de §6"+ args[0] +"§e:");
             player.sendMessage(ValkyaCore.PREFIX + " §eNombre de Kills: §6" + target.getStatistic(Statistic.PLAYER_KILLS) + "§e.");
             player.sendMessage(ValkyaCore.PREFIX + " §eNombre de Morts: §6" + target.getStatistic(Statistic.DEATHS) + "§e.");
-            player.sendMessage(ValkyaCore.PREFIX + " §eRatio §6" + (target.getStatistic(Statistic.PLAYER_KILLS) / target.getStatistic(Statistic.DEATHS)) + "§e.");
         }else{
             helpMessage(player);
         }

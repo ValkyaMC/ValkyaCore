@@ -1,7 +1,6 @@
 package fr.volax.valkyacore.util;
 
-import fr.volax.valkyacore.tool.ConfigBuilder;
-import org.bukkit.Statistic;
+import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import org.bukkit.permissions.Permission;
 
 public class PermissionsHelper {
@@ -49,4 +48,7 @@ public class PermissionsHelper {
     public Permission repairHand = new Permission(ConfigBuilder.getString("permissions.repair-hand"));
     public Permission repairAll = new Permission(ConfigBuilder.getString("permissions.repair-all"));
     public Permission repairBypassCooldown = new Permission(ConfigBuilder.getString("permissions.repair-bypass-cooldown"));
+
+    public Permission broadcastUse = new Permission(ConfigBuilder.getString("permissions.broadcast-use"));
+
 }

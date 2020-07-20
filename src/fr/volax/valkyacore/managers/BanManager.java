@@ -1,10 +1,9 @@
 package fr.volax.valkyacore.managers;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.tool.ConfigBuilder;
 import fr.volax.valkyacore.tool.ConfigType;
-import fr.volax.valkyacore.util.PermissionsHelper;
-import fr.volax.valkyacore.util.TimeUnit;
+import fr.volax.volaxapi.tool.config.ConfigBuilder;
+import fr.volax.volaxapi.tool.time.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -30,8 +29,8 @@ public class BanManager {
         Player playerP = Bukkit.getPlayer(playeruuid);
 
         if (playerP != null) {
-            if (playerP.hasPermission(new PermissionsHelper().banBypass)) {
-                moderator.sendMessage(ConfigBuilder.getCString("messages.ban.cant-ban", ConfigType.MESSAGES));
+            if (playerP.hasPermission(ValkyaCore.getInstance().getPermissionsHelper().banBypass)) {
+                moderator.sendMessage(ConfigBuilder.getCString("messages.ban.cant-ban", ConfigType.MESSAGES.getConfigName()));
                 return false;
             }
         }
@@ -59,10 +58,6 @@ public class BanManager {
                 e.printStackTrace();
             }
 
-            if (playerP != null) {
-                playerP.kickPlayer(ConfigBuilder.getCString("messages.ban.banned-player-join", ConfigType.MESSAGES).replaceAll("%reason%", ValkyaCore.getInstance().getBanManager().getReason(playerP.getUniqueId())).replaceAll("%time%", ValkyaCore.getInstance().getBanManager().getTimeLeft(playerP.getUniqueId())));
-                return true;
-            }
         } else {
             try {
                 int randomint = new Random().nextInt(10 * 100000);
@@ -86,10 +81,10 @@ public class BanManager {
                 e.printStackTrace();
             }
 
-            if (playerP != null) {
-                playerP.kickPlayer(ConfigBuilder.getCString("messages.ban.banned-player-join", ConfigType.MESSAGES).replaceAll("%reason%", ValkyaCore.getInstance().getBanManager().getReason(playerP.getUniqueId())).replaceAll("%time%", ValkyaCore.getInstance().getBanManager().getTimeLeft(playerP.getUniqueId())));
-                return true;
-            }
+        }
+        if (playerP != null) {
+            playerP.kickPlayer(ConfigBuilder.getCString("messages.ban.banned-player-join", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getBanManager().getReason(playerP.getUniqueId())).replaceAll("%time%", ValkyaCore.getInstance().getBanManager().getTimeLeft(playerP.getUniqueId())));
+            return true;
         }
         return false;
     }
@@ -143,8 +138,8 @@ public class BanManager {
     }
 
     public String getTimeLeft(UUID uuid) {
-        if (!isBanned(uuid)) return ConfigBuilder.getCString("messages.ban.not-ban", ConfigType.MESSAGES);
-        if (getEnd(uuid) == -1) return ConfigBuilder.getCString("messages.ban.permanent", ConfigType.MESSAGES);
+        if (!isBanned(uuid)) return ConfigBuilder.getCString("messages.ban.not-ban", ConfigType.MESSAGES.getConfigName());
+        if (getEnd(uuid) == -1) return ConfigBuilder.getCString("messages.ban.permanent", ConfigType.MESSAGES.getConfigName());
 
         long timeLeft = (getEnd(uuid) - System.currentTimeMillis()) / 1000;
         int mois = 0;
@@ -182,7 +177,7 @@ public class BanManager {
     }
 
     public String getReason(UUID uuid) {
-        if (!isBanned(uuid)) return ConfigBuilder.getCString("messages.ban.not-ban", ConfigType.MESSAGES);
+        if (!isBanned(uuid)) return ConfigBuilder.getCString("messages.ban.not-ban", ConfigType.MESSAGES.getConfigName());
         try {
             PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT * FROM bans WHERE playerUUID=?");
             query.setString(1, uuid.toString());
@@ -194,6 +189,6 @@ public class BanManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return ConfigBuilder.getCString("messages.ban.not-ban", ConfigType.MESSAGES);
+        return ConfigBuilder.getCString("messages.ban.not-ban", ConfigType.MESSAGES.getConfigName());
     }
 }

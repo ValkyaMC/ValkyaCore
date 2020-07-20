@@ -1,6 +1,6 @@
 package fr.volax.valkyacore.listener;
 
-import fr.volax.valkyacore.tool.ItemBuilder;
+import fr.volax.volaxapi.tool.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

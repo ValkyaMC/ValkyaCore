@@ -1,11 +1,10 @@
 name: ValkyaCore
 main: fr.volax.valkyacore.ValkyaCore
-version: 1.0.05a
+version: 1.0.06a
 author: Volax
+depend: [VolaxAPI, WorldGuard]
 description: ValkyaCore plugin for Valkya
 commands:
-  staff:
-    description: Aide du ValkyaCore
   ban:
     description: Bannir un joueur
   unban:
@@ -28,8 +27,17 @@ commands:
   report:
     description: Report un joueur
   gamemode:
+    aliases: [gm]
     description: Gamemode commande
-  kdr:
-    description: KDR commande
+  gmc:
+      description: GamemodeC commande
+  gms:
+      description: GamemodeS commande
+  gma:
+      description: GamemodeA commande
+  kd:
+    description: KD commande
   repair:
     description: Repair commande
+  broadcast:
+    description: Broadcast commande

@@ -17,7 +17,7 @@ public class GetMatCommand implements CommandExecutor {
         if (!ValkyaCore.getInstance().getPlayerUtils().isPlayer(sender)) return false;
         Player player = (Player)sender;
 
-        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsHelper().getMatUse)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().getMatUse)) return false;
 
         player.sendMessage(ValkyaCore.PREFIX + " §r" + player.getItemInHand().getType().name());
         return false;

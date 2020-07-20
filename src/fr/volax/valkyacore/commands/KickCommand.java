@@ -2,8 +2,8 @@ package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.util.PermissionsHelper;
-import fr.volax.valkyacore.tool.ConfigBuilder;
 import fr.volax.valkyacore.tool.ConfigType;
+import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -18,7 +18,7 @@ public class KickCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, new PermissionsHelper().kickUse)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().kickUse)) return false;
 
         if(args.length < 2){
             helpMessage(sender);
@@ -33,15 +33,15 @@ public class KickCommand implements CommandExecutor {
             reason += args[i] + " ";
         }
         if(player.hasPermission(new PermissionsHelper().kickBypass)){
-            sender.sendMessage(ConfigBuilder.getCString("messages.kick.cant-kick", ConfigType.MESSAGES));
+            sender.sendMessage(ConfigBuilder.getCString("messages.kick.cant-kick", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
-        player.kickPlayer(ConfigBuilder.getCString("messages.kick.have-been-kick", ConfigType.MESSAGES).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
-        sender.sendMessage(ConfigBuilder.getCString("messages.kick.kick", ConfigType.MESSAGES).replaceAll("%player%", player.getName()).replaceAll("%reason%",ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
+        player.kickPlayer(ConfigBuilder.getCString("messages.kick.have-been-kick", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
+        sender.sendMessage(ConfigBuilder.getCString("messages.kick.kick", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", player.getName()).replaceAll("%reason%",ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
         return false;
     }
 
     private void helpMessage(CommandSender sender){
-        sender.sendMessage(ConfigBuilder.getCString("messages.kick.help-message", ConfigType.MESSAGES));
+        sender.sendMessage(ConfigBuilder.getCString("messages.kick.help-message", ConfigType.MESSAGES.getConfigName()));
     }
 }

@@ -2,8 +2,8 @@ package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.util.PermissionsHelper;
-import fr.volax.valkyacore.tool.ConfigBuilder;
 import fr.volax.valkyacore.tool.ConfigType;
+import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,7 +20,7 @@ public class ReportCommand implements CommandExecutor {
         if (!ValkyaCore.getInstance().getPlayerUtils().isPlayer(sender)) return false;
         Player player = (Player) sender;
 
-        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(player, new PermissionsHelper().reportUse)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(player, ValkyaCore.getInstance().getPermissionsHelper().reportUse)) return false;
         if (args.length <= 1) {
             helpMessage(player);
             return false;
@@ -34,19 +34,19 @@ public class ReportCommand implements CommandExecutor {
         for (int i = 1; i < args.length; i++) {
             reason += args[i] + " ";
         }
-        player.sendMessage(ConfigBuilder.getCString("messages.report.have-been-reported", ConfigType.MESSAGES).replaceAll("%player%", target.getName()).replaceAll("%reason%", reason));
+        player.sendMessage(ConfigBuilder.getCString("messages.report.have-been-reported", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", target.getName()).replaceAll("%reason%", reason));
         sendToMods(reason, target.getName(), player.getName());
         return false;
     }
 
     private void helpMessage(Player player) {
-        player.sendMessage(ConfigBuilder.getCString("messages.report.help-messsage", ConfigType.MESSAGES));
+        player.sendMessage(ConfigBuilder.getCString("messages.report.help-message", ConfigType.MESSAGES.getConfigName()));
     }
 
     private void sendToMods(String reason, String targetName, String playerName) {
         for (Player players : Bukkit.getServer().getOnlinePlayers()) {
             if (players.hasPermission(new PermissionsHelper().reportReceive)) {
-                players.sendMessage(ConfigBuilder.getCString("messages.report.report-message", ConfigType.MESSAGES).replaceAll("%reportedPlayer%", targetName).replaceAll("%reason%", reason).replaceAll("%player%", playerName));
+                players.sendMessage(ConfigBuilder.getCString("messages.report.report-message", ConfigType.MESSAGES.getConfigName()).replaceAll("%reportedPlayer%", targetName).replaceAll("%reason%", reason).replaceAll("%player%", playerName));
             }
         }
     }

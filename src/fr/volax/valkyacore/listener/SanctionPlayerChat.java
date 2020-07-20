@@ -1,8 +1,8 @@
 package fr.volax.valkyacore.listener;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.tool.ConfigBuilder;
 import fr.volax.valkyacore.tool.ConfigType;
+import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +18,7 @@ public class SanctionPlayerChat implements Listener {
 
         ValkyaCore.getInstance().getMuteManager().checkDuration(playerUUID);
         if(ValkyaCore.getInstance().getMuteManager().isMuted(playerUUID)){
-            player.sendMessage(ConfigBuilder.getCString("messages.mute.player-talking", ConfigType.MESSAGES).replaceAll("%reason%", ValkyaCore.getInstance().getMuteManager().getReason(playerUUID)).replaceAll("%time%", ValkyaCore.getInstance().getMuteManager().getTimeLeft(playerUUID)));
+            player.sendMessage(ConfigBuilder.getCString("messages.mute.player-talking", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getMuteManager().getReason(playerUUID)).replaceAll("%time%", ValkyaCore.getInstance().getMuteManager().getTimeLeft(playerUUID)));
             event.setCancelled(true);
         }
     }

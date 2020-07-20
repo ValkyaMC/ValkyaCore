@@ -1,8 +1,8 @@
 package fr.volax.valkyacore.util;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.tool.ConfigBuilder;
 import fr.volax.valkyacore.tool.ConfigType;
+import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -22,7 +22,7 @@ public class PlayerUtils {
      */
     public boolean isPlayer(CommandSender sender){
         if(!(sender instanceof Player)){
-            sender.sendMessage(ConfigBuilder.getCString("messages.no-player", ConfigType.MESSAGES));
+            sender.sendMessage(ConfigBuilder.getCString("messages.no-player", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
         return true;
@@ -31,7 +31,7 @@ public class PlayerUtils {
     public boolean isOnlinePlayer(CommandSender sender, String target){
         if(!doesPlayerExist(sender, target)) return false;
         if(Bukkit.getPlayer(target) == null){
-            sender.sendMessage(ConfigBuilder.getCString("messages.not-online", ConfigType.MESSAGES));
+            sender.sendMessage(ConfigBuilder.getCString("messages.not-online", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
         return true;
@@ -40,7 +40,7 @@ public class PlayerUtils {
 
     public boolean doesPlayerExist(CommandSender sender, String target){
         if(!exist(target)){
-            sender.sendMessage( ConfigBuilder.getCString("messages.never-join", ConfigType.MESSAGES));
+            sender.sendMessage( ConfigBuilder.getCString("messages.never-join", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
         return true;
@@ -53,7 +53,7 @@ public class PlayerUtils {
      */
     public boolean hasPerm(CommandSender sender, Permission permission){
         if(!sender.hasPermission(permission)){
-            sender.sendMessage(ConfigBuilder.getCString("messages.no-perm", ConfigType.MESSAGES));
+            sender.sendMessage(ConfigBuilder.getCString("messages.no-perm", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
         return true;

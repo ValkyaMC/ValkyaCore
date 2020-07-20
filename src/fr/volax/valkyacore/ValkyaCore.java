@@ -1,17 +1,18 @@
 package fr.volax.valkyacore;
 
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import fr.volax.valkyacore.commands.CommandManager;
-import fr.volax.valkyacore.gui.GuiManager;
-import fr.volax.valkyacore.gui.MenuStaffHelp;
 import fr.volax.valkyacore.listener.ListenerManager;
-import fr.volax.valkyacore.managers.InventoriesManager;
 import fr.volax.valkyacore.managers.*;
-import fr.volax.valkyacore.tool.ConfigBuilder;
-import fr.volax.valkyacore.tool.GuiBuilder;
-import fr.volax.valkyacore.util.Database;
+import fr.volax.valkyacore.util.MobStackerConfig;
 import fr.volax.valkyacore.util.PermissionsHelper;
 import fr.volax.valkyacore.util.PlayerUtils;
+import fr.volax.volaxapi.VolaxAPI;
+import fr.volax.volaxapi.tool.config.ConfigBuilder;
+import fr.volax.volaxapi.tool.database.Database;
+import fr.volax.volaxapi.tool.gui.GuiManager;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -28,12 +29,12 @@ public class ValkyaCore extends JavaPlugin {
     private BanManager banManager;
     private MuteManager muteManager;
     private PlayerUtils playerUtils;
-    private InventoriesManager inventoriesManager;
     private PermissionsHelper permissionsHelper;
     public Database sql;
     private GuiManager guiManager;
+    private EntityStackerManager entityStacker;
+    private StackEntity stackEntity;
 
-    private Map<Class<? extends GuiBuilder>, GuiBuilder> registeredMenus;
     public Map<Inventory, UUID> admin;
     public HashMap<UUID, Long> cooldown;
     public ArrayList<UUID> staff;
@@ -43,19 +44,20 @@ public class ValkyaCore extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        PREFIX = "§6Valkya »";
-        LOGGER_PREFIX = "[Valkya-Logger]";
-        pluginName = this.getName();
+        VolaxAPI.setInstance(this);
 
+        PREFIX = "§6Valkya »";
+        pluginName = this.getName();
+        LOGGER_PREFIX = "["+pluginName+"-Logger]";
+
+        if (getServer().getPluginManager().getPlugin("WorldGuard") == null || !(getServer().getPluginManager().getPlugin("WorldGuard") instanceof WorldGuardPlugin)) {
+            MobStackerConfig.worldguardEnabled = false;
+        }
         //********************************************
         // Sauvegarde config.yml
         //********************************************
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dSauvegarde et enregistrements des configs...");
         this.saveDefaultConfig();
-
-        ConfigBuilder.configs.getConfig("messages.yml").saveDefaultConfig();
-        ConfigBuilder.configs.getConfig("cooldownchat.yml").saveDefaultConfig();
-        ConfigBuilder.configs.getConfig("portals.yml").saveDefaultConfig();
 
 
         //********************************************
@@ -65,11 +67,12 @@ public class ValkyaCore extends JavaPlugin {
         banManager = new BanManager();
         muteManager = new MuteManager();
         playerUtils = new PlayerUtils();
-        inventoriesManager = new InventoriesManager();
         guiManager = new GuiManager();
         permissionsHelper = new PermissionsHelper();
+        MobStackerConfig.reloadConfig();
+        entityStacker = new EntityStackerManager(MobStackerConfig.stackRadius, MobStackerConfig.mobsToStack);
+        stackEntity = new StackEntity();
 
-        registeredMenus = new HashMap<>();
         cooldown = new HashMap<>();
         staff = new ArrayList<>();
         admin = new HashMap<>();
@@ -89,9 +92,7 @@ public class ValkyaCore extends JavaPlugin {
         sql = new Database("jdbc:mysql://", ConfigBuilder.getString("sql.host"), ConfigBuilder.getString("sql.database"), ConfigBuilder.getString("sql.user"), ConfigBuilder.getString("sql.pass"));
         sql.connection();
 
-
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dChargement des menus...");
-        guiManager.addMenu(new MenuStaffHelp());
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dChargement du " + pluginName + " fini !");
     }
 
@@ -125,17 +126,19 @@ public class ValkyaCore extends JavaPlugin {
     public PlayerUtils getPlayerUtils() {
         return playerUtils;
     }
-    public InventoriesManager getInventoriesManager() {
-        return inventoriesManager;
-    }
     public GuiManager getGuiManager() {
         return guiManager;
-    }
-    public Map<Class<? extends GuiBuilder>, GuiBuilder> getRegisteredMenus() {
-        return registeredMenus;
     }
 
     public PermissionsHelper getPermissionsHelper() {
         return permissionsHelper;
+    }
+
+    public StackEntity getStackEntity() {
+        return stackEntity;
+    }
+
+    public EntityStackerManager getEntityStacker() {
+        return entityStacker;
     }
 }

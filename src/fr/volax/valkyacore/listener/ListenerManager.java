@@ -1,7 +1,6 @@
 package fr.volax.valkyacore.listener;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.gui.GuiManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
@@ -22,11 +21,10 @@ public class ListenerManager {
         pm.registerEvents(new GlobalPlayerQuit(), instance);
         pm.registerEvents(new AntiCommands(), instance);
         pm.registerEvents(new HeadOnDeath(), instance);
-        //pm.registerEvents(new ModCancels(), instance);
-        //pm.registerEvents(new ModItemsInteract(), instance);
-        //pm.registerEvents(new ModerationQuit(), instance);
-        //pm.registerEvents(new FailleChestInteract(), instance);
-
-        pm.registerEvents(new GuiManager(), instance);
+        pm.registerEvents(new OnEntityDeath(), instance);
+        pm.registerEvents(new OnEntityDamage(), instance);
+        pm.registerEvents(new OnEntitySpawn(), instance);
+        pm.registerEvents(new OnEntityDespawn(), instance);
+        pm.registerEvents(new onTimeChange(), instance);
     }
 }
