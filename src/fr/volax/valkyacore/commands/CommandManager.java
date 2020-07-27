@@ -21,6 +21,7 @@ public class CommandManager {
         new RepairCommand("repair");
         new BroadcastCommand("broadcast");
         new RTPCommand("rtp");
+        new ChatCommand("chat");
 
         if(Bukkit.getServer().getPluginCommand("ec").getPlugin().getDescription().getName().equals("CustomEnderChest")) Bukkit.getServer().getPluginCommand("ec").setExecutor(new EcCommand("ec"));
     }
