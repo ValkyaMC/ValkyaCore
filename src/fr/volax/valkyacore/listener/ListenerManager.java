@@ -1,6 +1,7 @@
 package fr.volax.valkyacore.listener;
 
 import fr.volax.valkyacore.ValkyaCore;
+import fr.volax.valkyacore.chatgames.NumberGame;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
@@ -26,5 +27,7 @@ public class ListenerManager {
         pm.registerEvents(new OnEntitySpawn(), instance);
         pm.registerEvents(new OnEntityDespawn(), instance);
         pm.registerEvents(new onTimeChange(), instance);
+        pm.registerEvents(new NumberGame(), instance);
+        pm.registerEvents(new AsyncPlayerChatManager(), instance);
     }
 }

@@ -27,8 +27,6 @@ public class PermissionsHelper {
     public Permission xpBottleUse = new Permission(ConfigBuilder.getString("permissions.xpbottle-use"));
     public Permission xpBottleGive = new Permission(ConfigBuilder.getString("permissions.xpbottle-give"));
 
-    public Permission staffUse = new Permission(ConfigBuilder.getString("permissions.staff-use"));
-
     public Permission cooldownChatModif = new Permission(ConfigBuilder.getString("permissions.cooldownchat-modif"));
     public Permission cooldownChatBypass = new Permission(ConfigBuilder.getString("permissions.cooldownchat-bypass"));
 
@@ -50,5 +48,11 @@ public class PermissionsHelper {
     public Permission repairBypassCooldown = new Permission(ConfigBuilder.getString("permissions.repair-bypass-cooldown"));
 
     public Permission broadcastUse = new Permission(ConfigBuilder.getString("permissions.broadcast-use"));
+
+    public Permission rtpUse = new Permission(ConfigBuilder.getString("permissions.rtp-use"));
+
+    public Permission chatOffBypass = new Permission(ConfigBuilder.getString("permissions.chat-off-bypass"));
+    public Permission chatChangeSet = new Permission(ConfigBuilder.getString("permissions.chat-changeset-use"));
+    public Permission chatClear = new Permission(ConfigBuilder.getString("permissions.chat-clear"));
 
 }

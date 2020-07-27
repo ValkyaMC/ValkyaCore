@@ -1,5 +1,4 @@
 permissions:
-  staff-use: "valkya.use"
   ban-use: "valkya.ban.use"
   ban-perm-use: "valkya.ban.perm"
   ban-bypass: "valkya.ban.bypass"
@@ -28,6 +27,19 @@ permissions:
   repair-all: "valkya.repair.all"
   repair-bypass-cooldown: "valkya.repair.bypass.cooldown"
   broadcast-use: "valkya.broadcast.use"
+  rtp-use: "valkya.rtp.use"
+  chat-off-bypass: "valkya.chat.bypass"
+  chat-changeset-use: "valkya.chat.change"
+  chat-clear: "valkya.chat.clear"
+
+chat: true
+
+rtp:
+  world: world
+  x: 2000
+  z: 2000
+  cooldown-active: true
+  cooldown-temps: 3600
 
 sql:
   host: "localhost"
