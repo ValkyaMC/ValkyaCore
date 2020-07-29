@@ -29,5 +29,6 @@ public class ListenerManager {
         pm.registerEvents(new onTimeChange(), instance);
         pm.registerEvents(new NumberGame(), instance);
         pm.registerEvents(new AsyncPlayerChatManager(), instance);
+        pm.registerEvents(new PlayerPvPPlayerEvent(), instance);
     }
 }

@@ -1,8 +1,8 @@
 name: ValkyaCore
 main: fr.volax.valkyacore.ValkyaCore
-version: 1.0.07b
+version: 1.0.08a
 author: Volax
-depend: [VolaxAPI, WorldGuard]
+depend: [VolaxAPI, WorldGuard, Vault]
 description: ValkyaCore plugin for Valkya
 commands:
   ban:
@@ -46,3 +46,5 @@ commands:
     description: RTP commande
   chat:
     description: Chat commande
+  combat:
+    description: Combat commande

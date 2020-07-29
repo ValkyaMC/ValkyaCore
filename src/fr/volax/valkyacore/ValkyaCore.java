@@ -36,6 +36,7 @@ public class ValkyaCore extends JavaPlugin {
     public NumberGame numberGame;
     private GuiManager guiManager;
     private EntityStackerManager entityStacker;
+    private PvPPlayerManager pvPPlayerManager;
     private StackEntity stackEntity;
     public static Economy economy;
 
@@ -76,8 +77,9 @@ public class ValkyaCore extends JavaPlugin {
         entityStacker = new EntityStackerManager(MobStackerConfig.stackRadius, MobStackerConfig.mobsToStack);
         stackEntity = new StackEntity();
         numberGame = new NumberGame();
+        pvPPlayerManager = new PvPPlayerManager();
         cooldown = new HashMap<>();
-        repair = new HashMap<>();
+        repair  = new HashMap<>();
         staff = new ArrayList<>();
         admin = new HashMap<>();
 
@@ -213,5 +215,9 @@ public class ValkyaCore extends JavaPlugin {
 
     public NumberGame getNumberGame() {
         return numberGame;
+    }
+
+    public PvPPlayerManager getPvPPlayerManager() {
+        return pvPPlayerManager;
     }
 }
