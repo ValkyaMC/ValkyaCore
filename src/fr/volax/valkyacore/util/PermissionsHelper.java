@@ -55,4 +55,7 @@ public class PermissionsHelper {
     public Permission chatChangeSet = new Permission(ConfigBuilder.getString("permissions.chat-changeset-use"));
     public Permission chatClear = new Permission(ConfigBuilder.getString("permissions.chat-clear"));
 
+    public Permission kickAllUse = new Permission(ConfigBuilder.getString("permissions.kickall-use"));
+    public Permission kickAllBypass = new Permission(ConfigBuilder.getString("permissions.kickall-bypass"));
+
 }

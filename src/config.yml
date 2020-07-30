@@ -31,6 +31,8 @@ permissions:
   chat-off-bypass: "valkya.chat.bypass"
   chat-changeset-use: "valkya.chat.change"
   chat-clear: "valkya.chat.clear"
+  kickall-use: "valkya.kickall.use"
+  kickall-bypass: "valkya.kickall.bypass"
 
 chat: true
 
