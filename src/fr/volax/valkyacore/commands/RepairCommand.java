@@ -1,6 +1,7 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
+import fr.volax.valkyacore.util.ValkyaUtils;
 import fr.volax.volaxapi.tool.time.TimeUnit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -31,18 +32,18 @@ public class RepairCommand implements CommandExecutor {
                 ItemStack item = player.getItemInHand();
 
                 if(item == null || item.getType() == Material.AIR || item.getType().isBlock() || item.getDurability() == 0 || item.getMaxStackSize() != 1 || item.getType().getMaxDurability() < 25)    {
-                    player.sendMessage(ValkyaCore.PREFIX + " §eCet objet ne peut être réparé.");
+                    ValkyaUtils.sendChat(player,"§eCet objet ne peut être réparé.");
                     return false;
                 }
 
                 if(ValkyaCore.getInstance().repair.containsKey(player.getUniqueId())){
                     float time = (System.currentTimeMillis() - ValkyaCore.getInstance().repair.get(player.getUniqueId())) / 1000;
                     if(time < 86400){
-                        player.sendMessage(ValkyaCore.PREFIX + " §eVous ne pouvez pas repair votre item pour le moment, veillez attendre §6" + getTimeLeft((86400 - (int)time)) + " §e.");
+                        ValkyaUtils.sendChat(player,"§eVous ne pouvez pas repair votre item pour le moment, veillez attendre §6" + getTimeLeft((86400 - (int)time)) + " §e.");
                         return false;
                     }else { ValkyaCore.getInstance().repair.put(player.getUniqueId(), System.currentTimeMillis()); item.setDurability((short) 0); }
                 } else{ ValkyaCore.getInstance().repair.put(player.getUniqueId(), System.currentTimeMillis()); item.setDurability((short) 0); }
-                player.sendMessage(ValkyaCore.PREFIX + " §eVous venez de réparer l'item que vous avez dans votre main !");
+                ValkyaUtils.sendChat(player,"§eVous venez de réparer l'item que vous avez dans votre main !");
                 return false;
             }else if(args[0].equalsIgnoreCase("all")){
                 if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(player, ValkyaCore.getInstance().getPermissionsHelper().repairAll)) return false;
@@ -50,7 +51,7 @@ public class RepairCommand implements CommandExecutor {
                 if(ValkyaCore.getInstance().repair.containsKey(player.getUniqueId())){
                     float time = (System.currentTimeMillis() - ValkyaCore.getInstance().repair.get(player.getUniqueId())) / 1000;
                     if(time < 86400){
-                        player.sendMessage(ValkyaCore.PREFIX + " §eVous ne pouvez pas repair vos items pour le moment, veillez attendre §6" + getTimeLeft((86400 - (int)time)) + " §e.");
+                        ValkyaUtils.sendChat(player,"§eVous ne pouvez pas repair vos items pour le moment, veillez attendre §6" + getTimeLeft((86400 - (int)time)) + " §e.");
                         return false;
                     }else { ValkyaCore.getInstance().repair.put(player.getUniqueId(), System.currentTimeMillis()); }
                 } else{ ValkyaCore.getInstance().repair.put(player.getUniqueId(), System.currentTimeMillis()); }
@@ -67,7 +68,7 @@ public class RepairCommand implements CommandExecutor {
     }
 
     private void helpMessage(CommandSender sender){
-        sender.sendMessage(ValkyaCore.PREFIX + " §e/repair [hand|all]");
+        ValkyaUtils.sendChat(sender,"§e/repair [hand|all]");
     }
 
     public void repairAll(Player player){
@@ -88,9 +89,9 @@ public class RepairCommand implements CommandExecutor {
         }
 
         if(repairItems.isEmpty()){
-            player.sendMessage(ValkyaCore.PREFIX + " §eAucun item ne peut être réparé dans votre inventaire.");
+            ValkyaUtils.sendChat(player,"§eAucun item ne peut être réparé dans votre inventaire.");
         }else{
-            player.sendMessage(ValkyaCore.PREFIX + " §eVous venez de réparer des items dans votre inventaire.");
+            ValkyaUtils.sendChat(player,"§eVous venez de réparer des items dans votre inventaire.");
         }
     }
 

@@ -1,6 +1,7 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
+import fr.volax.valkyacore.util.ValkyaUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Statistic;
 import org.bukkit.command.Command;
@@ -21,19 +22,19 @@ public class KDCommand implements CommandExecutor {
         if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(player, ValkyaCore.getInstance().getPermissionsHelper().kdrUse)) return false;
 
         if(args.length == 0){
-            player.sendMessage(ValkyaCore.PREFIX + " §eStatistiques de §6"+ player.getName() +"§e:");
-            player.sendMessage(ValkyaCore.PREFIX + " §eNombre de Kills: §6" + player.getStatistic(Statistic.PLAYER_KILLS) + "§e.");
-            player.sendMessage(ValkyaCore.PREFIX + " §eNombre de Morts: §6" + player.getStatistic(Statistic.DEATHS) + "§e.");
+            ValkyaUtils.sendChat(player,"§eStatistiques de §6"+ player.getName() +"§e:");
+            ValkyaUtils.sendChat(player,"§eNombre de Kills: §6" + player.getStatistic(Statistic.PLAYER_KILLS) + "§e.");
+            ValkyaUtils.sendChat(player,"§eNombre de Morts: §6" + player.getStatistic(Statistic.DEATHS) + "§e.");
             return false;
         }else if(args.length == 1){
             Player target = Bukkit.getPlayer(args[0]);
             if(target == null){
-                player.sendMessage(ValkyaCore.PREFIX + " §eCe joueur n'est pas en ligne !");
+                ValkyaUtils.sendChat(player,"§eCe joueur n'est pas en ligne !");
                 return false;
             }
-            player.sendMessage(ValkyaCore.PREFIX + " §eStatistiques de §6"+ args[0] +"§e:");
-            player.sendMessage(ValkyaCore.PREFIX + " §eNombre de Kills: §6" + target.getStatistic(Statistic.PLAYER_KILLS) + "§e.");
-            player.sendMessage(ValkyaCore.PREFIX + " §eNombre de Morts: §6" + target.getStatistic(Statistic.DEATHS) + "§e.");
+            ValkyaUtils.sendChat(player,"§eStatistiques de §6"+ args[0] +"§e:");
+            ValkyaUtils.sendChat(player,"§eNombre de Kills: §6" + target.getStatistic(Statistic.PLAYER_KILLS) + "§e.");
+            ValkyaUtils.sendChat(player,"§eNombre de Morts: §6" + target.getStatistic(Statistic.DEATHS) + "§e.");
         }else{
             helpMessage(player);
         }
@@ -41,6 +42,6 @@ public class KDCommand implements CommandExecutor {
     }
 
     private void helpMessage(CommandSender player){
-        player.sendMessage(ValkyaCore.PREFIX + " §e/kdr [<joueur>]");
+        ValkyaUtils.sendChat(player,"§e/kdr [<joueur>]");
     }
 }

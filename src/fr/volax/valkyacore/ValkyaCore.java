@@ -44,15 +44,12 @@ public class ValkyaCore extends JavaPlugin {
     public HashMap<UUID, Long> cooldown, repair;
     public ArrayList<UUID> staff;
 
-    public static String PREFIX, LOGGER_PREFIX, pluginName;
+    public final String PREFIX = "§6Valkya »", LOGGER_PREFIX = "["+ this.getName()+"-Logger]";
     @Override
     public void onEnable() {
         instance = this;
         VolaxAPI.setInstance(this);
 
-        PREFIX = "§6Valkya »";
-        pluginName = this.getName();
-        LOGGER_PREFIX = "["+pluginName+"-Logger]";
 
         if (getServer().getPluginManager().getPlugin("WorldGuard") == null || !(getServer().getPluginManager().getPlugin("WorldGuard") instanceof WorldGuardPlugin)) {
             MobStackerConfig.worldguardEnabled = false;
@@ -209,7 +206,7 @@ public class ValkyaCore extends JavaPlugin {
     private boolean setupEconomy() {
         RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(Economy.class);
         if (economyProvider != null)
-            economy = (Economy)economyProvider.getProvider();
+            economy = economyProvider.getProvider();
         return (economy != null);
     }
 
@@ -219,5 +216,13 @@ public class ValkyaCore extends JavaPlugin {
 
     public PvPPlayerManager getPvPPlayerManager() {
         return pvPPlayerManager;
+    }
+
+    public static String getLOGGER_PREFIX() {
+        return getInstance().LOGGER_PREFIX;
+    }
+
+    public static String getPREFIX() {
+        return getInstance().PREFIX;
     }
 }

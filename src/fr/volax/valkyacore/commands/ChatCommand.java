@@ -1,6 +1,7 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
+import fr.volax.valkyacore.util.ValkyaUtils;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -26,11 +27,11 @@ public class ChatCommand implements CommandExecutor {
                     if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().chatChangeSet)) return false;
                 if(ConfigBuilder.getString("chat").equalsIgnoreCase("false")) {
                     ConfigBuilder.set("chat", "true");
-                    Bukkit.broadcastMessage(ValkyaCore.PREFIX + " §eLe chat vient d'être désactivé par §6§l" + sender.getName() + "§e.");
+                    ValkyaUtils.broadcast("§eLe chat vient d'être désactivé par §6§l" + sender.getName() + "§e.");
                     return false;
                 }else if(ConfigBuilder.getString("chat").equalsIgnoreCase("true")){
                     ConfigBuilder.set("chat", "false");
-                    Bukkit.broadcastMessage(ValkyaCore.PREFIX + " §eLe chat vient d'être désactivé par §6§l" + sender.getName() + "§e.");
+                    ValkyaUtils.broadcast("§eLe chat vient d'être désactivé par §6§l" + sender.getName() + "§e.");
                     return false;
                 }
             }else if(args[0].equalsIgnoreCase("clear")){
@@ -38,7 +39,7 @@ public class ChatCommand implements CommandExecutor {
                     if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().chatClear)) return false;
                 for(int i=0;i<100;i++)
                     Bukkit.broadcastMessage("");
-                Bukkit.broadcastMessage(ValkyaCore.PREFIX + " §eLe chat vient d'être clear par §6§l" + sender.getName() + "§e.");
+                ValkyaUtils.broadcast("§eLe chat vient d'être clear par §6§l" + sender.getName() + "§e.");
                 return false;
             }else{
                 helpMessage(sender);
@@ -54,6 +55,6 @@ public class ChatCommand implements CommandExecutor {
     }
 
     private void helpMessage(CommandSender sender){
-        sender.sendMessage(ValkyaCore.PREFIX + " §e/chat <toggle|clear>");
+        ValkyaUtils.sendChat(sender,"§e/chat <toggle|clear>");
     }
 }

@@ -4,6 +4,7 @@ import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.handler.TeleportCooldownHandler;
 import fr.volax.valkyacore.handler.TeleportHandler;
 import fr.volax.valkyacore.tool.ConfigType;
+import fr.volax.valkyacore.util.ValkyaUtils;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -26,7 +27,7 @@ public class RTPCommand implements CommandExecutor {
         if(ConfigBuilder.getBoolean("rtp.cooldown-active") && (!TeleportCooldownHandler.areTherePlayersInTheMap())){
             TeleportCooldownHandler cooldown = TeleportCooldownHandler.getCooldown(player);
             if(!cooldown.check(player) && (cooldown.getTimeLeft(player) * -1L >= 1L)){
-                player.sendMessage(ValkyaCore.PREFIX + ConfigBuilder.getCString("messages.rtp.error", ConfigType.MESSAGES.getConfigName()).replaceAll("&","§").replaceAll("%cooldown%", String.valueOf(cooldown.getTimeLeft(player) * -1L)));
+                ValkyaUtils.sendChat(player,ConfigBuilder.getCString("messages.rtp.error", ConfigType.MESSAGES.getConfigName()).replaceAll("&","§").replaceAll("%cooldown%", String.valueOf(cooldown.getTimeLeft(player) * -1L)));
                 return true;
             }else if(cooldown.getTimeLeft(player) * -1L == 0L){
                 cooldown.finalize();

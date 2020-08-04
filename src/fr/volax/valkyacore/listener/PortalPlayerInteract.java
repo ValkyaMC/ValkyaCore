@@ -24,7 +24,7 @@ public class PortalPlayerInteract implements Listener {
     @EventHandler
     public void onPortalCreate(PortalCreateEvent event){
         if(!ConfigBuilder.getCBool("portals.create-nether", ConfigType.PORTALS.getConfigName())){
-            System.err.println(ValkyaCore.LOGGER_PREFIX + "A player tried to create an Nether portal (Don't ask where or who because the event does not allow it :D)");
+            System.err.println(ValkyaCore.getLOGGER_PREFIX() + "A player tried to create an Nether portal (Don't ask where or who because the event does not allow it :D)");
             event.setCancelled(true);
         }
     }
@@ -43,8 +43,8 @@ public class PortalPlayerInteract implements Listener {
                 if (event.getClickedBlock().getType() == Material.ENDER_PORTAL_FRAME) {
                     if (!ConfigBuilder.getCBool("portals.create-end", ConfigType.PORTALS.getConfigName())) {
                         event.setCancelled(true);
-                        System.err.println(ValkyaCore.LOGGER_PREFIX + player.getName() + " tried to create an End portal at (Player Location)");
-                        System.err.println(ValkyaCore.LOGGER_PREFIX + "X: " + player.getLocation().getX() + " Y: " + player.getLocation().getY() + " Z: " + player.getLocation().getZ());
+                        System.err.println(ValkyaCore.getLOGGER_PREFIX() + player.getName() + " tried to create an End portal at (Player Location)");
+                        System.err.println(ValkyaCore.getLOGGER_PREFIX() + "X: " + player.getLocation().getX() + " Y: " + player.getLocation().getY() + " Z: " + player.getLocation().getZ());
                     }
                 }
             }
@@ -75,8 +75,8 @@ public class PortalPlayerInteract implements Listener {
 
         if(cause.equals(PlayerTeleportEvent.TeleportCause.END_PORTAL)){
             if(!ConfigBuilder.getCBool("portals.enter-end", ConfigType.PORTALS.getConfigName())){
-                System.err.println(ValkyaCore.LOGGER_PREFIX + player.getName() + " tried to enter in an End portal at (Player Location)");
-                System.err.println(ValkyaCore.LOGGER_PREFIX + "X: " +player.getLocation().getX() + " Y: " +player.getLocation().getY() + " Z: " +player.getLocation().getZ());
+                System.err.println(ValkyaCore.getLOGGER_PREFIX() + player.getName() + " tried to enter in an End portal at (Player Location)");
+                System.err.println(ValkyaCore.getLOGGER_PREFIX() + "X: " +player.getLocation().getX() + " Y: " +player.getLocation().getY() + " Z: " +player.getLocation().getZ());
                 event.setCancelled(true);
                 return;
             }
@@ -84,8 +84,8 @@ public class PortalPlayerInteract implements Listener {
 
         if(cause.equals(PlayerTeleportEvent.TeleportCause.NETHER_PORTAL)){
             if(!ConfigBuilder.getCBool("portals.enter-nether", ConfigType.PORTALS.getConfigName())) {
-                System.err.println(ValkyaCore.LOGGER_PREFIX + player.getName() + " tried to enter in a Nether portal at (Player Location)");
-                System.err.println(ValkyaCore.LOGGER_PREFIX + "X: " +player.getLocation().getX() + " Y: " +player.getLocation().getY() + " Z: " +player.getLocation().getZ());
+                System.err.println(ValkyaCore.getLOGGER_PREFIX() + player.getName() + " tried to enter in a Nether portal at (Player Location)");
+                System.err.println(ValkyaCore.getLOGGER_PREFIX() + "X: " +player.getLocation().getX() + " Y: " +player.getLocation().getY() + " Z: " +player.getLocation().getZ());
                 event.setCancelled(true);
                 return;
             }

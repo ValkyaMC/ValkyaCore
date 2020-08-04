@@ -2,6 +2,7 @@ package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.util.PermissionsHelper;
+import fr.volax.valkyacore.util.ValkyaUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -19,7 +20,7 @@ public class GetMatCommand implements CommandExecutor {
 
         if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().getMatUse)) return false;
 
-        player.sendMessage(ValkyaCore.PREFIX + " §r" + player.getItemInHand().getType().name());
+        ValkyaUtils.sendChat(player,"§r" + player.getItemInHand().getType().name());
         return false;
     }
 }

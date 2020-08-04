@@ -1,6 +1,7 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
+import fr.volax.valkyacore.util.ValkyaUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -20,10 +21,10 @@ public class BroadcastCommand implements CommandExecutor {
         }else{
             if(sender instanceof Player){
                 if (!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().broadcastUse)) return false;
-                    Bukkit.broadcastMessage(ValkyaCore.PREFIX + " §r" + ChatColor.translateAlternateColorCodes('&', String.join(" ", args)));
+                    ValkyaUtils.broadcast("§r" + ChatColor.translateAlternateColorCodes('&', String.join(" ", args)));
                     return false;
             }else{
-                Bukkit.broadcastMessage(ValkyaCore.PREFIX + " §r" + ChatColor.translateAlternateColorCodes('&', String.join(" ", args)));
+                ValkyaUtils.broadcast("§r" + ChatColor.translateAlternateColorCodes('&', String.join(" ", args)));
                 return false;
             }
         }
@@ -31,6 +32,6 @@ public class BroadcastCommand implements CommandExecutor {
     }
 
     private void helpMessage(CommandSender player){
-        player.sendMessage(ValkyaCore.PREFIX + " §e/broadcast <messages>");
+        ValkyaUtils.sendChat(player,"§e/broadcast <messages>");
     }
 }

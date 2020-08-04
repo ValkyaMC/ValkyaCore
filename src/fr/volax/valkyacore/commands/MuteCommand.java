@@ -3,6 +3,7 @@ package fr.volax.valkyacore.commands;
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.util.PermissionsHelper;
 import fr.volax.valkyacore.tool.ConfigType;
+import fr.volax.valkyacore.util.ValkyaUtils;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import fr.volax.volaxapi.tool.time.TimeUnit;
 import org.bukkit.ChatColor;
@@ -65,7 +66,7 @@ public class MuteCommand implements CommandExecutor {
         if(!TimeUnit.existFromShortcut(args[1].split(":")[1])){
             sender.sendMessage(ConfigBuilder.getCString("messages.mute.invalid-format-time", ConfigType.MESSAGES.getConfigName()));
             for(TimeUnit units : TimeUnit.values()){
-                sender.sendMessage(ValkyaCore.PREFIX + " §b" + units.getName() + " §f: §e" + units.getShortcut());
+                ValkyaUtils.sendChat(sender,"§b" + units.getName() + " §f: §e" + units.getShortcut());
             }
             return false;
         }

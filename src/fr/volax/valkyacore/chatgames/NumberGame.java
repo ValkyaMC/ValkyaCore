@@ -1,6 +1,7 @@
 package fr.volax.valkyacore.chatgames;
 
 import fr.volax.valkyacore.ValkyaCore;
+import fr.volax.valkyacore.util.ValkyaUtils;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -26,7 +27,7 @@ public class NumberGame implements Listener {
         temps = 0;
 
         for(Player player : Bukkit.getOnlinePlayers()) {
-            TextComponent mainComponent = new TextComponent(ValkyaCore.PREFIX + " ");
+            TextComponent mainComponent = new TextComponent(ValkyaCore.getPREFIX() + " ");
             TextComponent subComponent = new TextComponent("§eCalcul de rapidité");
             subComponent.setHoverEvent( new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§6" + getCalcul()).create()));
             mainComponent.addExtra(subComponent);
@@ -82,7 +83,7 @@ public class NumberGame implements Listener {
                 isEnabled = true;
 
                 if(temps >= 30){
-                    Bukkit.broadcastMessage(ValkyaCore.PREFIX + " §eFin du temps ! Personne n'a trouvé la réponse ! Réponse: §6" + getResult());
+                    ValkyaUtils.broadcast("§eFin du temps ! Personne n'a trouvé la réponse ! Réponse: §6" + getResult());
                     stopTimer();
                     temps = 0;
                     isEnabled = false;
@@ -101,10 +102,10 @@ public class NumberGame implements Listener {
     public void onChat(AsyncPlayerChatEvent event){
         if(ValkyaCore.getInstance().getNumberGame().isEnabled){
             if(event.getMessage().contains(Integer.toString(ValkyaCore.getInstance().getNumberGame().getResult()))){
-                Bukkit.broadcastMessage(ValkyaCore.PREFIX + " §eBravo à §6" + event.getPlayer().getName() + " §equi a trouvé §6" + ValkyaCore.getInstance().getNumberGame().getResult() + " §een §6" + ((int) ValkyaCore.getInstance().getNumberGame().temps) + "§es !");
+                ValkyaUtils.broadcast("§eBravo à §6" + event.getPlayer().getName() + " §equi a trouvé §6" + ValkyaCore.getInstance().getNumberGame().getResult() + " §een §6" + ((int) ValkyaCore.getInstance().getNumberGame().temps) + "§es !");
                 event.setCancelled(true);
                 ValkyaCore.economy.depositPlayer(event.getPlayer(), 2500);
-                event.getPlayer().sendMessage(ValkyaCore.PREFIX + " §eTu gagnes §62500$ §egrâce à l'event !");
+                ValkyaUtils.sendChat(event.getPlayer(), "§eTu gagnes §62500$ §egrâce à l'event !");
                 ValkyaCore.getInstance().getNumberGame().stopTimer();
             }
         }

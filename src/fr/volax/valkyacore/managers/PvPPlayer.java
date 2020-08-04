@@ -1,6 +1,7 @@
 package fr.volax.valkyacore.managers;
 
 import fr.volax.valkyacore.ValkyaCore;
+import fr.volax.valkyacore.util.ValkyaUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -27,7 +28,7 @@ public class PvPPlayer {
 
                 if(timeToPvP <= 0){
                     ValkyaCore.getInstance().getPvPPlayerManager().remove(ValkyaCore.getInstance().getPvPPlayerManager().getPvPPlayer(player));
-                    player.sendMessage(ValkyaCore.PREFIX + " §eVous n'êtes plus en combat !");
+                    ValkyaUtils.sendChat(player, "§eVous n'êtes plus en combat !");
                     Bukkit.getScheduler().cancelTask(task);
                     ValkyaCore.getInstance().getPvPPlayerManager().remove(ValkyaCore.getInstance().getPvPPlayerManager().getPvPPlayer(player));
                 }

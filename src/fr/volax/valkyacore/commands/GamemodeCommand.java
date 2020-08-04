@@ -1,6 +1,7 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
+import fr.volax.valkyacore.util.ValkyaUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -27,7 +28,7 @@ public class GamemodeCommand implements CommandExecutor {
                     Player player = (Player)sender;
 
                     player.setGameMode(GameMode.SURVIVAL);
-                    player.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer en gamemode §6Survie§e.");
+                    ValkyaUtils.sendChat(player,"§eVous venez de passer en gamemode §6Survie§e.");
                     return false;
                 }
 
@@ -36,7 +37,7 @@ public class GamemodeCommand implements CommandExecutor {
                     Player player = (Player)sender;
 
                     player.setGameMode(GameMode.CREATIVE);
-                    player.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer en gamemode §6Créatif§e.");
+                    ValkyaUtils.sendChat(player,"§eVous venez de passer en gamemode §6Créatif§e.");
                     return false;
                 }
                 if(args[0].equalsIgnoreCase("ADVENTURE") || args[0].equals("2")){
@@ -44,7 +45,7 @@ public class GamemodeCommand implements CommandExecutor {
                     Player player = (Player)sender;
 
                     player.setGameMode(GameMode.ADVENTURE);
-                    player.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer en gamemode §6Aventure§e.");
+                    ValkyaUtils.sendChat(player,"§eVous venez de passer en gamemode §6Aventure§e.");
                     return false;
                 }else{
                     helpMessage(sender);
@@ -54,13 +55,13 @@ public class GamemodeCommand implements CommandExecutor {
                     Player target = Bukkit.getPlayer(args[1]);
                     if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().gamemodeChangeOther)) return false;
                     if(target == null) {
-                        sender.sendMessage(ValkyaCore.PREFIX + " §eCe joueur n'est pas en ligne !");
+                        ValkyaUtils.sendChat(sender,"§eCe joueur n'est pas en ligne !");
                         return false;
                     }
 
                     target.setGameMode(GameMode.SURVIVAL);
-                    target.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer en gamemode §6Survie§e.");
-                    sender.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer §6" + target.getName() + " §een gamemode §6Survie§e.");
+                    ValkyaUtils.sendChat(target,"§eVous venez de passer en gamemode §6Survie§e.");
+                    ValkyaUtils.sendChat(sender,"§eVous venez de passer §6" + target.getName() + " §een gamemode §6Survie§e.");
                     return false;
                 }
 
@@ -68,26 +69,26 @@ public class GamemodeCommand implements CommandExecutor {
                     Player target = Bukkit.getPlayer(args[1]);
                     if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().gamemodeChangeOther)) return false;
                     if(target == null) {
-                        sender.sendMessage(ValkyaCore.PREFIX + " §eCe joueur n'est pas en ligne !");
+                        ValkyaUtils.sendChat(sender,"§eCe joueur n'est pas en ligne !");
                         return false;
                     }
 
                     target.setGameMode(GameMode.CREATIVE);
-                    target.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer en gamemode §6Créatif§e.");
-                    sender.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer §6" + target.getName() + " §een gamemode §6Créatif§e.");
+                    ValkyaUtils.sendChat(target,"§eVous venez de passer en gamemode §6Créatif§e.");
+                    ValkyaUtils.sendChat(sender,"§eVous venez de passer §6" + target.getName() + " §een gamemode §6Créatif§e.");
                     return false;
                 }
                 if(args[0].equalsIgnoreCase("ADVENTURE") || args[0].equals("2")){
                     Player target = Bukkit.getPlayer(args[1]);
                     if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().gamemodeChangeOther)) return false;
                     if(target == null) {
-                        sender.sendMessage(ValkyaCore.PREFIX + " §eCe joueur n'est pas en ligne !");
+                        ValkyaUtils.sendChat(sender,"§eCe joueur n'est pas en ligne !");
                         return false;
                     }
 
                     target.setGameMode(GameMode.ADVENTURE);
-                    target.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer en gamemode §6Aventure§e.");
-                    sender.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer §6" + target.getName() + " §een gamemode §6Aventure§e.");
+                    ValkyaUtils.sendChat(target,"§eVous venez de passer en gamemode §6Aventure§e.");
+                    ValkyaUtils.sendChat(sender,"§eVous venez de passer §6" + target.getName() + " §een gamemode §6Aventure§e.");
                     return false;
                 }else{
                     helpMessage(sender);
@@ -104,18 +105,18 @@ public class GamemodeCommand implements CommandExecutor {
                 Player player = (Player)sender;
 
                 player.setGameMode(GameMode.CREATIVE);
-                player.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer en gamemode §6Créatif§e.");
+                ValkyaUtils.sendChat(player,"§eVous venez de passer en gamemode §6Créatif§e.");
                 return false;
             }else if(args.length == 1){
                 Player target = Bukkit.getPlayer(args[0]);
                 if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().gamemodeChangeOther)) return false;
                 if(target == null) {
-                    sender.sendMessage(ValkyaCore.PREFIX + " §eCe joueur n'est pas en ligne !");
+                    ValkyaUtils.sendChat(sender,"§eCe joueur n'est pas en ligne !");
                     return false;
                 }
                 target.setGameMode(GameMode.CREATIVE);
-                target.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer en gamemode §6Créatif§e.");
-                sender.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer §6" + target.getName() + " §een gamemode §6Créatif§e.");
+                ValkyaUtils.sendChat(target,"§eVous venez de passer en gamemode §6Créatif§e.");
+                ValkyaUtils.sendChat(sender,"§eVous venez de passer §6" + target.getName() + " §een gamemode §6Créatif§e.");
                 return false;
             }
         }else if(cmd.getName().equalsIgnoreCase("gms")){
@@ -126,18 +127,18 @@ public class GamemodeCommand implements CommandExecutor {
                 Player player = (Player)sender;
 
                 player.setGameMode(GameMode.SURVIVAL);
-                player.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer en gamemode §6Survie§e.");
+                ValkyaUtils.sendChat(player,"§eVous venez de passer en gamemode §6Survie§e.");
                 return false;
             }else if(args.length == 1){
                 Player target = Bukkit.getPlayer(args[0]);
                 if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().gamemodeChangeOther)) return false;
                 if(target == null) {
-                    sender.sendMessage(ValkyaCore.PREFIX + " §eCe joueur n'est pas en ligne !");
+                    ValkyaUtils.sendChat(sender,"§eCe joueur n'est pas en ligne !");
                     return false;
                 }
                 target.setGameMode(GameMode.SURVIVAL);
-                target.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer en gamemode §6Survie§e.");
-                sender.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer §6" + target.getName() + " §een gamemode §6Survie§e.");
+                ValkyaUtils.sendChat(target,"§eVous venez de passer en gamemode §6Survie§e.");
+                ValkyaUtils.sendChat(sender,"§eVous venez de passer §6" + target.getName() + " §een gamemode §6Survie§e.");
                 return false;
             }
         }else if(cmd.getName().equalsIgnoreCase("gma")){
@@ -148,18 +149,18 @@ public class GamemodeCommand implements CommandExecutor {
                 Player player = (Player)sender;
 
                 player.setGameMode(GameMode.ADVENTURE);
-                player.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer en gamemode §6Aventure§e.");
+                ValkyaUtils.sendChat(player,"§eVous venez de passer en gamemode §6Aventure§e.");
                 return false;
             }else if(args.length == 1){
                 Player target = Bukkit.getPlayer(args[0]);
                 if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().gamemodeChangeOther)) return false;
                 if(target == null) {
-                    sender.sendMessage(ValkyaCore.PREFIX + " §eCe joueur n'est pas en ligne !");
+                    ValkyaUtils.sendChat(sender,"§eCe joueur n'est pas en ligne !");
                     return false;
                 }
                 target.setGameMode(GameMode.ADVENTURE);
-                target.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer en gamemode §6Aventure§e.");
-                sender.sendMessage(ValkyaCore.PREFIX + " §eVous venez de passer §6" + target.getName() + " §een gamemode §6Aventure§e.");
+                ValkyaUtils.sendChat(target,"§eVous venez de passer en gamemode §6Aventure§e.");
+                ValkyaUtils.sendChat(sender,"§eVous venez de passer §6" + target.getName() + " §een gamemode §6Aventure§e.");
                 return false;
             }
         }
@@ -167,6 +168,6 @@ public class GamemodeCommand implements CommandExecutor {
     }
 
     private void helpMessage(CommandSender player){
-        player.sendMessage(ValkyaCore.PREFIX + " §e/gamemode <SURVIVAL|CREATIVE|ADVENTURE> [<joueur>]");
+        ValkyaUtils.sendChat(player,"§e/gamemode <SURVIVAL|CREATIVE|ADVENTURE> [<joueur>]");
     }
 }

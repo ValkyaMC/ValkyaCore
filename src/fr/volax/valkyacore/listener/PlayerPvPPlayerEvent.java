@@ -1,6 +1,7 @@
 package fr.volax.valkyacore.listener;
 
 import fr.volax.valkyacore.ValkyaCore;
+import fr.volax.valkyacore.util.ValkyaUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,14 +22,14 @@ public class PlayerPvPPlayerEvent implements Listener {
             ValkyaCore.getInstance().getPvPPlayerManager().resetTime(damaged);
         }else{
             ValkyaCore.getInstance().getPvPPlayerManager().newPvPPlayer(damaged);
-            damaged.sendMessage(ValkyaCore.PREFIX + " §eVous êtes maintenant en combat !");
+            ValkyaUtils.sendChat(damaged,"§eVous êtes maintenant en combat !");
         }
 
         if(ValkyaCore.getInstance().getPvPPlayerManager().doesPlayerExist(damager)){
             ValkyaCore.getInstance().getPvPPlayerManager().resetTime(damager);
         }else{
             ValkyaCore.getInstance().getPvPPlayerManager().newPvPPlayer(damager);
-            damager.sendMessage(ValkyaCore.PREFIX + " §eVous êtes maintenant en combat !");
+            ValkyaUtils.sendChat(damager, "§eVous êtes maintenant en combat !");
         }
     }
 
@@ -44,7 +45,7 @@ public class PlayerPvPPlayerEvent implements Listener {
     public void onDeath(PlayerDeathEvent event){
         if(ValkyaCore.getInstance().getPvPPlayerManager().doesPlayerExist(event.getEntity())){
             ValkyaCore.getInstance().getPvPPlayerManager().remove(ValkyaCore.getInstance().getPvPPlayerManager().getPvPPlayer(event.getEntity()));
-            event.getEntity().sendMessage(ValkyaCore.PREFIX + " §eVous n'êtes plus en combat !");
+            ValkyaUtils.sendChat(event.getEntity(), "§eVous n'êtes plus en combat !");
         }
     }
 }

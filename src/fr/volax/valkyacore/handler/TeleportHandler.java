@@ -56,7 +56,7 @@ public class TeleportHandler {
         String msg3 = "§eY: §6" + getY();
         String msg4 = "§eZ: §6" + getZ();
         String espace = "\n";
-        return ValkyaCore.PREFIX + msg1 + espace + ValkyaCore.PREFIX + msg2 + espace + ValkyaCore.PREFIX + msg3 + espace + ValkyaCore.PREFIX + msg4 + espace;
+        return ValkyaCore.getPREFIX() + msg1 + espace + ValkyaCore.getPREFIX() + msg2 + espace + ValkyaCore.getPREFIX() + msg3 + espace + ValkyaCore.getPREFIX() + msg4 + espace;
     }
 
     public Location getLocation() {

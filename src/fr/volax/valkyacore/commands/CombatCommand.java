@@ -1,6 +1,7 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
+import fr.volax.valkyacore.util.ValkyaUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,11 +18,10 @@ public class CombatCommand implements CommandExecutor {
         Player player = (Player)sender;
 
         if(ValkyaCore.getInstance().getPvPPlayerManager().doesPlayerExist(player)){
-            player.sendMessage(ValkyaCore.PREFIX + " §eVous êtes en combat pendant encore §6"+ ValkyaCore.getInstance().getPvPPlayerManager().getPvPPlayer(player).getTimeToPvP() +" §eseconde(s).");
-            return false;
+            ValkyaUtils.sendChat(player, "§eVous êtes en combat pendant encore §6"+ ValkyaCore.getInstance().getPvPPlayerManager().getPvPPlayer(player).getTimeToPvP() +" §eseconde(s).");
         }else{
-            player.sendMessage(ValkyaCore.PREFIX + " §eVous n'êtes pas en combat !");
-            return false;
+            ValkyaUtils.sendChat(player, "§eVous n'êtes pas en combat !");
         }
+        return false;
     }
 }

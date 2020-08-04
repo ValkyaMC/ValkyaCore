@@ -1,6 +1,7 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
+import fr.volax.valkyacore.util.ValkyaUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -35,16 +36,16 @@ public class KickAllCommand implements CommandExecutor {
         }
 
         if(players.isEmpty()){
-            sender.sendMessage(ValkyaCore.PREFIX + " §eIl n'y a aucun joueur à kick !");
+            ValkyaUtils.sendChat(sender,"§eIl n'y a aucun joueur à kick !");
             return false;
         }
 
         players.forEach(player -> player.kickPlayer(kickMessage));
-        sender.sendMessage(ValkyaCore.PREFIX + " §eVous venez de kick tout les joueurs du serveur pour la raison: §r" + kickMessage);
+        ValkyaUtils.sendChat(sender,"§eVous venez de kick tout les joueurs du serveur pour la raison: §r" + kickMessage);
         return false;
     }
 
     private void helpMessage(CommandSender sender) {
-        sender.sendMessage(ValkyaCore.PREFIX + " §e/kickall <message>");
+        ValkyaUtils.sendChat(sender,"§e/kickall <message>");
     }
 }
