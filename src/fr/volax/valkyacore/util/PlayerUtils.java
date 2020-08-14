@@ -49,7 +49,7 @@ public class PlayerUtils {
     /**
      * Permet de vérifier si player a la permission
      * @param permission Permission à tester sur le joueur
-     * @return false = player n'a pas la permission | true = player a la permission
+     * @return Es-ce que le joueur à la permission
      */
     public boolean hasPerm(CommandSender sender, Permission permission){
         if(!sender.hasPermission(permission)){
@@ -66,16 +66,18 @@ public class PlayerUtils {
             ResultSet rs = sts.executeQuery();
 
             if(rs.next()){
-                PreparedStatement update = ValkyaCore.getInstance().sql.connection.prepareStatement("UPDATE users SET playerName=? WHERE playerUUID=?");
+                PreparedStatement update = ValkyaCore.getInstance().sql.connection.prepareStatement("UPDATE users SET playerName=?, lastIP=? WHERE playerUUID=?");
                 update.setString(1, player.getName());
-                update.setString(2, player.getUniqueId().toString());
+                update.setString(2, player.getAddress().toString());
+                update.setString(3, player.getUniqueId().toString());
                 update.executeUpdate();
                 update.close();
-
             } else {
-                PreparedStatement insert = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO users (playerUUID, playerName) VALUES (?, ?)");
+                PreparedStatement insert = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO users (playerUUID, playerName, firstIP, reportNumber) VALUES (?, ?, ?, ?)");
                 insert.setString(1, player.getUniqueId().toString());
                 insert.setString(2, player.getName());
+                insert.setString(3, player.getAddress().toString());
+                insert.setInt(4, 0);
                 insert.executeUpdate();
                 insert.close();
 
@@ -112,4 +114,54 @@ public class PlayerUtils {
         throw new NullPointerException("Le joueur n'a pas d'informations dans la BDD !");
     }
 
+    public UUID getAddress(String playerName){
+        try {
+            PreparedStatement sts = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT lastIP FROM users WHERE playerName=?");
+            sts.setString(1, playerName);
+            ResultSet rs = sts.executeQuery();
+
+            if(rs.next()){
+                return UUID.fromString(rs.getString("lastIP"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new NullPointerException("Le joueur n'a pas d'informations dans la BDD !");
+    }
+
+    public int getReportNumber(String playerName){
+        try {
+            PreparedStatement sts = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT reportNumber FROM users WHERE playerName=?");
+            sts.setString(1, playerName);
+            ResultSet rs = sts.executeQuery();
+
+            if(rs.next())
+                return rs.getInt("reportNumber");
+        } catch (SQLException e) { e.printStackTrace(); }
+        throw new NullPointerException("Le joueur n'a pas d'informations dans la BDD !");
+    }
+
+    public void incrementReportNumber(String playerName){
+        try {
+            PreparedStatement update = ValkyaCore.getInstance().sql.connection.prepareStatement("UPDATE users SET reportNumber=? WHERE playerUUID=?");
+            update.setInt(1, (getReportNumber(playerName) + 1));
+            update.setString(2, Bukkit.getPlayer(playerName).getUniqueId().toString());
+            update.executeUpdate();
+            update.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void decrementReportNumber(String playerName){
+        try {
+            PreparedStatement update = ValkyaCore.getInstance().sql.connection.prepareStatement("UPDATE users SET reportNumber=? WHERE playerUUID=?");
+            update.setInt(1, (getReportNumber(playerName) - 1));
+            update.setString(2, Bukkit.getPlayer(playerName).getUniqueId().toString());
+            update.executeUpdate();
+            update.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -44,7 +44,7 @@ messages:
     muted-player-message: "&cVous avez été mute ! \n §6Raison:§f %reason% \n &aTemps restant: §f%time%"
     muted-player-message2: "§6Valkya » §cVous avez été mute ! §6Raison:§f %reason% \n §6Valkya » &aTemps restant: %time%"
   report:
-    have-been-reported: "§6Valkya » &eVous venez de signaler &6%player% &epour &6%reason% &e."
+    have-been-reported: "§6Valkya » &eVous venez de signaler &6%player% &epour &6%reason%&e."
     report-message: "§6Valkya » &eLe joueur &6%reportedPlayer% &ea été signalé pour &6%reason%&e(Signalé par: %player%)."
     help-message: "§6Valkya » &c/report <joueur> <raison(s)>"
   cooldownchat:

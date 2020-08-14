@@ -1,6 +1,7 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
+import fr.volax.valkyacore.managers.ReportManager;
 import fr.volax.valkyacore.util.PermissionsHelper;
 import fr.volax.valkyacore.tool.ConfigType;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
@@ -10,11 +11,25 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+/**
+ * Class de la commande /report
+ *
+ * @author Volax
+ * @since 1.1.00
+ * @version 1.0
+ * @see CommandManager
+ * @see ReportManager
+ */
 public class ReportCommand implements CommandExecutor {
     ReportCommand(String string) {
         ValkyaCore.getInstance().getCommand(string).setExecutor(this);
     }
 
+    /**
+     * Commande de /report
+     *
+     * @see ReportManager#report(Player, CommandSender, String, String[])
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!ValkyaCore.getInstance().getPlayerUtils().isPlayer(sender)) return false;
@@ -29,13 +44,12 @@ public class ReportCommand implements CommandExecutor {
         if (!ValkyaCore.getInstance().getPlayerUtils().isOnlinePlayer(player, args[0])) return false;
         Player target = Bukkit.getPlayer(args[0]);
 
-        String reason = "";
+        StringBuilder reason = new StringBuilder();
+        for (int i = 1; i < args.length; i++) reason.append(args[i]).append(" ");
 
-        for (int i = 1; i < args.length; i++) {
-            reason += args[i] + " ";
-        }
-        player.sendMessage(ConfigBuilder.getCString("messages.report.have-been-reported", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", target.getName()).replaceAll("%reason%", reason));
-        sendToMods(reason, target.getName(), player.getName());
+        player.sendMessage(ConfigBuilder.getCString("messages.report.have-been-reported", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", target.getName()).replaceAll("%reason%", reason.toString()));
+        sendToMods(reason.toString(), target.getName(), player.getName());
+        ValkyaCore.getInstance().getReportManager().report(target, sender, reason.toString(), args);
         return false;
     }
 

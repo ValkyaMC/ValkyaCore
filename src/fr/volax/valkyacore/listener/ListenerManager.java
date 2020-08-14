@@ -30,5 +30,6 @@ public class ListenerManager {
         pm.registerEvents(new NumberGame(), instance);
         pm.registerEvents(new AsyncPlayerChatManager(), instance);
         pm.registerEvents(new PlayerPvPPlayerEvent(), instance);
+        pm.registerEvents(new DisableMoreTotems(), instance);
     }
 }

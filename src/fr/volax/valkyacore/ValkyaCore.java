@@ -9,6 +9,7 @@ import fr.volax.valkyacore.tool.ConfigType;
 import fr.volax.valkyacore.util.MobStackerConfig;
 import fr.volax.valkyacore.util.PermissionsHelper;
 import fr.volax.valkyacore.util.PlayerUtils;
+import fr.volax.valkyacore.util.ValkyaUtils;
 import fr.volax.volaxapi.VolaxAPI;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import fr.volax.volaxapi.tool.database.Database;
@@ -30,6 +31,7 @@ public class ValkyaCore extends JavaPlugin {
     private static ValkyaCore instance;
     private BanManager banManager;
     private MuteManager muteManager;
+    private ReportManager reportManager;
     private PlayerUtils playerUtils;
     private PermissionsHelper permissionsHelper;
     public Database sql;
@@ -45,15 +47,15 @@ public class ValkyaCore extends JavaPlugin {
     public ArrayList<UUID> staff;
 
     public final String PREFIX = "§6Valkya »", LOGGER_PREFIX = "["+ this.getName()+"-Logger]";
+
     @Override
     public void onEnable() {
         instance = this;
         VolaxAPI.setInstance(this);
 
-
-        if (getServer().getPluginManager().getPlugin("WorldGuard") == null || !(getServer().getPluginManager().getPlugin("WorldGuard") instanceof WorldGuardPlugin)) {
+        if (getServer().getPluginManager().getPlugin("WorldGuard") == null || !(getServer().getPluginManager().getPlugin("WorldGuard") instanceof WorldGuardPlugin))
             MobStackerConfig.worldguardEnabled = false;
-        }
+
         //********************************************
         // Sauvegarde config.yml
         //********************************************
@@ -67,6 +69,7 @@ public class ValkyaCore extends JavaPlugin {
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dSetup des instances et des HashMaps/ArrayLists...");
         banManager = new BanManager();
         muteManager = new MuteManager();
+        reportManager = new ReportManager();
         playerUtils = new PlayerUtils();
         guiManager = new GuiManager();
         permissionsHelper = new PermissionsHelper();
@@ -85,6 +88,7 @@ public class ValkyaCore extends JavaPlugin {
         }else{
             this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dVault §cOFF§d, the plugin don't work without Vault try to fix him...");
         }
+
         //********************************************
         // Load des Evénements et des Commandes
         //********************************************
@@ -136,23 +140,28 @@ public class ValkyaCore extends JavaPlugin {
     public void startGames() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             public void run() {
-                if(LocalDateTime.now().getSecond() == 25){
-                    Bukkit.broadcastMessage(PREFIX + " §eJeu de rapidé dans le chat dans §65 §esecondes...");
-                }
-                if(LocalDateTime.now().getSecond() == 26){
-                    Bukkit.broadcastMessage(PREFIX + " §eJeu de rapidé dans le chat dans §64 §esecondes...");
-                }
-                if(LocalDateTime.now().getSecond() == 27){
-                    Bukkit.broadcastMessage(PREFIX + " §eJeu de rapidé dans le chat dans §63 §esecondes...");
-                }
-                if(LocalDateTime.now().getSecond() == 28){
-                    Bukkit.broadcastMessage(PREFIX + " §eJeu de rapidé dans le chat dans §62 §esecondes...");
-                }
-                if(LocalDateTime.now().getSecond() == 29){
-                    Bukkit.broadcastMessage(PREFIX + " §eJeu de rapidé dans le chat dans §61 §eseconde...");
-                }
-                if(LocalDateTime.now().getSecond() == 30){
-                    getNumberGame().newGame();
+                if(LocalDateTime.now().getSecond() != 0) return;
+
+                switch (LocalDateTime.now().getMinute()){
+                    case 25:
+                        ValkyaUtils.broadcast("§eJeu de rapidé dans le chat dans §65 §esecondes...");
+                        break;
+                    case 26:
+                        ValkyaUtils.broadcast("§eJeu de rapidé dans le chat dans §64 §esecondes...");
+                        break;
+                    case 27:
+                        ValkyaUtils.broadcast("§eJeu de rapidé dans le chat dans §63 §esecondes...");
+                        break;
+                    case 28:
+                        ValkyaUtils.broadcast("§eJeu de rapidé dans le chat dans §62 §esecondes...");
+                        break;
+                    case 29:
+                        ValkyaUtils.broadcast("§eJeu de rapidé dans le chat dans §61 §eseconde...");
+                        break;
+                    case 30:
+                        getNumberGame().newGame();
+                        break;
+                    default:break;
                 }
             }
         },20, 20);
@@ -183,6 +192,9 @@ public class ValkyaCore extends JavaPlugin {
     }
     public MuteManager getMuteManager() {
         return muteManager;
+    }
+    public ReportManager getReportManager() {
+        return reportManager;
     }
     public PlayerUtils getPlayerUtils() {
         return playerUtils;
