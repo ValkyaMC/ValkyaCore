@@ -7,7 +7,8 @@ public enum ConfigType {
     PORTALS("portals.yml"),
     COOLDOWNCHAT("cooldownchat.yml"),
     MOBSTACKER("mobstacker.yml"),
-    GAMECHAT("gamechat.yml");
+    GAMECHAT("gamechat.yml"),
+    OBSIDIANBREAKER("obsidianbreaker.yml");
 
     public String configName;
 

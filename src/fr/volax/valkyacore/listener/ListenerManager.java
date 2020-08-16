@@ -31,5 +31,7 @@ public class ListenerManager {
         pm.registerEvents(new AsyncPlayerChatManager(), instance);
         pm.registerEvents(new PlayerPvPPlayerEvent(), instance);
         pm.registerEvents(new DisableMoreTotems(), instance);
+        pm.registerEvents(new BlockListener(), instance);
+        pm.registerEvents(new PlayerListener(), instance);
     }
 }

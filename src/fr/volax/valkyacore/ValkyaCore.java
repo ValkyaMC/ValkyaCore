@@ -3,8 +3,11 @@ package fr.volax.valkyacore;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import fr.volax.valkyacore.chatgames.NumberGame;
 import fr.volax.valkyacore.commands.CommandManager;
+import fr.volax.valkyacore.listener.BlockListener;
 import fr.volax.valkyacore.listener.ListenerManager;
+import fr.volax.valkyacore.listener.PlayerListener;
 import fr.volax.valkyacore.managers.*;
+import fr.volax.valkyacore.obsidianbreaker.*;
 import fr.volax.valkyacore.tool.ConfigType;
 import fr.volax.valkyacore.util.MobStackerConfig;
 import fr.volax.valkyacore.util.PermissionsHelper;
@@ -15,19 +18,27 @@ import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import fr.volax.volaxapi.tool.database.Database;
 import fr.volax.volaxapi.tool.gui.GuiManager;
 import net.milkbowl.vault.economy.Economy;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * ValkyaCore for Valkya PvP-Faction Modded
  * @author Volax
  */
 public class ValkyaCore extends JavaPlugin {
+    /**
+     * TODO Commande pour give un stick pour get la dura des items
+     */
     private static ValkyaCore instance;
     private BanManager banManager;
     private MuteManager muteManager;
@@ -41,6 +52,11 @@ public class ValkyaCore extends JavaPlugin {
     private PvPPlayerManager pvPPlayerManager;
     private StackEntity stackEntity;
     public static Economy economy;
+    BlockListener blockListener;
+    private PlayerListener playerListener;
+    private StorageHandler storage;
+    private BukkitTask crackRunner;
+    BukkitTask regenRunner;
 
     public Map<Inventory, UUID> admin;
     public HashMap<UUID, Long> cooldown, repair;
@@ -62,7 +78,6 @@ public class ValkyaCore extends JavaPlugin {
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dSauvegarde et enregistrements des configs...");
         this.saveDefaultConfig();
 
-
         //********************************************
         // Setup des instances
         //********************************************
@@ -78,16 +93,17 @@ public class ValkyaCore extends JavaPlugin {
         stackEntity = new StackEntity();
         numberGame = new NumberGame();
         pvPPlayerManager = new PvPPlayerManager();
+        blockListener = new BlockListener();
+        playerListener = new PlayerListener();
+        storage = new StorageHandler();
         cooldown = new HashMap<>();
         repair  = new HashMap<>();
         staff = new ArrayList<>();
         admin = new HashMap<>();
 
-        if (setupEconomy()) {
-            this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dVault §aON...");
-        }else{
-            this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dVault §cOFF§d, the plugin don't work without Vault try to fix him...");
-        }
+        if (setupEconomy()) this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dVault §aON...");
+        else this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dVault §cOFF§d, the plugin don't work without Vault try to fix him...");
+
 
         //********************************************
         // Load des Evénements et des Commandes
@@ -129,6 +145,8 @@ public class ValkyaCore extends JavaPlugin {
                 "::::::::::::::::::::::##:::: ##:::: ##::::::::. ## ##::: ##.... ##: ##::::::: ##:. ##::::: ##:::: ##.... ##::::::::::::::::::::::\n" +
                 "::::::::::::::::::::::########::::: ##:::::::::. ###:::: ##:::: ##: ########: ##::. ##:::: ##:::: ##:::: ##::::::::::::::::::::::\n" +
                 "::::::::::::::::::::::.......::::::..:::::::::::...:::::..:::::..::........::..::::..:::::..:::::..:::::..:::::::::::::::::::::::\n\n");
+
+        scheduleRegenRunner();
     }
 
     @Override
@@ -236,5 +254,39 @@ public class ValkyaCore extends JavaPlugin {
 
     public static String getPREFIX() {
         return getInstance().PREFIX;
+    }
+
+    public StorageHandler getStorage() {
+        return this.storage;
+    }
+
+    public void scheduleRegenRunner() {
+        if (this.regenRunner != null) {
+            this.regenRunner.cancel();
+            this.regenRunner = null;
+        }
+        long freq = getConfig().getLong("Regen.Frequency") * 20L * 60L;
+        if (freq > 0L)
+            this.regenRunner = (new ValkyaCore.RegenRunnable()).runTaskTimerAsynchronously(this, freq, freq);
+    }
+
+    class RegenRunnable extends BukkitRunnable {
+        public void run() {
+            try {
+                for (ConcurrentHashMap<String, BlockStatus> map : ValkyaCore.this.storage.damage.values()) {
+                    for (BlockStatus status : map.values()) {
+                        if (status.isModified()) {
+                            status.setModified(false);
+                            continue;
+                        }
+                        status.setDamage(status.getDamage() - (float)ValkyaCore.this.getConfig().getDouble("Regen.Amount"));
+                        if (status.getDamage() < 0.001F)
+                            ValkyaCore.this.getStorage().removeBlockStatus(status);
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Error occured while trying to regen block (task " + getTaskId() + ")" + e);
+            }
+        }
     }
 }
