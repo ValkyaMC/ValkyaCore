@@ -69,4 +69,4 @@ messages:
     give-message: "§6Valkya » &eVous venez de donner &6%nombre% &ebouteille(s) d'xp à &6%player%&e."
     receive-message: "§6Valkya » &eVous venez de recevoir &6%nombre% &ebouteille(s) d'xp."
   rtp:
-    error: "§6Valkya » &eVous ne pouvez vous teleporter, veillez patienter %cooldown% secondes !"
+    error: "§6Valkya » &eVous ne pouvez vous teleporter, veillez patienter &6%cooldown% &esecondes !"

@@ -20,6 +20,7 @@ public class KDCommand implements CommandExecutor {
         Player player = (Player)sender;
 
         if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(player, ValkyaCore.getInstance().getPermissionsHelper().kdrUse)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.kd")) return false;
 
         if(args.length == 0){
             ValkyaUtils.sendChat(player,"§eStatistiques de §6"+ player.getName() +"§e:");

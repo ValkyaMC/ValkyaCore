@@ -36,6 +36,7 @@ public class ReportCommand implements CommandExecutor {
         Player player = (Player) sender;
 
         if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(player, ValkyaCore.getInstance().getPermissionsHelper().reportUse)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.report")) return false;
         if (args.length <= 1) {
             helpMessage(player);
             return false;

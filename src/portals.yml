@@ -1,6 +1,13 @@
+#            PortalsCanceller by Volax
+# Source Code: https://github.com/VolaxYT/PortalsCanceller/
+
 portals:
+  #Nether
   create-nether: false
-  create-end: false
   enter-nether: false
+  dispenser-use-flint: false
+  #End
+  create-end: false
   enter-end: false
-  dispenser-can-use-flint: false
+  #Others
+  create-aether: false

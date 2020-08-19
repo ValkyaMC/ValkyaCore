@@ -18,18 +18,16 @@ public class ChatCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().chatChangeSet)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.chat")) return false;
         if(args.length == 0){
-            if(sender instanceof Player)
-                if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().chatChangeSet)) return false;
             helpMessage(sender);
             return false;
         }else if(args.length == 1){
             if(args[0].equalsIgnoreCase("toggle")){
-                if(sender instanceof Player)
-                    if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().chatChangeSet)) return false;
                 if(ConfigBuilder.getString("chat").equalsIgnoreCase("false")) {
                     ConfigBuilder.set("chat", "true");
-                    ValkyaUtils.broadcast("§eLe chat vient d'être désactivé par §6§l" + sender.getName() + "§e.");
+                    ValkyaUtils.broadcast("§eLe chat vient d'être activé par §6§l" + sender.getName() + "§e.");
                     return false;
                 }else if(ConfigBuilder.getString("chat").equalsIgnoreCase("true")){
                     ConfigBuilder.set("chat", "false");
@@ -37,8 +35,7 @@ public class ChatCommand implements CommandExecutor {
                     return false;
                 }
             }else if(args[0].equalsIgnoreCase("clear")){
-                if(sender instanceof Player)
-                    if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().chatClear)) return false;
+                if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().chatClear)) return false;
                 for(int i=0;i<100;i++)
                     Bukkit.broadcastMessage("");
                 ValkyaUtils.broadcast("§eLe chat vient d'être clear par §6§l" + sender.getName() + "§e.");
@@ -48,8 +45,6 @@ public class ChatCommand implements CommandExecutor {
                 return false;
             }
         }else{
-            if(sender instanceof Player)
-                if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().chatChangeSet)) return false;
             helpMessage(sender);
             return false;
         }

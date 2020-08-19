@@ -40,7 +40,7 @@ public class PermissionsHelper {
     public Permission gamemodeChange = new Permission(ConfigBuilder.getString("permissions.gamemode-change"));
     public Permission gamemodeChangeOther = new Permission(ConfigBuilder.getString("permissions.gamemode-change-other"));
     public Permission gamemodeNotify = new Permission(ConfigBuilder.getString("permissions.gamemode-notify"));
-    
+
     public Permission kdrUse = new Permission(ConfigBuilder.getString("permissions.kdr-use"));
 
     public Permission repairHand = new Permission(ConfigBuilder.getString("permissions.repair-hand"));
@@ -58,4 +58,10 @@ public class PermissionsHelper {
     public Permission kickAllUse = new Permission(ConfigBuilder.getString("permissions.kickall-use"));
     public Permission kickAllBypass = new Permission(ConfigBuilder.getString("permissions.kickall-bypass"));
 
+    public Permission valkyaConfigReloadUse = new Permission(ConfigBuilder.getString("permissions.valkyaconfigreload-use"));
+
+    public Permission staffmodeUse = new Permission(ConfigBuilder.getString("permissions.staffmode-use"));
+    public Permission staffmodeListUse = new Permission(ConfigBuilder.getString("permissions.staffmodlist-use"));
+    public Permission freezeBypass = new Permission(ConfigBuilder.getString("permissions.freeze-bypass"));
 }
+

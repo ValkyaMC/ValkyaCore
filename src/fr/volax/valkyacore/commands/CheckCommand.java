@@ -17,6 +17,7 @@ public class CheckCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().checkUse)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "commands.check")) return false;
 
         if(args.length != 1){
             sender.sendMessage(ConfigBuilder.getCString("messages.check.help-message", ConfigType.MESSAGES.getConfigName()));
@@ -29,8 +30,8 @@ public class CheckCommand implements CommandExecutor {
         sender.sendMessage(ConfigBuilder.getCString("messages.check.separator", ConfigType.MESSAGES.getConfigName()));
         sender.sendMessage(ConfigBuilder.getCString("messages.check.player", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", args[0]));
         sender.sendMessage(ConfigBuilder.getCString("messages.check.uuid", ConfigType.MESSAGES.getConfigName()).replaceAll("%uuid%", targetUUID.toString()));
+        sender.sendMessage("§eIP §f: §b" + ValkyaCore.getInstance().getPlayerUtils().getAddress(args[0]));
         sender.sendMessage(ConfigBuilder.getCString("messages.check.mute", ConfigType.MESSAGES.getConfigName()).replaceAll("%isMute%", ValkyaCore.getInstance().getMuteManager().isMuted(targetUUID) ? "§a✔" : "§c✖"));
-
         if(ValkyaCore.getInstance().getMuteManager().isMuted(targetUUID)){
             sender.sendMessage("");
             sender.sendMessage(ConfigBuilder.getCString("messages.check.reason", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getMuteManager().getReason(targetUUID)));

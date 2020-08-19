@@ -24,6 +24,7 @@ public class RepairCommand implements CommandExecutor {
         Player player = (Player) sender;
 
         if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(player, ValkyaCore.getInstance().getPermissionsHelper().repairHand)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.repair")) return false;
 
         if(args.length == 0){
             return false;
@@ -95,26 +96,30 @@ public class RepairCommand implements CommandExecutor {
         }
     }
 
-    public String getTimeLeft(int timeLeft) {
+    public String getTimeLeft(int all_time){
         int heures = 0;
         int minutes = 0;
         int secondes = 0;
 
-        while (timeLeft >= TimeUnit.HEURE.getToSecond()) {
+
+        while (all_time >= TimeUnit.HEURE.getToSecond()){
             heures++;
-            timeLeft -= TimeUnit.HEURE.getToSecond();
+            all_time -= TimeUnit.HEURE.getToSecond();
         }
 
-        while (timeLeft >= TimeUnit.MINUTE.getToSecond()) {
+        while (all_time >= TimeUnit.MINUTE.getToSecond()){
             minutes++;
-            timeLeft -= TimeUnit.MINUTE.getToSecond();
+            all_time -= TimeUnit.MINUTE.getToSecond();
         }
 
-        while (timeLeft >= TimeUnit.SECONDE.getToSecond()) {
+        while (all_time >= TimeUnit.SECONDE.getToSecond()){
             secondes++;
-            timeLeft -= TimeUnit.SECONDE.getToSecond();
+            all_time -= TimeUnit.SECONDE.getToSecond();
         }
 
-        return "§6" + heures + " §e" + TimeUnit.HEURE.getName() + ", §6" + minutes + " §e" + TimeUnit.MINUTE.getName() + ", §6" + secondes + " 3§e" + TimeUnit.SECONDE.getName();
+        if(heures == 0)
+            if(minutes == 0) return secondes + "s";
+            else return "§6" + minutes + "§em §6" + secondes + "§es";
+        else return "§6" + heures + " §e" + TimeUnit.HEURE.getName() + " §6" + minutes + " §e" + TimeUnit.MINUTE.getName() + " §6" + secondes + " §e" + TimeUnit.SECONDE.getName();
     }
 }

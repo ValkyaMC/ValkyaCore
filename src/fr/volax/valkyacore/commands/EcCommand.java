@@ -16,6 +16,7 @@ public class EcCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!ValkyaCore.getInstance().getPlayerUtils().isPlayer(sender)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.ec")) return false;
         Player player = (Player)sender;
         if(args.length == 0){
             player.performCommand("customec open");

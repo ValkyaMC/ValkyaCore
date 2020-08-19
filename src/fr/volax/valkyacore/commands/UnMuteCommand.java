@@ -17,6 +17,7 @@ public class UnMuteCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().unmuteUse)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.unmute")) return false;
 
         if(args.length != 1){
             sender.sendMessage(ConfigBuilder.getCString("messages.unmute.help-message", ConfigType.MESSAGES.getConfigName()));

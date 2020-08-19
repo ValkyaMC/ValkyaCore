@@ -33,8 +33,33 @@ permissions:
   chat-clear: "valkya.chat.clear"
   kickall-use: "valkya.kickall.use"
   kickall-bypass: "valkya.kickall.bypass"
+  valkyaconfigreload-use: "valkya.valkyaconfigreload.use"
+  staffmode-use: "valkya.staffmod.use"
+  freeze-bypass: "valkya.staffmod.freeze.bypass"
+  staffmodlist-use: "valkya.staffmod.list.use"
+  reportlog-use: "valkya.reportlog.use"
+  reportlog-delete: "valkya.reportlog.delete"
 
 chat: true
+
+# %playerName% pour avoir le nom du joueur
+# %onlinePlayers% pour avoir le nombre de joueurs en ligne
+# %maxPlayers% pour avoir le nombre max de joueurs sur le serveur
+# %serverName% pour avoir le nom du serveur
+onJoin:
+  isLobby: true
+  execute-command: true
+  commands:
+    - "command here"
+
+  teleport: false
+  teleport-coos:
+    world: world
+    X: 0
+    Y: 90
+    Z: 0
+    YAW: 0
+    PITCH: 0
 
 rtp:
   world: world
@@ -42,6 +67,38 @@ rtp:
   z: 2000
   cooldown-active: true
   cooldown-temps: 3600
+
+isActivated:
+  commands:
+    ban: true
+    unban: true
+    kick: true
+    check: true
+    mute: true
+    unmute: true
+    getmat: true
+    xpbottle: true
+    ec: true
+    report: true
+    gamemode: true
+    kd: true
+    repair: true
+    broadcast: true
+    rtp: true
+    chat: true
+    combat: true
+    kickall: true
+    checker: true
+    valkyaconfigreload: true
+    staffmod: true
+    staffmodlist: true
+    reportlog: true
+
+anti-deco-combat:
+  activated: true
+  disabled-region:
+    - "spawn"
+    - "lobby"
 
 sql:
   host: "localhost"

@@ -13,10 +13,7 @@ public class CommandManager {
         new MuteCommand("mute");
         new UnMuteCommand("unmute");
         new ReportCommand("report");
-        new GamemodeCommand("gamemode");
-        new GamemodeCommand("gma");
-        new GamemodeCommand("gmc");
-        new GamemodeCommand("gms");
+        new GamemodeCommand(new String[]{"gamemode", "gma", "gmc", "gms"});
         new KDCommand("kd");
         new RepairCommand("repair");
         new BroadcastCommand("broadcast");
@@ -24,6 +21,11 @@ public class CommandManager {
         new ChatCommand("chat");
         new CombatCommand("combat");
         new KickAllCommand("kickall");
+        new CheckerCommand("checker");
+        new ValkyaConfigReloadCommand("valkyaconfigreload");
+        new StaffModCommand("staffmod");
+        new StaffModListCommand("staffmodlist");
+        new ReportLogCommand("reportlog");
 
         if(Bukkit.getServer().getPluginCommand("ec").getPlugin().getDescription().getName().equals("CustomEnderChest")) Bukkit.getServer().getPluginCommand("ec").setExecutor(new EcCommand("ec"));
     }

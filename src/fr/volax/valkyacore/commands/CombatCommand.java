@@ -15,6 +15,7 @@ public class CombatCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(!ValkyaCore.getInstance().getPlayerUtils().isPlayer(sender)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.combat")) return false;
         Player player = (Player)sender;
 
         if(ValkyaCore.getInstance().getPvPPlayerManager().doesPlayerExist(player)){

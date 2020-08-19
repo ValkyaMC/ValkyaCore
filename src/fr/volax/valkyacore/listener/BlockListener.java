@@ -8,7 +8,7 @@ import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.obsidianbreaker.BlockIntersector;
 import fr.volax.valkyacore.obsidianbreaker.BlockStatus;
 import fr.volax.valkyacore.obsidianbreaker.StorageHandler;
-import fr.volax.valkyacore.obsidianbreaker.UnknownBlockTypeException;
+import fr.volax.valkyacore.exception.UnknownBlockTypeException;
 import fr.volax.valkyacore.tool.ConfigType;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import org.bukkit.Location;
@@ -20,7 +20,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class BlockListener implements Listener {

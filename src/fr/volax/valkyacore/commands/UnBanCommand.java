@@ -16,6 +16,7 @@ public class UnBanCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().unbanUse)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.unban")) return false;
 
         if(args.length != 1){
             sender.sendMessage(ConfigBuilder.getCString("messages.unban.help-message", ConfigType.MESSAGES.getConfigName()));

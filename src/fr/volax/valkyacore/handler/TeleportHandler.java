@@ -29,6 +29,16 @@ public class TeleportHandler {
 
     public void teleport(){
         Location location = getLocation();
+        boolean onLand = false;
+
+        while (!onLand){
+            if(location.getY() == 0){
+                location = getLocation();
+                onLand = false;
+            }else{
+                onLand = true;
+            }
+        }
         this.player.teleport(location);
     }
 
@@ -74,7 +84,6 @@ public class TeleportHandler {
     }
 
     public Location safeY(Location location) {
-        System.out.println(location);
         location.setY(location.getWorld().getHighestBlockYAt(location));
         return location;
     }

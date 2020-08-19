@@ -6,28 +6,18 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
 
 public class StackEntity {
-    /** The stacked mob custom name format. */
     public static int INVALID_STACK = -1;
 
-
-    /*
-     * Methods used to Stack or Unstack mobs
-     */
     public boolean attemptUnstackOne(LivingEntity livingEntity) {
 
         String displayName = livingEntity.getCustomName();
         int mobsAmount = parseAmount(displayName);
 
-        // Kill this mob
         livingEntity.setHealth(0);
 
-        if (mobsAmount <= 1) {
-            // The stack is down to one mob; don't recreate it
+        if (mobsAmount <= 1)
             return false;
-        }
 
-
-        // Recreate the stack with one less mob
         mobsAmount--;
         String mobDisplayName = MobStackerConfig.stackMobsDispalyName.replace("%number%",String.valueOf(mobsAmount));
 
@@ -40,7 +30,6 @@ public class StackEntity {
 
     public boolean unstackAll(LivingEntity livingEntity){
         livingEntity.setCustomName("1 mob");
-        //Hide name from users
         livingEntity.setCustomNameVisible(false);
         livingEntity.setHealth(0);
         ValkyaCore.getInstance().getEntityStacker().getValidEntity().remove(livingEntity);
@@ -50,17 +39,15 @@ public class StackEntity {
 
     public boolean stack(LivingEntity target, LivingEntity stackee) {
         if (target.getType() != stackee.getType()) {
-            return false; // The entities must be of the same type.
+            return false;
         }
 
         String displayName = target.getCustomName();
         int alreadyStacked = parseAmount(displayName);
         int stackedMobsAlready = 1;
 
-        // Check if the stackee is already a stack
-        if (isStacked(stackee)) {
+        if (isStacked(stackee))
             stackedMobsAlready = parseAmount(stackee.getCustomName());
-        }
         if(stackedMobsAlready >= MobStackerConfig.maxAllowedInStack || alreadyStacked >= MobStackerConfig.maxAllowedInStack) return false;
         stackee.remove();
         ValkyaCore.getInstance().getEntityStacker().getValidEntity().remove(stackee);
@@ -76,15 +63,14 @@ public class StackEntity {
     }
 
     public int parseAmount(String displayName) {
-        if (displayName == null) {
+        if (displayName == null)
             return INVALID_STACK;
-        }
 
         String colourStrip = ChatColor.stripColor(displayName);
         String str = colourStrip.replaceAll("[^-?0-9]+", " ");
 
         try {
-            return Integer.valueOf(str.replaceAll(" ",""));
+            return Integer.parseInt(str.replaceAll(" ",""));
         }catch(NumberFormatException e){
             return INVALID_STACK;
         }

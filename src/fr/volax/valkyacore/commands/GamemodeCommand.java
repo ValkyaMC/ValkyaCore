@@ -10,15 +10,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class GamemodeCommand implements CommandExecutor {
-    GamemodeCommand(String string) {
-        ValkyaCore.getInstance().getCommand(string).setExecutor(this);
+    GamemodeCommand(String[] string) {
+        for(String command : string)
+            ValkyaCore.getInstance().getCommand(command).setExecutor(this);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().gamemodeChange)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.gamemode")) return false;
         if(cmd.getName().equalsIgnoreCase("gamemode")){
-            if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().gamemodeChange)) return false;
-
             if(args.length == 0){
                 helpMessage(sender);
                 return false;
@@ -98,8 +99,6 @@ public class GamemodeCommand implements CommandExecutor {
                 return false;
             }
         }else if(cmd.getName().equalsIgnoreCase("gmc")){
-            if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().gamemodeChange)) return false;
-
             if(args.length == 0){
                 if(!ValkyaCore.getInstance().getPlayerUtils().isPlayer(sender)) return false;
                 Player player = (Player)sender;
@@ -120,8 +119,6 @@ public class GamemodeCommand implements CommandExecutor {
                 return false;
             }
         }else if(cmd.getName().equalsIgnoreCase("gms")){
-            if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().gamemodeChange)) return false;
-
             if(args.length == 0){
                 if(!ValkyaCore.getInstance().getPlayerUtils().isPlayer(sender)) return false;
                 Player player = (Player)sender;
@@ -142,8 +139,6 @@ public class GamemodeCommand implements CommandExecutor {
                 return false;
             }
         }else if(cmd.getName().equalsIgnoreCase("gma")){
-            if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().gamemodeChange)) return false;
-
             if(args.length == 0){
                 if(!ValkyaCore.getInstance().getPlayerUtils().isPlayer(sender)) return false;
                 Player player = (Player)sender;

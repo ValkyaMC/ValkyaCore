@@ -6,6 +6,25 @@ MobTypes:
   - PIG_ZOMBIE
   - SPIDER
   - CREEPER
+  - BLAZE
+  - CHICKEN
+  - COW
+  - ENDERMAN
+  - ENDERMITE
+  - GHAST
+  - IRON_GOLEM
+  - MAGMA_CUBE
+  - RABBIT
+  - SHEEP
+  - SKELETON
+  - SLIME
+  - SPIDER
+  - SQUID
+  - WITCH
+  - WITHER_SKELETON
+  - SILVERFISH
+  - CAVESPIDER
+  - PIG
 
 UpdateTickDelay: 50
 MaxAllowedInStack: 500

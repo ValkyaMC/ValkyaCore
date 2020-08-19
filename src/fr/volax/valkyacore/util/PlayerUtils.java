@@ -28,6 +28,14 @@ public class PlayerUtils {
         return true;
     }
 
+    public boolean isAutoCommand(CommandSender sender, String command){
+        if(!ConfigBuilder.getString(command).equalsIgnoreCase("true")){
+            sender.sendMessage("§cCette commande est actuellement désactivé sur ce serveur !");
+            return false;
+        }else
+            return true;
+    }
+
     public boolean isOnlinePlayer(CommandSender sender, String target){
         if(!doesPlayerExist(sender, target)) return false;
         if(Bukkit.getPlayer(target) == null){
@@ -68,16 +76,17 @@ public class PlayerUtils {
             if(rs.next()){
                 PreparedStatement update = ValkyaCore.getInstance().sql.connection.prepareStatement("UPDATE users SET playerName=?, lastIP=? WHERE playerUUID=?");
                 update.setString(1, player.getName());
-                update.setString(2, player.getAddress().toString());
+                update.setString(2, player.getAddress().getHostName());
                 update.setString(3, player.getUniqueId().toString());
                 update.executeUpdate();
                 update.close();
             } else {
-                PreparedStatement insert = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO users (playerUUID, playerName, firstIP, reportNumber) VALUES (?, ?, ?, ?)");
+                PreparedStatement insert = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO users (playerUUID, playerName, firstIP, lastIP, reportNumber) VALUES (?, ?, ?, ?, ?)");
                 insert.setString(1, player.getUniqueId().toString());
                 insert.setString(2, player.getName());
-                insert.setString(3, player.getAddress().toString());
-                insert.setInt(4, 0);
+                insert.setString(3, player.getAddress().getHostName());
+                insert.setString(4, player.getAddress().getHostName());
+                insert.setInt(5, 0);
                 insert.executeUpdate();
                 insert.close();
 
@@ -114,14 +123,14 @@ public class PlayerUtils {
         throw new NullPointerException("Le joueur n'a pas d'informations dans la BDD !");
     }
 
-    public UUID getAddress(String playerName){
+    public String getAddress(String playerName){
         try {
             PreparedStatement sts = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT lastIP FROM users WHERE playerName=?");
             sts.setString(1, playerName);
             ResultSet rs = sts.executeQuery();
 
             if(rs.next()){
-                return UUID.fromString(rs.getString("lastIP"));
+                return rs.getString("lastIP");
             }
         } catch (SQLException e) {
             e.printStackTrace();

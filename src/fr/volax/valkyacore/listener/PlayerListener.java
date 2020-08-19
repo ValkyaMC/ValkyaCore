@@ -2,11 +2,10 @@ package fr.volax.valkyacore.listener;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.Locale;
 
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.obsidianbreaker.BlockStatus;
-import fr.volax.valkyacore.obsidianbreaker.UnknownBlockTypeException;
+import fr.volax.valkyacore.exception.UnknownBlockTypeException;
 import fr.volax.valkyacore.tool.ConfigType;
 import fr.volax.valkyacore.util.ValkyaUtils;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
@@ -24,7 +23,7 @@ public class PlayerListener implements Listener {
   public void onPlayerInteract(PlayerInteractEvent event) {
     if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
       Player player = event.getPlayer();
-      if (player.getItemInHand() != null && player.getItemInHand().getType() != Material.AIR && player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§eChecker") && player.getItemInHand().getType() == Material.STICK)
+      if (player.getItemInHand() != null && player.getItemInHand().getType() != Material.AIR && player.getItemInHand().getType() == Material.STICK && player.getItemInHand().getItemMeta().getDisplayName().equals("§eChecker"))
         try {
           float totalDurability, remainingDurability;
           Block block = event.getClickedBlock();

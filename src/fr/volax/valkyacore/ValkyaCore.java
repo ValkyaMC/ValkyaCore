@@ -9,19 +9,16 @@ import fr.volax.valkyacore.listener.PlayerListener;
 import fr.volax.valkyacore.managers.*;
 import fr.volax.valkyacore.obsidianbreaker.*;
 import fr.volax.valkyacore.tool.ConfigType;
-import fr.volax.valkyacore.util.MobStackerConfig;
-import fr.volax.valkyacore.util.PermissionsHelper;
-import fr.volax.valkyacore.util.PlayerUtils;
-import fr.volax.valkyacore.util.ValkyaUtils;
+import fr.volax.valkyacore.tool.StaffInventory;
+import fr.volax.valkyacore.util.*;
 import fr.volax.volaxapi.VolaxAPI;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import fr.volax.volaxapi.tool.database.Database;
 import fr.volax.volaxapi.tool.gui.GuiManager;
 import net.milkbowl.vault.economy.Economy;
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -52,15 +49,16 @@ public class ValkyaCore extends JavaPlugin {
     private PvPPlayerManager pvPPlayerManager;
     private StackEntity stackEntity;
     public static Economy economy;
-    BlockListener blockListener;
+    private BlockListener blockListener;
     private PlayerListener playerListener;
     private StorageHandler storage;
-    private BukkitTask crackRunner;
-    BukkitTask regenRunner;
+    private StaffMod staffMod;
+    private BukkitTask regenRunner;
 
+    public Map<Player, StaffInventory> mode;
+    public List<UUID> frozen;
     public Map<Inventory, UUID> admin;
     public HashMap<UUID, Long> cooldown, repair;
-    public ArrayList<UUID> staff;
 
     public final String PREFIX = "§6Valkya »", LOGGER_PREFIX = "["+ this.getName()+"-Logger]";
 
@@ -96,10 +94,12 @@ public class ValkyaCore extends JavaPlugin {
         blockListener = new BlockListener();
         playerListener = new PlayerListener();
         storage = new StorageHandler();
+        staffMod = new StaffMod(this);
         cooldown = new HashMap<>();
         repair  = new HashMap<>();
-        staff = new ArrayList<>();
         admin = new HashMap<>();
+        mode = new HashMap<>();
+        frozen = new ArrayList<>();
 
         if (setupEconomy()) this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dVault §aON...");
         else this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dVault §cOFF§d, the plugin don't work without Vault try to fix him...");
@@ -117,7 +117,7 @@ public class ValkyaCore extends JavaPlugin {
         //********************************************
         if(ConfigBuilder.getCBool("enabled", ConfigType.GAMECHAT.getConfigName())){
             this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dInitialisation des chat Games...");
-            //startGames();
+            startGames();
         }
 
         //********************************************
@@ -160,26 +160,8 @@ public class ValkyaCore extends JavaPlugin {
             public void run() {
                 if(LocalDateTime.now().getSecond() != 0) return;
 
-                switch (LocalDateTime.now().getMinute()){
-                    case 25:
-                        ValkyaUtils.broadcast("§eJeu de rapidé dans le chat dans §65 §esecondes...");
-                        break;
-                    case 26:
-                        ValkyaUtils.broadcast("§eJeu de rapidé dans le chat dans §64 §esecondes...");
-                        break;
-                    case 27:
-                        ValkyaUtils.broadcast("§eJeu de rapidé dans le chat dans §63 §esecondes...");
-                        break;
-                    case 28:
-                        ValkyaUtils.broadcast("§eJeu de rapidé dans le chat dans §62 §esecondes...");
-                        break;
-                    case 29:
-                        ValkyaUtils.broadcast("§eJeu de rapidé dans le chat dans §61 §eseconde...");
-                        break;
-                    case 30:
-                        getNumberGame().newGame();
-                        break;
-                    default:break;
+                if (LocalDateTime.now().getMinute() == 30) {
+                    getNumberGame().newGame();
                 }
             }
         },20, 20);
@@ -217,6 +199,7 @@ public class ValkyaCore extends JavaPlugin {
     public PlayerUtils getPlayerUtils() {
         return playerUtils;
     }
+
     public GuiManager getGuiManager() {
         return guiManager;
     }
@@ -288,5 +271,9 @@ public class ValkyaCore extends JavaPlugin {
                 System.err.println("Error occured while trying to regen block (task " + getTaskId() + ")" + e);
             }
         }
+    }
+
+    public StaffMod getStaffMod() {
+        return staffMod;
     }
 }

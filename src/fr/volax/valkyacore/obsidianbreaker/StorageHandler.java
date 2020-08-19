@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-import fr.volax.valkyacore.ValkyaCore;
+import fr.volax.valkyacore.exception.UnknownBlockTypeException;
 import fr.volax.valkyacore.tool.ConfigType;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import org.bukkit.Bukkit;

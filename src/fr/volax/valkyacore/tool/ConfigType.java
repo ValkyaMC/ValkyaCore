@@ -8,7 +8,8 @@ public enum ConfigType {
     COOLDOWNCHAT("cooldownchat.yml"),
     MOBSTACKER("mobstacker.yml"),
     GAMECHAT("gamechat.yml"),
-    OBSIDIANBREAKER("obsidianbreaker.yml");
+    OBSIDIANBREAKER("obsidianbreaker.yml"),
+    BANITEMS("banitems.yml");
 
     public String configName;
 

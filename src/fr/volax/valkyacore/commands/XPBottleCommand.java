@@ -30,6 +30,7 @@ public class XPBottleCommand implements CommandExecutor {
         Player player = (Player)sender;
 
         if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().xpBottleUse)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.xpbottle")) return false;
 
         int xplevel = player.getLevel();
         Inventory inventaireP = player.getInventory();

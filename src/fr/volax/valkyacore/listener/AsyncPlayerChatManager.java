@@ -10,7 +10,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 public class AsyncPlayerChatManager implements Listener {
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event){
-        if(!ConfigBuilder.getString("chat").equalsIgnoreCase("false")){
+        if(!ConfigBuilder.getString("chat").equalsIgnoreCase("true")){
             if(!event.getPlayer().hasPermission(ValkyaCore.getInstance().getPermissionsHelper().chatOffBypass)){
                 ValkyaUtils.sendChat(event.getPlayer(), "§eLe chat est actuellement désactivé !");
                 event.setCancelled(true);

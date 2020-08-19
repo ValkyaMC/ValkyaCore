@@ -16,17 +16,13 @@ public class BroadcastCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().broadcastUse)) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.broadcast")) return false;
         if(args.length == 0){
             helpMessage(sender);
         }else{
-            if(sender instanceof Player){
-                if (!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().broadcastUse)) return false;
-                    ValkyaUtils.broadcast("§r" + ChatColor.translateAlternateColorCodes('&', String.join(" ", args)));
-                    return false;
-            }else{
-                ValkyaUtils.broadcast("§r" + ChatColor.translateAlternateColorCodes('&', String.join(" ", args)));
-                return false;
-            }
+            ValkyaUtils.broadcast("§r" + ChatColor.translateAlternateColorCodes('&', String.join(" ", args)));
+            return false;
         }
         return false;
     }
