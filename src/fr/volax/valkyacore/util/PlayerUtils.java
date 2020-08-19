@@ -81,12 +81,13 @@ public class PlayerUtils {
                 update.executeUpdate();
                 update.close();
             } else {
-                PreparedStatement insert = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO users (playerUUID, playerName, firstIP, lastIP, reportNumber) VALUES (?, ?, ?, ?, ?)");
+                PreparedStatement insert = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO users (playerUUID, playerName, firstIP, lastIP, reportNumber, haveKit) VALUES (?,?, ?, ?, ?, ?)");
                 insert.setString(1, player.getUniqueId().toString());
                 insert.setString(2, player.getName());
                 insert.setString(3, player.getAddress().getHostName());
                 insert.setString(4, player.getAddress().getHostName());
                 insert.setInt(5, 0);
+                insert.setString(6, "false");
                 insert.executeUpdate();
                 insert.close();
 
@@ -167,6 +168,30 @@ public class PlayerUtils {
             PreparedStatement update = ValkyaCore.getInstance().sql.connection.prepareStatement("UPDATE users SET reportNumber=? WHERE playerUUID=?");
             update.setInt(1, (getReportNumber(playerName) - 1));
             update.setString(2, Bukkit.getPlayer(playerName).getUniqueId().toString());
+            update.executeUpdate();
+            update.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getFirstLoginKit(String playerName){
+        try {
+            PreparedStatement sts = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT haveKit FROM users WHERE playerName=?");
+            sts.setString(1, playerName);
+            ResultSet rs = sts.executeQuery();
+
+            if(rs.next())
+                return rs.getString("haveKit");
+        } catch (SQLException e) { e.printStackTrace(); }
+        throw new NullPointerException("Le joueur n'a pas d'informations dans la BDD !");
+    }
+
+    public void setFirstLoginKit(String playerName, String dddd){
+        try {
+            PreparedStatement update = ValkyaCore.getInstance().sql.connection.prepareStatement("UPDATE users SET haveKit=? WHERE playerName=?");
+            update.setString(1,  dddd);
+            update.setString(2, playerName);
             update.executeUpdate();
             update.close();
         } catch (SQLException e) {

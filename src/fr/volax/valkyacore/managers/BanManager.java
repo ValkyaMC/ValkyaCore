@@ -83,7 +83,7 @@ public class BanManager {
 
         }
         if (playerP != null) {
-            playerP.kickPlayer(ConfigBuilder.getCString("messages.ban.banned-player-join", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getBanManager().getReason(playerP.getUniqueId())).replaceAll("%time%", ValkyaCore.getInstance().getBanManager().getTimeLeft(playerP.getUniqueId())));
+            playerP.kickPlayer(ConfigBuilder.getCString("messages.ban.banned-player-join", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getBanManager().getReason(playeruuid)).replaceAll("%time%", ValkyaCore.getInstance().getBanManager().getTimeLeft(playeruuid)));
             return true;
         }
         return false;
@@ -106,7 +106,8 @@ public class BanManager {
             PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT * FROM bans WHERE playerUUID=?");
             query.setString(1, uuid.toString());
             ResultSet rs = query.executeQuery();
-            return rs.next();
+            boolean isBanned = rs.next();
+            return isBanned;
         } catch (SQLException e) {
             e.printStackTrace();
         }

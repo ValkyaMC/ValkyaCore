@@ -12,7 +12,6 @@ public class ListenerManager {
 
         pm.registerEvents(new DatabasePlayerJoin(), instance);
         pm.registerEvents(new AsyncPlayerChatAntiSpam(), instance);
-        pm.registerEvents(new AntiInsulteAsyncPlayerChat(), instance);
         pm.registerEvents(new PortalPlayerInteract(), instance);
         pm.registerEvents(new SanctionPlayerChat(), instance);
         pm.registerEvents(new XPBottleClic(), instance);

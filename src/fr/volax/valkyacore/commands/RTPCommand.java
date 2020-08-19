@@ -35,15 +35,15 @@ public class RTPCommand implements CommandExecutor {
 
         if(ConfigBuilder.getBoolean("rtp.cooldown-active") && (!TeleportCooldownHandler.areTherePlayersInTheMap())){
             TeleportCooldownHandler cooldown = TeleportCooldownHandler.getCooldown(player);
-            System.out.println(cooldown);
-            System.out.println(player);
-            if(!cooldown.check(player) && (cooldown.getTimeLeft(player) * -1L >= 1L)){
-                ValkyaUtils.sendChat(player,ConfigBuilder.getCString("messages.rtp.error", ConfigType.MESSAGES.getConfigName()).replaceAll("&","§").replaceAll("%cooldown%", getTimeLeft(Math.toIntExact(cooldown.getTimeLeft(player) * -1L))));
-                return true;
-            }else if(cooldown.getTimeLeft(player) * -1L == 0L){
-                cooldown.finalize();
-            }else{
-                cooldown.finalize();
+            if(cooldown != null){
+                if(!cooldown.check(player) && (cooldown.getTimeLeft(player) * -1L >= 1L)){
+                    ValkyaUtils.sendChat(player,ConfigBuilder.getCString("messages.rtp.error", ConfigType.MESSAGES.getConfigName()).replaceAll("&","§").replaceAll("%cooldown%", getTimeLeft(Math.toIntExact(cooldown.getTimeLeft(player) * -1L))));
+                    return true;
+                }else if(cooldown.getTimeLeft(player) * -1L == 0L){
+                    cooldown.finalize();
+                }else{
+                    cooldown.finalize();
+                }
             }
         }
         TeleportHandler tp = new TeleportHandler(player, Bukkit.getWorld(ConfigBuilder.getString("rtp.world")), ConfigBuilder.getInt("rtp.x"), ConfigBuilder.getInt("rtp.z"));

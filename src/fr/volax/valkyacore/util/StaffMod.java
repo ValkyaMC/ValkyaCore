@@ -28,16 +28,18 @@ public class StaffMod {
             player.removePotionEffect(PotionEffectType.INVISIBILITY);
             player.setHealth(player.getMaxHealth());
             player.setFoodLevel(20);
+            if(player.getGameMode() != GameMode.CREATIVE)
+                player.setAllowFlight(false);
+                player.setFlying(false);
         } else {
             StaffInventory inv = new StaffInventory(player);
             inv.save();
             player.setGameMode(GameMode.SURVIVAL);
             player.setAllowFlight(true);
-            player.teleport(player.getLocation().clone().add(0.0D, 0.2D, 0.0D));
             player.setFlying(true);
             player.setHealth(player.getMaxHealth());
             player.setFoodLevel(20);
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000,3,false, false));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 100000,2,false));
             player.getInventory().clear();
             player.getInventory().setHelmet(null);
             player.getInventory().setChestplate(null);
@@ -48,16 +50,11 @@ public class StaffMod {
             ItemBuilder knockback = (new ItemBuilder(Material.STICK)).setName("§a§lTest de recul").setLore("§7Clic gauche > Tester le recul d'un joueur.", "§7Clic droit > /." ).addUnsafeEnchantment(Enchantment.KNOCKBACK, 10);
             ItemBuilder killer = (new ItemBuilder(Material.WOOD_SWORD)).setName("§c§lTueur").setLore("§7Clic gauche > /.", "§7Clic droit > Tuer le joueur." );
             ItemBuilder random = (new ItemBuilder(Material.COMPASS)).setName("§6§lTéléporation aléatoire").setLore("§7Clic gauche > /.", "§7Clic droit > Se téléporter à un joueur aléatoire.");
-            ItemBuilder soon = (new ItemBuilder(Material.REDSTONE_BLOCK)).setName("§e§k§l*** ***").setLore("§7Clic gauche > §k***§7.", "§7Clic droit > §k***§7." );
             player.getInventory().setItem(0, freeze.toItemStack());
             player.getInventory().setItem(1, invsee.toItemStack());
             player.getInventory().setItem(3, knockback.toItemStack());
             player.getInventory().setItem(4, killer.toItemStack());
             player.getInventory().setItem(5, random.toItemStack());
-            player.getInventory().setItem(6, soon.toItemStack());
-            player.getInventory().setItem(2, soon.toItemStack());
-            player.getInventory().setItem(7, soon.toItemStack());
-            player.getInventory().setItem(8, soon.toItemStack());
             player.updateInventory();
             main.mode.put(player, inv);
         }

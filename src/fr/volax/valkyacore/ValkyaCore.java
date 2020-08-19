@@ -158,9 +158,24 @@ public class ValkyaCore extends JavaPlugin {
     public void startGames() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             public void run() {
-                if(LocalDateTime.now().getSecond() != 0) return;
 
-                if (LocalDateTime.now().getMinute() == 30) {
+                if (LocalDateTime.now().getMinute() == 29 && LocalDateTime.now().getMinute() == 55) {
+                    ValkyaUtils.broadcast("§eLancement du jeu de rapidité dans §65 §esecondes !");
+                }
+
+                if (LocalDateTime.now().getMinute() == 29 && LocalDateTime.now().getMinute() == 56) {
+                    ValkyaUtils.broadcast("§eLancement du jeu de rapidité dans §64 §esecondes !");
+                }
+                if (LocalDateTime.now().getMinute() == 29 && LocalDateTime.now().getMinute() == 57) {
+                    ValkyaUtils.broadcast("§eLancement du jeu de rapidité dans §63 §esecondes !");
+                }
+                if (LocalDateTime.now().getMinute() == 29 && LocalDateTime.now().getMinute() == 58) {
+                    ValkyaUtils.broadcast("§eLancement du jeu de rapidité dans §62 §esecondes !");
+                }
+                if (LocalDateTime.now().getMinute() == 29 && LocalDateTime.now().getMinute() == 59) {
+                    ValkyaUtils.broadcast("§eLancement du jeu de rapidité dans §61 §eseconde !");
+                }
+                if (LocalDateTime.now().getMinute() == 30 && LocalDateTime.now().getMinute() == 0) {
                     getNumberGame().newGame();
                 }
             }
@@ -272,6 +287,8 @@ public class ValkyaCore extends JavaPlugin {
             }
         }
     }
+
+
 
     public StaffMod getStaffMod() {
         return staffMod;

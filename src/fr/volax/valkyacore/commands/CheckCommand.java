@@ -17,7 +17,7 @@ public class CheckCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().checkUse)) return false;
-        if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "commands.check")) return false;
+        if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.check")) return false;
 
         if(args.length != 1){
             sender.sendMessage(ConfigBuilder.getCString("messages.check.help-message", ConfigType.MESSAGES.getConfigName()));

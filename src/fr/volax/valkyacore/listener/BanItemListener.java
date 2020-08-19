@@ -24,7 +24,8 @@ public class BanItemListener implements Listener {
                 for(String regions : (List<String>)ConfigBuilder.getCList("regions", ConfigType.BANITEMS.getConfigName())){
                     if(regions.isEmpty()) return;
                     if(isInRegion(player, regions)){
-                        if(event.getItem().getType() == Material.AIR) return;
+                       if(event.getItem() == null) return;
+                       if(event.getItem().getType() == Material.AIR) return;
                         if(event.getItem().getType() == banItem){
                             event.setCancelled(true);
                             ValkyaUtils.sendChat(player, "§eCet item est désactivé ici !");
