@@ -1,8 +1,13 @@
+/*
+ * Copyright (c) 2020. Class by Valkya
+ * https://dev.volax.fr
+ * https://github.com/VolaxYT
+ * https://www.youtube.com/c/Volax
+ */
+
 package fr.volax.valkyacore.util;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.listener.OnEntityDespawn;
-import fr.volax.valkyacore.listener.OnEntitySpawn;
 import fr.volax.valkyacore.tool.ConfigType;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import org.bukkit.Bukkit;
@@ -57,11 +62,6 @@ public class MobStackerConfig {
         killMobStackOnFall = ConfigBuilder.getCBool("killMobStackOnFall", ConfigType.MOBSTACKER.getConfigName());
         compileRegionList((List<String>) ConfigBuilder.getCList("WorldGuardRegions", ConfigType.MOBSTACKER.getConfigName())); // Load EntityTypes list (mobTypes)
 
-        //Load Event if needed - If the event was not loaded before && needs to be loaded - load event
-        if(!stackOnlySpawnerMobsBefore && stackOnlySpawnerMobs){
-            Bukkit.getPluginManager().registerEvents(new OnEntitySpawn(), ValkyaCore.getInstance());
-            Bukkit.getPluginManager().registerEvents(new OnEntityDespawn(), ValkyaCore.getInstance());
-        }
 
     }
 

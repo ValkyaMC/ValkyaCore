@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2020. Class by Valkya
+ * https://dev.volax.fr
+ * https://github.com/VolaxYT
+ * https://www.youtube.com/c/Volax
+ */
+
 package fr.volax.valkyacore.listener;
 
 import java.text.DecimalFormat;
@@ -23,7 +30,8 @@ public class PlayerListener implements Listener {
   public void onPlayerInteract(PlayerInteractEvent event) {
     if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
       Player player = event.getPlayer();
-      if (player.getItemInHand() != null && player.getItemInHand().getType() != Material.AIR && player.getItemInHand().getType() == Material.STICK && player.getItemInHand().getItemMeta().getDisplayName().equals("§eChecker"))
+      if(player.getItemInHand().getType() == Material.AIR) return;
+      if (player.getItemInHand().getType() == Material.STICK && player.getItemInHand().getItemMeta().getDisplayName().equals("§eChecker"))
         try {
           float totalDurability, remainingDurability;
           Block block = event.getClickedBlock();

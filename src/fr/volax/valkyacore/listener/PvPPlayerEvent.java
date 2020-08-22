@@ -1,16 +1,16 @@
+/*
+ * Copyright (c) 2020. Class by Valkya
+ * https://dev.volax.fr
+ * https://github.com/VolaxYT
+ * https://www.youtube.com/c/Volax
+ */
+
 package fr.volax.valkyacore.listener;
 
-import com.sk89q.worldguard.bukkit.RegionContainer;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import com.sk89q.worldguard.protection.managers.RegionManager;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.util.ValkyaUtils;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +19,6 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.List;
-import java.util.Vector;
 
 public class PvPPlayerEvent implements Listener {
     @EventHandler
@@ -34,6 +33,7 @@ public class PvPPlayerEvent implements Listener {
             if(isInRegion(damaged, regions) || isInRegion(damager, regions))
                 return;
         }
+
         if(ValkyaCore.getInstance().getPvPPlayerManager().doesPlayerExist(damaged)){
             ValkyaCore.getInstance().getPvPPlayerManager().resetTime(damaged);
         }else{

@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2020. Class by Valkya
+ * https://dev.volax.fr
+ * https://github.com/VolaxYT
+ * https://www.youtube.com/c/Volax
+ */
+
 package fr.volax.valkyacore.util;
 
 import fr.volax.valkyacore.ValkyaCore;
@@ -187,10 +194,10 @@ public class PlayerUtils {
         throw new NullPointerException("Le joueur n'a pas d'informations dans la BDD !");
     }
 
-    public void setFirstLoginKit(String playerName, String dddd){
+    public void setFirstLoginKit(String playerName, String hadKit){
         try {
             PreparedStatement update = ValkyaCore.getInstance().sql.connection.prepareStatement("UPDATE users SET haveKit=? WHERE playerName=?");
-            update.setString(1,  dddd);
+            update.setString(1,  hadKit);
             update.setString(2, playerName);
             update.executeUpdate();
             update.close();
