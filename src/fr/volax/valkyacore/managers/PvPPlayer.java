@@ -23,7 +23,7 @@ public class PvPPlayer {
     public PvPPlayer(Player player) {
         this.player = player;
         this.uuid = player.getUniqueId();
-        this.timeToPvP = 15;
+        this.timeToPvP = 30;
         startTimer();
     }
 

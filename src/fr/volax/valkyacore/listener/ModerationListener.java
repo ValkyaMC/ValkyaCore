@@ -200,7 +200,6 @@ public class ModerationListener implements Listener {
         if (ValkyaCore.getInstance().getStaffMod().isInStaffMode(player)) {
             ValkyaCore.getInstance().getStaffMod().byPlayer(player).give();
             ValkyaCore.getInstance().getStaffMod().getMode().remove(player);
-            player.removePotionEffect(PotionEffectType.INVISIBILITY);
             player.setHealth(player.getMaxHealth());
             player.setAllowFlight(false);
             player.setFlying(false);

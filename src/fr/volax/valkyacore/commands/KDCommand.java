@@ -26,7 +26,6 @@ public class KDCommand implements CommandExecutor {
         if(!ValkyaCore.getInstance().getPlayerUtils().isPlayer(sender)) return false;
         Player player = (Player)sender;
 
-        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(player, ValkyaCore.getInstance().getPermissionsHelper().kdrUse)) return false;
         if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.kd")) return false;
 
         if(args.length == 0){

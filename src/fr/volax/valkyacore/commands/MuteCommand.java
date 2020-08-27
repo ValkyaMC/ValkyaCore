@@ -52,9 +52,7 @@ public class MuteCommand implements CommandExecutor {
 
         if(args[1].equalsIgnoreCase("perm") || args[1].equalsIgnoreCase("perma") || args[1].equalsIgnoreCase("permanent") || args[1].equalsIgnoreCase("p")){
             if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().mutePermUse)) return false;
-            if(!ValkyaCore.getInstance().getMuteManager().mute(targetUUID, sender, -1, reason, args)) return false;
             ValkyaCore.getInstance().getMuteManager().mute(targetUUID, sender, -1, reason, args);
-            sender.sendMessage(ConfigBuilder.getCString("messages.mute.have-been-permamute", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", targetName).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
             return false;
         }
 
@@ -82,8 +80,7 @@ public class MuteCommand implements CommandExecutor {
         TimeUnit unit = TimeUnit.getFromShortcut(args[1].split(":")[1]);
         long muteTime = unit.getToSecond() * duration;
 
-        if(!ValkyaCore.getInstance().getMuteManager().mute(targetUUID, sender, muteTime, reason, args)) return false;
-        ValkyaCore.getInstance().getMuteManager().mute(targetUUID, sender, muteTime, reason, args);
+        ValkyaCore.getInstance().getMuteManager().tempMute(targetUUID, sender, muteTime, reason, args, unit, duration);
         sender.sendMessage(ConfigBuilder.getCString("messages.mute.have-been-tempmute", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", targetName).replaceAll("%duration%", duration + " " + unit.getName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
         return false;
     }

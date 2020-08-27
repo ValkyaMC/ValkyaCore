@@ -37,7 +37,6 @@ public class RTPCommand implements CommandExecutor {
         if (!ValkyaCore.getInstance().getPlayerUtils().isPlayer(sender)) return false;
         Player player = (Player)sender;
 
-        if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().rtpUse)) return false;
         if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.rtp")) return false;
 
         if(ConfigBuilder.getBoolean("rtp.cooldown-active") && (!TeleportCooldownHandler.areTherePlayersInTheMap())){

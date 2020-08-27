@@ -8,7 +8,6 @@
 package fr.volax.valkyacore.listener;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.chatgames.NumberGame;
 import fr.volax.valkyacore.commands.ReportLogCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -33,7 +32,6 @@ public class ListenerManager {
         pm.registerEvents(new GlobalPlayerQuit(), instance);
 
         pm.registerEvents(new HeadOnDeath(), instance);
-        pm.registerEvents(new NumberGame(), instance);
         pm.registerEvents(new DisableMoreTotems(), instance);
         pm.registerEvents(new ReportLogCommand("reportlog"), instance);
     }

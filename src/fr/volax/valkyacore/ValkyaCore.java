@@ -8,7 +8,6 @@
 package fr.volax.valkyacore;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import fr.volax.valkyacore.chatgames.NumberGame;
 import fr.volax.valkyacore.commands.CommandManager;
 import fr.volax.valkyacore.listener.BlockListener;
 import fr.volax.valkyacore.listener.ListenerManager;
@@ -31,7 +30,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -50,7 +48,6 @@ public class ValkyaCore extends JavaPlugin {
     private PlayerUtils playerUtils;
     private PermissionsHelper permissionsHelper;
     public Database sql;
-    public NumberGame numberGame;
     private GuiManager guiManager;
     private EntityStackerManager entityStacker;
     private PvPPlayerManager pvPPlayerManager;
@@ -96,7 +93,6 @@ public class ValkyaCore extends JavaPlugin {
         MobStackerConfig.reloadConfig();
         entityStacker = new EntityStackerManager(MobStackerConfig.stackRadius, MobStackerConfig.mobsToStack);
         stackEntity = new StackEntity();
-        numberGame = new NumberGame();
         pvPPlayerManager = new PvPPlayerManager();
         blockListener = new BlockListener();
         playerListener = new PlayerListener();
@@ -124,7 +120,6 @@ public class ValkyaCore extends JavaPlugin {
         //********************************************
         if(ConfigBuilder.getCBool("enabled", ConfigType.GAMECHAT.getConfigName())){
             this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dInitialisation des chat Games...");
-            startGames();
         }
 
         //********************************************
@@ -158,35 +153,8 @@ public class ValkyaCore extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if(sql.isConnected()) sql.disconnect();
+        if (sql.isConnected()) sql.disconnect();
         stopGames();
-    }
-
-    public void startGames() {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-            public void run() {
-
-                if (LocalDateTime.now().getMinute() == 29 && LocalDateTime.now().getMinute() == 55) {
-                    ValkyaUtils.broadcast("§eLancement du jeu de rapidité dans §65 §esecondes !");
-                }
-
-                if (LocalDateTime.now().getMinute() == 29 && LocalDateTime.now().getMinute() == 56) {
-                    ValkyaUtils.broadcast("§eLancement du jeu de rapidité dans §64 §esecondes !");
-                }
-                if (LocalDateTime.now().getMinute() == 29 && LocalDateTime.now().getMinute() == 57) {
-                    ValkyaUtils.broadcast("§eLancement du jeu de rapidité dans §63 §esecondes !");
-                }
-                if (LocalDateTime.now().getMinute() == 29 && LocalDateTime.now().getMinute() == 58) {
-                    ValkyaUtils.broadcast("§eLancement du jeu de rapidité dans §62 §esecondes !");
-                }
-                if (LocalDateTime.now().getMinute() == 29 && LocalDateTime.now().getMinute() == 59) {
-                    ValkyaUtils.broadcast("§eLancement du jeu de rapidité dans §61 §eseconde !");
-                }
-                if (LocalDateTime.now().getMinute() == 30 && LocalDateTime.now().getMinute() == 0) {
-                    getNumberGame().newGame();
-                }
-            }
-        },20, 20);
     }
 
     public void stopGames() {
@@ -243,10 +211,6 @@ public class ValkyaCore extends JavaPlugin {
         if (economyProvider != null)
             economy = economyProvider.getProvider();
         return (economy != null);
-    }
-
-    public NumberGame getNumberGame() {
-        return numberGame;
     }
 
     public PvPPlayerManager getPvPPlayerManager() {

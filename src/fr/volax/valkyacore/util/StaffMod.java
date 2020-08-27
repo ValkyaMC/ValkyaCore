@@ -32,12 +32,12 @@ public class StaffMod {
         if (isInStaffMode(player)) {
             byPlayer(player).give();
             main.mode.remove(player);
-            player.removePotionEffect(PotionEffectType.INVISIBILITY);
             player.setHealth(player.getMaxHealth());
             player.setFoodLevel(20);
-            if(player.getGameMode() != GameMode.CREATIVE)
+            if(player.getGameMode() != GameMode.CREATIVE){
                 player.setAllowFlight(false);
                 player.setFlying(false);
+            }
         } else {
             StaffInventory inv = new StaffInventory(player);
             inv.save();
@@ -46,7 +46,6 @@ public class StaffMod {
             player.setFlying(true);
             player.setHealth(player.getMaxHealth());
             player.setFoodLevel(20);
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 100000,2,false));
             player.getInventory().clear();
             player.getInventory().setHelmet(null);
             player.getInventory().setChestplate(null);

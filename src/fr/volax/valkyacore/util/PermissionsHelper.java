@@ -24,7 +24,6 @@ public class PermissionsHelper {
     public Permission kickUse = new Permission(ConfigBuilder.getString("permissions.kick-use"));
     public Permission kickBypass = new Permission(ConfigBuilder.getString("permissions.kick-bypass"));
 
-
     public Permission muteUse = new Permission(ConfigBuilder.getString("permissions.mute-use"));
     public Permission mutePermUse = new Permission(ConfigBuilder.getString("permissions.mute-perm-use"));
     public Permission muteBypass = new Permission(ConfigBuilder.getString("permissions.mute-bypass"));
@@ -34,7 +33,6 @@ public class PermissionsHelper {
     public Permission xpBottleUse = new Permission(ConfigBuilder.getString("permissions.xpbottle-use"));
     public Permission xpBottleGive = new Permission(ConfigBuilder.getString("permissions.xpbottle-give"));
 
-    public Permission cooldownChatModif = new Permission(ConfigBuilder.getString("permissions.cooldownchat-modif"));
     public Permission cooldownChatBypass = new Permission(ConfigBuilder.getString("permissions.cooldownchat-bypass"));
 
     public Permission xpDeath = new Permission(ConfigBuilder.getString("permissions.xp-death"));
@@ -42,21 +40,16 @@ public class PermissionsHelper {
     public Permission reportUse = new Permission(ConfigBuilder.getString("permissions.report-use"));
     public Permission reportReceive = new Permission(ConfigBuilder.getString("permissions.report-receive"));
 
-    public Permission moderationChat = new Permission(ConfigBuilder.getString("permissions.moderation-chat"));
 
     public Permission gamemodeChange = new Permission(ConfigBuilder.getString("permissions.gamemode-change"));
     public Permission gamemodeChangeOther = new Permission(ConfigBuilder.getString("permissions.gamemode-change-other"));
     public Permission gamemodeNotify = new Permission(ConfigBuilder.getString("permissions.gamemode-notify"));
-
-    public Permission kdrUse = new Permission(ConfigBuilder.getString("permissions.kdr-use"));
 
     public Permission repairHand = new Permission(ConfigBuilder.getString("permissions.repair-hand"));
     public Permission repairAll = new Permission(ConfigBuilder.getString("permissions.repair-all"));
     public Permission repairBypassCooldown = new Permission(ConfigBuilder.getString("permissions.repair-bypass-cooldown"));
 
     public Permission broadcastUse = new Permission(ConfigBuilder.getString("permissions.broadcast-use"));
-
-    public Permission rtpUse = new Permission(ConfigBuilder.getString("permissions.rtp-use"));
 
     public Permission chatOffBypass = new Permission(ConfigBuilder.getString("permissions.chat-off-bypass"));
     public Permission chatChangeSet = new Permission(ConfigBuilder.getString("permissions.chat-changeset-use"));

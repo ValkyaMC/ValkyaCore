@@ -22,10 +22,7 @@ public class PvPPlayerManager {
     }
 
     public boolean doesPlayerExist(Player player){
-        if(getPvPPlayer(player.getUniqueId()) == null){
-            return false;
-        }
-        return true;
+        return getPvPPlayer(player.getUniqueId()) != null;
     }
 
     public synchronized PvPPlayer newPvPPlayer(Player player){
