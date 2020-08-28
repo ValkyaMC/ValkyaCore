@@ -25,7 +25,7 @@ public class CheckerCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(!ValkyaCore.getInstance().getPlayerUtils().isPlayer(sender)) return false;
         if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.checker")) return false;
-        ((Player)sender).getInventory().addItem(new ItemBuilder(Material.STICK, 1).setName("§eChecker").addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 5).setLore("§eCet item vous permet de voir la durabilité", "des blocs de bases claims").toItemStack());
+        ((Player)sender).getInventory().addItem(new ItemBuilder(Material.STICK, 1).setName("§eChecker").addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 5).setLore("§eCet item vous permet de voir la durabilité", "§edes blocs de bases claims").toItemStack());
         return false;
     }
 }

@@ -24,6 +24,7 @@ public class BanCommand implements CommandExecutor {
     BanCommand(String string) {
         ValkyaCore.getInstance().getCommand(string).setExecutor(this);
     }
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().banUse)) return false;
@@ -51,8 +52,6 @@ public class BanCommand implements CommandExecutor {
 
         if (args[1].equalsIgnoreCase("perm") || args[1].equalsIgnoreCase("perma") || args[1].equalsIgnoreCase("permanent") || args[1].equalsIgnoreCase("p")) {
             if (!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().banPermUse)) return false;
-            if (!ValkyaCore.getInstance().getBanManager().ban(targetUUID, sender, -1, reason.toString(), args)) return false;
-            sender.sendMessage(ConfigBuilder.getCString("messages.ban.have-been-permaban", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", targetName).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason.toString()))));
             ValkyaCore.getInstance().getBanManager().ban(targetUUID, sender, -1, reason.toString(), args);
             return false;
         }
@@ -81,10 +80,7 @@ public class BanCommand implements CommandExecutor {
         TimeUnit unit = TimeUnit.getFromShortcut(args[1].split(":")[1]);
         long bantime = unit.getToSecond() * duration;
 
-        if (!ValkyaCore.getInstance().getBanManager().ban(targetUUID, sender, bantime, reason.toString(), args))
-            return false;
-        sender.sendMessage(ConfigBuilder.getCString("messages.ban.have-been-tempban", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", targetName).replaceAll("%duration%", duration + " " + unit.getName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason.toString()))));
-        ValkyaCore.getInstance().getBanManager().ban(targetUUID, sender, bantime, reason.toString(), args);
+        ValkyaCore.getInstance().getBanManager().tempBan(targetUUID, sender, bantime, reason.toString(), args, unit, duration);
         return false;
     }
 

@@ -39,7 +39,6 @@ public class MobStackerConfig {
 
 
     public static void reloadConfig() {
-        boolean stackOnlySpawnerMobsBefore = stackOnlySpawnerMobs;
         stackRadius = ConfigBuilder.getCInt("StackRadius", ConfigType.MOBSTACKER.getConfigName());
         compileEntityTypesList((List<String>) ConfigBuilder.getCList("MobTypes", ConfigType.MOBSTACKER.getConfigName())); // Load EntityTypes list (mobTypes)
         updateTickDelay = ConfigBuilder.getCInt("UpdateTickDelay", ConfigType.MOBSTACKER.getConfigName());
@@ -47,12 +46,8 @@ public class MobStackerConfig {
         String stackFormat = ConfigBuilder.getCString("StackFormat", ConfigType.MOBSTACKER.getConfigName());
         stackMobsDispalyName = ChatColor.translateAlternateColorCodes('&',stackFormat);
         for(String s : stackFormat.split(" ")){
-            if(s.contains("%number%")){
-                break;
-            }else{
-                indexLocation++;
-                continue;
-            }
+            if(s.contains("%number%")) break;
+            else indexLocation++;
         }
 
         compileWorldList((List<String>) ConfigBuilder.getCList("DisabledWorlds", ConfigType.MOBSTACKER.getConfigName())); // Load Worlds

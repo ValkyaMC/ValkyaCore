@@ -40,7 +40,7 @@ public class ChatEvent implements Listener {
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event){
         Player player = event.getPlayer();
-        UUID playerUUID = player.getUniqueId();
+        UUID playerUUID = ValkyaCore.getInstance().getPlayerUtils().getUUID(player.getName());
 
         if(!ConfigBuilder.getString("chat").equalsIgnoreCase("true")){
             if(!player.hasPermission(ValkyaCore.getInstance().getPermissionsHelper().chatOffBypass)){
@@ -63,6 +63,13 @@ public class ChatEvent implements Listener {
         if(cmd[0].equalsIgnoreCase("/ver") || cmd[0].equalsIgnoreCase("/pl") || cmd[0].equalsIgnoreCase("/bukkit:plugins") || cmd[0].equalsIgnoreCase("/bukkit:pl") || cmd[0].equalsIgnoreCase("/version")   || cmd[0].equalsIgnoreCase("/about") || cmd[0].equalsIgnoreCase("//calc") || cmd[0].equalsIgnoreCase("/ipwl") || cmd[0].equalsIgnoreCase("/bukkit:help") || cmd[0].equalsIgnoreCase("/bukkit:?") || cmd[0].equalsIgnoreCase("/?") || cmd[0].equalsIgnoreCase("/bukkit:about") || cmd[0].equalsIgnoreCase("/bukkit:version") || cmd[0].equalsIgnoreCase("/bukkit:ver") || cmd[0].equalsIgnoreCase("/cauldron") || cmd[0].equalsIgnoreCase("/cauldron_e") || cmd[0].equalsIgnoreCase("/cauldron:") || cmd[0].equalsIgnoreCase("/thermos") || cmd[0].equalsIgnoreCase("/thermos:")|| cmd[0].equalsIgnoreCase("/plugins")) {
             player.sendMessage(ConfigBuilder.getCString("messages.no-command", ConfigType.MESSAGES.getConfigName()));
             event.setCancelled(true);
+        }
+
+        if(ValkyaCore.getInstance().getMuteManager().isMuted(ValkyaCore.getInstance().getPlayerUtils().getUUID(player.getName()))){
+            if(cmd[0].equalsIgnoreCase("/msg") || cmd[0].equalsIgnoreCase("/message") || cmd[0].equalsIgnoreCase("/tell") || cmd[0].equalsIgnoreCase("/chat") || cmd[0].equalsIgnoreCase("/emsg") || cmd[0].equalsIgnoreCase("/etell")){
+                event.setCancelled(true);
+                ValkyaUtils.sendChat(player, "§eVous ne pouvez pas executer cette commande en étant mute !");
+            }
         }
     }
 }

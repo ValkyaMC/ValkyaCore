@@ -9,6 +9,7 @@ package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.tool.ConfigType;
+import fr.volax.valkyacore.util.ValkyaUtils;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -31,6 +32,7 @@ public class ValkyaConfigReloadCommand implements CommandExecutor {
         ConfigBuilder.configs.getConfig(ConfigType.BANITEMS.getConfigName()).reload();
         ConfigBuilder.configs.getConfig(ConfigType.COOLDOWNCHAT.getConfigName()).reload();
         ConfigBuilder.configs.getConfig(ConfigType.GAMECHAT.getConfigName()).reload();
+        ValkyaUtils.sendChat(sender, "§eVous venez de reload toutes les configs du ValkyaCore");
         return false;
     }
 }

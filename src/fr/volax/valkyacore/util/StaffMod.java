@@ -31,6 +31,9 @@ public class StaffMod {
     public void toggle(Player player) {
         if (isInStaffMode(player)) {
             byPlayer(player).give();
+            for (Player p : ValkyaCore.getInstance().getServer().getOnlinePlayers()) {
+                if (!p.equals(player)) p.showPlayer(player);
+            }
             main.mode.remove(player);
             player.setHealth(player.getMaxHealth());
             player.setFoodLevel(20);
@@ -46,6 +49,9 @@ public class StaffMod {
             player.setFlying(true);
             player.setHealth(player.getMaxHealth());
             player.setFoodLevel(20);
+            for (Player p : ValkyaCore.getInstance().getServer().getOnlinePlayers()) {
+                if (!p.equals(player)) p.hidePlayer(player);
+            }
             player.getInventory().clear();
             player.getInventory().setHelmet(null);
             player.getInventory().setChestplate(null);

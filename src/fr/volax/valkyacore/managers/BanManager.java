@@ -23,8 +23,8 @@ import java.util.Random;
 import java.util.UUID;
 
 public class BanManager {
-    public boolean ban(UUID playeruuid, CommandSender moderator, long endInSeconds, String reason, String[] args) {
-        if (isBanned(playeruuid)) return false;
+    public void ban(UUID playeruuid, CommandSender moderator, long endInSeconds, String reason, String[] args) {
+        if (isBanned(playeruuid)) return;
 
         long endToMillis = endInSeconds * 1000;
         long end = endToMillis + System.currentTimeMillis();
@@ -38,62 +38,64 @@ public class BanManager {
         if (playerP != null) {
             if (playerP.hasPermission(ValkyaCore.getInstance().getPermissionsHelper().banBypass)) {
                 moderator.sendMessage(ConfigBuilder.getCString("messages.ban.cant-ban", ConfigType.MESSAGES.getConfigName()));
-                return false;
+                return;
             }
         }
 
-        if (moderator instanceof Player) {
-            Player moderatorP = (Player) moderator;
-            try {
-                PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO bans (playerName, playerUUID, moderatorName, moderatorUUID, end, reason) VALUES (?,?,?,?,?,?)");
-                query.setString(1, args[0]);
-                query.setString(2, playeruuid.toString());
-                query.setString(3, moderatorP.getName());
-                query.setString(4, moderatorP.getUniqueId().toString());
-                query.setLong(5, end);
-                query.setString(6, reason);
-                query.executeUpdate();
-                PreparedStatement queryLogs = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO logs (playerName, playerUUID, moderatorName, moderatorUUID, type, reason) VALUES (?,?,?,?,?,?)");
-                queryLogs.setString(1, args[0]);
-                queryLogs.setString(2, playeruuid.toString());
-                queryLogs.setString(3, moderatorP.getName());
-                queryLogs.setString(4, moderatorP.getUniqueId().toString());
-                queryLogs.setString(5, "ban");
-                queryLogs.setString(6, reason);
-                queryLogs.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        try {
+            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO bans (playerName, playerUUID, moderatorName, end, reason) VALUES (?,?,?,?,?)");
+            query.setString(1, args[0]);
+            query.setString(2, playeruuid.toString());
+            query.setString(3, moderator.getName());
+            query.setLong(4, end);
+            query.setString(5, reason);
+            query.executeUpdate();
+            PreparedStatement queryLogs = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO logs (playerName, playerUUID, moderatorName, type, reason) VALUES (?,?,?,?,?)");
+            queryLogs.setString(1, args[0]);
+            queryLogs.setString(2, playeruuid.toString());
+            queryLogs.setString(3, moderator.getName());
+            queryLogs.setString(4, "ban");
+            queryLogs.setString(5, reason);
+            queryLogs.executeUpdate();
 
-        } else {
-            try {
-                int randomint = new Random().nextInt(10 * 100000);
-                PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO bans (playerName, playerUUID, moderatorName, moderatorUUID, end, reason) VALUES (?,?,?,?,?,?)");
-                query.setString(1, args[0]);
-                query.setString(2, playeruuid.toString());
-                query.setString(3, "Console");
-                query.setString(4, "ConsoleUUID." + randomint);
-                query.setLong(5, end);
-                query.setString(6, reason);
-                query.executeUpdate();
-                PreparedStatement queryLogs = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO logs (playerName, playerUUID, moderatorName, moderatorUUID, type, reason) VALUES (?,?,?,?,?,?)");
-                queryLogs.setString(1, args[0]);
-                queryLogs.setString(2, playeruuid.toString());
-                queryLogs.setString(3, "Console");
-                queryLogs.setString(4, "ConsoleUUID." + randomint);
-                queryLogs.setString(5, "ban");
-                queryLogs.setString(6, reason);
-                queryLogs.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            Bukkit.broadcastMessage(ConfigBuilder.getCString("messages.ban.have-been-permaban", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", ValkyaCore.getInstance().getPlayerUtils().getName(playeruuid)).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason.toString()))));
+            if (playerP != null) playerP.kickPlayer(ConfigBuilder.getCString("messages.ban.banned-player-join", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getBanManager().getReason(playeruuid)).replaceAll("%time%", ValkyaCore.getInstance().getBanManager().getTimeLeft(playeruuid)));
+            } catch (SQLException e) { e.printStackTrace(); }
+    }
 
-        }
+    public void tempBan(UUID playeruuid, CommandSender moderator, long endInSeconds, String reason, String[] args, TimeUnit unit, long duration) {
+        if (isBanned(playeruuid)) return;
+
+        long endToMillis = endInSeconds * 1000;
+        long end = endToMillis + System.currentTimeMillis();
+        Player playerP = Bukkit.getPlayer(playeruuid);
+
         if (playerP != null) {
-            playerP.kickPlayer(ConfigBuilder.getCString("messages.ban.banned-player-join", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getBanManager().getReason(playeruuid)).replaceAll("%time%", ValkyaCore.getInstance().getBanManager().getTimeLeft(playeruuid)));
-            return true;
+            if (playerP.hasPermission(ValkyaCore.getInstance().getPermissionsHelper().banBypass)) {
+                moderator.sendMessage(ConfigBuilder.getCString("messages.ban.cant-ban", ConfigType.MESSAGES.getConfigName()));
+                return;
+            }
         }
-        return false;
+
+        try {
+            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO bans (playerName, playerUUID, moderatorName, end, reason) VALUES (?,?,?,?,?)");
+            query.setString(1, args[0]);
+            query.setString(2, playeruuid.toString());
+            query.setString(3, moderator.getName());
+            query.setLong(4, end);
+            query.setString(5, reason);
+            query.executeUpdate();
+            PreparedStatement queryLogs = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO logs (playerName, playerUUID, moderatorName, type, reason) VALUES (?,?,?,?,?)");
+            queryLogs.setString(1, args[0]);
+            queryLogs.setString(2, playeruuid.toString());
+            queryLogs.setString(3, moderator.getName());
+            queryLogs.setString(4, "ban");
+            queryLogs.setString(5, reason);
+            queryLogs.executeUpdate();
+
+            Bukkit.broadcastMessage(ConfigBuilder.getCString("messages.ban.have-been-tempban", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", ValkyaCore.getInstance().getPlayerUtils().getName(playeruuid)).replaceAll("%duration%", duration + " " + unit.getName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason.toString()))));
+            if (playerP != null) playerP.kickPlayer(ConfigBuilder.getCString("messages.ban.banned-player-join", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getBanManager().getReason(playeruuid)).replaceAll("%time%", ValkyaCore.getInstance().getBanManager().getTimeLeft(playeruuid)));
+        } catch (SQLException e) { e.printStackTrace(); }
     }
 
     public void unban(UUID uuid) {

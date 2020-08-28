@@ -1,6 +1,6 @@
 name: ValkyaCore
 main: fr.volax.valkyacore.ValkyaCore
-version: 1.1.02
+version: 1.1.03
 author: Volax
 depend: [WorldGuard, Vault, VolaxAPI]
 description: ValkyaCore plugin for Valkya
@@ -45,7 +45,7 @@ commands:
   rtp:
     aliases: [randomtp]
     description: RTP commande
-  chat:
+  vchat:
     description: Chat commande
   combat:
     description: Combat commande

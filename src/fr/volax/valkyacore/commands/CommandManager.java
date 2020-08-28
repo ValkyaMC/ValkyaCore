@@ -25,7 +25,7 @@ public class CommandManager {
         new RepairCommand("repair");
         new BroadcastCommand("broadcast");
         new RTPCommand("rtp");
-        new ChatCommand("chat");
+        new ChatCommand("vchat");
         new CombatCommand("combat");
         new KickAllCommand("kickall");
         new CheckerCommand("checker");

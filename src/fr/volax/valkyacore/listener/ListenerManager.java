@@ -33,6 +33,7 @@ public class ListenerManager {
 
         pm.registerEvents(new HeadOnDeath(), instance);
         pm.registerEvents(new DisableMoreTotems(), instance);
+        pm.registerEvents(new InteractEvent(), instance);
         pm.registerEvents(new ReportLogCommand("reportlog"), instance);
     }
 }

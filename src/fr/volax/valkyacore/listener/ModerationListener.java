@@ -199,6 +199,7 @@ public class ModerationListener implements Listener {
         Player player = event.getPlayer();
         if (ValkyaCore.getInstance().getStaffMod().isInStaffMode(player)) {
             ValkyaCore.getInstance().getStaffMod().byPlayer(player).give();
+            for (Player p : Bukkit.getServer().getOnlinePlayers()) { if (!p.equals(player)) p.showPlayer(player); }
             ValkyaCore.getInstance().getStaffMod().getMode().remove(player);
             player.setHealth(player.getMaxHealth());
             player.setAllowFlight(false);
