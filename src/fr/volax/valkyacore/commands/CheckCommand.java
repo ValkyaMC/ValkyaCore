@@ -33,16 +33,17 @@ public class CheckCommand implements CommandExecutor {
 
         if(!ValkyaCore.getInstance().getPlayerUtils().doesPlayerExist(sender, args[0])) return false;
         UUID targetUUID = ValkyaCore.getInstance().getPlayerUtils().getUUID(args[0]);
+        String targetName = args[0];
 
         sender.sendMessage(ConfigBuilder.getCString("messages.check.separator", ConfigType.MESSAGES.getConfigName()));
         sender.sendMessage(ConfigBuilder.getCString("messages.check.player", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", args[0]));
         sender.sendMessage(ConfigBuilder.getCString("messages.check.uuid", ConfigType.MESSAGES.getConfigName()).replaceAll("%uuid%", targetUUID.toString()));
         sender.sendMessage("§eIP §f: §b" + ValkyaCore.getInstance().getPlayerUtils().getAddress(args[0]));
-        sender.sendMessage(ConfigBuilder.getCString("messages.check.mute", ConfigType.MESSAGES.getConfigName()).replaceAll("%isMute%", ValkyaCore.getInstance().getMuteManager().isMuted(targetUUID) ? "§a✔" : "§c✖"));
-        if(ValkyaCore.getInstance().getMuteManager().isMuted(targetUUID)){
+        sender.sendMessage(ConfigBuilder.getCString("messages.check.mute", ConfigType.MESSAGES.getConfigName()).replaceAll("%isMute%", ValkyaCore.getInstance().getMuteManager().isMuted(targetName) ? "§a✔" : "§c✖"));
+        if(ValkyaCore.getInstance().getMuteManager().isMuted(targetName)){
             sender.sendMessage("");
-            sender.sendMessage(ConfigBuilder.getCString("messages.check.reason", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getMuteManager().getReason(targetUUID)));
-            sender.sendMessage(ConfigBuilder.getCString("messages.check.time", ConfigType.MESSAGES.getConfigName()).replaceAll("%duration%", ValkyaCore.getInstance().getMuteManager().getTimeLeft(targetUUID)));
+            sender.sendMessage(ConfigBuilder.getCString("messages.check.reason", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getMuteManager().getReason(targetName)));
+            sender.sendMessage(ConfigBuilder.getCString("messages.check.time", ConfigType.MESSAGES.getConfigName()).replaceAll("%duration%", ValkyaCore.getInstance().getMuteManager().getTimeLeft(targetName)));
             sender.sendMessage("");
         }
 

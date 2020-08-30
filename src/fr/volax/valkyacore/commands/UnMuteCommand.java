@@ -34,12 +34,12 @@ public class UnMuteCommand implements CommandExecutor {
         if(!ValkyaCore.getInstance().getPlayerUtils().doesPlayerExist(sender, args[0])) return false;
         UUID targetUUID = ValkyaCore.getInstance().getPlayerUtils().getUUID(args[0]);
 
-        if(!ValkyaCore.getInstance().getMuteManager().isMuted(targetUUID)){
+        if(!ValkyaCore.getInstance().getMuteManager().isMuted(args[0])){
             sender.sendMessage(ConfigBuilder.getCString("messages.unmute.no-mute", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
 
-        ValkyaCore.getInstance().getMuteManager().unmute(targetUUID);
+        ValkyaCore.getInstance().getMuteManager().unmute(args[0]);
         sender.sendMessage(ConfigBuilder.getCString("messages.unmute.unmute", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", args[0]));
         return false;
     }

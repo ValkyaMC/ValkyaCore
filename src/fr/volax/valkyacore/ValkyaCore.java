@@ -62,7 +62,8 @@ public class ValkyaCore extends JavaPlugin {
     public Map<Player, StaffInventory> mode;
     public List<UUID> frozen;
     public Map<Inventory, UUID> admin;
-    public HashMap<UUID, Long> cooldown, repair;
+    public HashMap<UUID, Long> repair;
+    public HashMap<String, Long> cooldown;
 
     public final String PREFIX = "§6Valkya »", LOGGER_PREFIX = "["+ this.getName()+"-Logger]";
 

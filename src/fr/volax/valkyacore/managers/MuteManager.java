@@ -10,7 +10,6 @@ package fr.volax.valkyacore.managers;
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.tool.ConfigType;
 import fr.volax.valkyacore.util.PermissionsHelper;
-import fr.volax.valkyacore.util.PlayerUtils;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import fr.volax.volaxapi.tool.time.TimeUnit;
 import org.bukkit.Bukkit;
@@ -21,12 +20,11 @@ import org.bukkit.entity.Player;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Random;
-import java.util.UUID;
 
 public class MuteManager {
-    public void mute(UUID playeruuid, CommandSender moderator, long endInSeconds, String reason, String[] args){
-        if(isMuted(playeruuid)) return;
+    public void mute(CommandSender moderator, long endInSeconds, String reason, String[] args){
+        String playerName = args[0].toLowerCase();
+        if(isMuted(args[0])) return;
 
         long endToMillis = endInSeconds * 1000;
         long end = endToMillis + System.currentTimeMillis();
@@ -35,7 +33,7 @@ public class MuteManager {
             end = -1;
         }
 
-        Player playerP = Bukkit.getPlayer(playeruuid);
+        Player playerP = Bukkit.getPlayer(playerName);
 
         if(playerP != null){
             if(playerP.hasPermission(new PermissionsHelper().muteBypass)){
@@ -45,32 +43,31 @@ public class MuteManager {
         }
 
         try {
-            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO mutes (playerName, playerUUID, moderatorName, end, reason) VALUES (?,?,?,?,?)");
-            query.setString(1, args[0]);
-            query.setString(2, playeruuid.toString());
-            query.setString(3, moderator.getName());
-            query.setLong(4, end);
-            query.setString(5, reason);
+            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO mutes (playerName, moderatorName, end, reason) VALUES (?,?,?,?)");
+            query.setString(1, playerName);
+            query.setString(2, moderator.getName());
+            query.setLong(3, end);
+            query.setString(4, reason);
             query.executeUpdate();
-            PreparedStatement queryLogs = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO logs (playerName, playerUUID, moderatorName, type, reason) VALUES (?,?,?,?,?)");
-            queryLogs.setString(1, args[0]);
-            queryLogs.setString(2, playeruuid.toString());
-            queryLogs.setString(3, moderator.getName());
-            queryLogs.setString(4, "mute");
-            queryLogs.setString(5, reason);
+            PreparedStatement queryLogs = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO logs (playerName, moderatorName, type, reason) VALUES (?,?,?,?)");
+            queryLogs.setString(1, playerName);
+            queryLogs.setString(2, moderator.getName());
+            queryLogs.setString(3, "mute");
+            queryLogs.setString(4, reason);
             queryLogs.executeUpdate();
 
-            Bukkit.broadcastMessage(ConfigBuilder.getCString("messages.mute.have-been-permamute", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", ValkyaCore.getInstance().getPlayerUtils().getName(playeruuid)).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
-            if(playerP != null) playerP.sendMessage(ConfigBuilder.getCString("messages.mute.muted-player-message2", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))).replaceAll("%time%", getTimeLeft(playeruuid)));
+            Bukkit.broadcastMessage(ConfigBuilder.getCString("messages.mute.have-been-permamute", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", playerName).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
+            if(playerP != null) playerP.sendMessage(ConfigBuilder.getCString("messages.mute.muted-player-message2", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))).replaceAll("%time%", getTimeLeft(playerName)));
         } catch (SQLException e) { e.printStackTrace(); }
     }
 
-    public void tempMute(UUID playeruuid, CommandSender moderator, long endInSeconds, String reason, String[] args, TimeUnit unit, long duration){
-        if(isMuted(playeruuid)) return;
+    public void tempMute(CommandSender moderator, long endInSeconds, String reason, String[] args, TimeUnit unit, long duration){
+        String playerName = args[0].toLowerCase();
+        if(isMuted(playerName)) return;
 
         long endToMillis = endInSeconds * 1000;
         long end = endToMillis + System.currentTimeMillis();
-        Player playerP = Bukkit.getPlayer(playeruuid);
+        Player playerP = Bukkit.getPlayer(playerName);
 
         if(playerP != null){
             if(playerP.hasPermission(new PermissionsHelper().muteBypass)){
@@ -80,42 +77,42 @@ public class MuteManager {
         }
 
         try {
-            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO mutes (playerName, playerUUID, moderatorName, end, reason) VALUES (?,?,?,?,?)");
-            query.setString(1, args[0]);
-            query.setString(2, playeruuid.toString());
-            query.setString(3, moderator.getName());
-            query.setLong(4, end);
-            query.setString(5, reason);
+            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO mutes (playerName, moderatorName, end, reason) VALUES (?,?,?,?)");
+            query.setString(1, playerName);
+            query.setString(2, moderator.getName());
+            query.setLong(3, end);
+            query.setString(4, reason);
             query.executeUpdate();
-            PreparedStatement queryLogs = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO logs (playerName, playerUUID, moderatorName, type, reason) VALUES (?,?,?,?,?)");
-            queryLogs.setString(1, args[0]);
-            queryLogs.setString(2, playeruuid.toString());
-            queryLogs.setString(3, moderator.getName());
-            queryLogs.setString(4, "mute");
-            queryLogs.setString(5, reason);
+            PreparedStatement queryLogs = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO logs (playerName, moderatorName, type, reason) VALUES (?,?,?,?)");
+            queryLogs.setString(1, playerName);
+            queryLogs.setString(2, moderator.getName());
+            queryLogs.setString(3, "mute");
+            queryLogs.setString(4, reason);
             queryLogs.executeUpdate();
 
-            Bukkit.broadcastMessage(ConfigBuilder.getCString("messages.mute.have-been-tempmute", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", ValkyaCore.getInstance().getPlayerUtils().getName(playeruuid)).replaceAll("%duration%", duration + " " + unit.getName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
-            if(playerP != null) playerP.sendMessage(ConfigBuilder.getCString("messages.mute.muted-player-message2", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))).replaceAll("%time%", getTimeLeft(playeruuid)));
+            Bukkit.broadcastMessage(ConfigBuilder.getCString("messages.mute.have-been-tempmute", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", playerName).replaceAll("%duration%", duration + " " + unit.getName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
+            if(playerP != null) playerP.sendMessage(ConfigBuilder.getCString("messages.mute.muted-player-message2", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))).replaceAll("%time%", getTimeLeft(playerName)));
         } catch (SQLException e) { e.printStackTrace(); }
     }
 
-    public void unmute(UUID uuid){
-        if(!isMuted(uuid)) return;
+    public void unmute(String namea){
+        String name = namea.toLowerCase();
+        if(!isMuted(name)) return;
 
         try {
-            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("DELETE FROM mutes WHERE playerUUID=?");
-            query.setString(1, uuid.toString());
+            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("DELETE FROM mutes WHERE playerName=?");
+            query.setString(1, name);
             query.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public boolean isMuted(UUID uuid){
+    public boolean isMuted(String namea){
+        String name = namea.toLowerCase();
         try {
-            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT * FROM mutes WHERE playerUUID=?");
-            query.setString(1, uuid.toString());
+            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT * FROM mutes WHERE playerName=?");
+            query.setString(1, name);
             ResultSet rs = query.executeQuery();
             if(rs.next()) return rs.next();
         } catch (SQLException e) {
@@ -124,20 +121,20 @@ public class MuteManager {
         return false;
     }
 
-    public void checkDuration(UUID uuid){
-        if(!isMuted(uuid)) return;
-        if(getEnd(uuid) == -1) return;
+    public void checkDuration(String namea){
+        String name = namea.toLowerCase();
+        if(!isMuted(name)) return;
+        if(getEnd(name) == -1) return;
 
-        if(getEnd(uuid) < System.currentTimeMillis()){
-            unmute(uuid);
-        }
+        if(getEnd(name) < System.currentTimeMillis()) unmute(name);
     }
 
-    public long getEnd(UUID uuid){
-        if(!isMuted(uuid)) return 0;
+    public long getEnd(String namea){
+        String name = namea.toLowerCase();
+        if(!isMuted(name)) return 0;
         try {
-            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT * FROM mutes WHERE playerUUID=?");
-            query.setString(1, uuid.toString());
+            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT * FROM mutes WHERE playerName=?");
+            query.setString(1, name);
             ResultSet rs = query.executeQuery();
             if(rs.next()){
                 return rs.getLong("end");
@@ -148,11 +145,12 @@ public class MuteManager {
         return 0;
     }
 
-    public String getTimeLeft(UUID uuid){
-        if(!isMuted(uuid)) return ConfigBuilder.getCString("messages.mute.not-mute", ConfigType.MESSAGES.getConfigName());
-        if(getEnd(uuid) == -1 ) return ConfigBuilder.getCString("messages.mute.permanent", ConfigType.MESSAGES.getConfigName());
+    public String getTimeLeft(String namea){
+        String name = namea.toLowerCase();
+        if(!isMuted(name)) return ConfigBuilder.getCString("messages.mute.not-mute", ConfigType.MESSAGES.getConfigName());
+        if(getEnd(name) == -1 ) return ConfigBuilder.getCString("messages.mute.permanent", ConfigType.MESSAGES.getConfigName());
 
-        long timeLeft = (getEnd(uuid) - System.currentTimeMillis()) / 1000;
+        long timeLeft = (getEnd(name) - System.currentTimeMillis()) / 1000;
         int mois = 0;
         int jours = 0;
         int heures = 0;
@@ -187,11 +185,12 @@ public class MuteManager {
         return mois + " " + TimeUnit.MOIS.getName() + ", " + jours + " " + TimeUnit.JOUR.getName() + ", " + heures + " " + TimeUnit.HEURE.getName() + ", " + minutes + " " + TimeUnit.MINUTE.getName() + ", " + secondes + " " + TimeUnit.SECONDE.getName();
     }
 
-    public String getReason(UUID uuid){
-        if(!isMuted(uuid)) return ConfigBuilder.getCString("messages.mute.not-mute", ConfigType.MESSAGES.getConfigName());
+    public String getReason(String namea){
+        String name = namea.toLowerCase();
+        if(!isMuted(name)) return ConfigBuilder.getCString("messages.mute.not-mute", ConfigType.MESSAGES.getConfigName());
         try {
-            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT * FROM mutes WHERE playerUUID=?");
-            query.setString(1, uuid.toString());
+            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT * FROM mutes WHERE playerName=?");
+            query.setString(1, name);
             ResultSet rs = query.executeQuery();
             if(rs.next()){
                 String reason = rs.getString("reason");
