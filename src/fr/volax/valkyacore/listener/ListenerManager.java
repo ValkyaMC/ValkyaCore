@@ -35,5 +35,7 @@ public class ListenerManager {
         pm.registerEvents(new DisableMoreTotems(), instance);
         pm.registerEvents(new InteractEvent(), instance);
         pm.registerEvents(new ReportLogCommand("reportlog"), instance);
+
+        pm.registerEvents(new SpawnersEvent(), instance);
     }
 }

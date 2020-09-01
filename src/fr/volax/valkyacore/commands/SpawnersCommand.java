@@ -8,8 +8,11 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.util.SpawnersEnum;
+import fr.volax.valkyacore.spawners.Spawner;
+import fr.volax.valkyacore.spawners.SpawnersEnum;
+import fr.volax.valkyacore.spawners.SpawnersState;
 import fr.volax.valkyacore.util.ValkyaUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -40,15 +43,21 @@ public class SpawnersCommand implements CommandExecutor {
                         for(SpawnersEnum name : SpawnersEnum.values())
                             ValkyaUtils.sendChat(sender,"§b" + name.getDisplayName() + " §f: §e" + name.getName());
                         return false;
-                    }else{
-                        Material spawner = Material.getMaterial(SpawnersEnum.getIDByName(args[2]));
-                        if(!ValkyaCore.getInstance().isInt(args[3])){
+                    }else {
+                        int spawnerID = SpawnersEnum.getIDByName(args[2]);
+                        if (!ValkyaCore.getInstance().isInt(args[3])) {
                             ValkyaUtils.sendChat(sender, "§eLe chiffre n'est pas valide !");
                             return false;
                         }
                         int number = Integer.parseInt(args[3]);
 
+                        for (int i = 0; i < number; i++) {
+                            ValkyaCore.getInstance().getSpawnersManager().addSpawner(new Spawner(owner, spawnerID, SpawnersState.BREAKED, true));
+                        }
 
+                        ValkyaUtils.sendChat(sender, "§eVous venez d'ajouter sur le compte de §6" + owner + " §ex§6" + number + " §eSpawner à §6" + SpawnersEnum.translateNameToDisplayName(args[2]) + "§e.");
+                        if (Bukkit.getPlayer(owner) != null)
+                            ValkyaUtils.sendChat(Bukkit.getPlayer(owner), "§eVous venez de recevoir sur votre compte §ex§6" + number + " §eSpawner à §6" + SpawnersEnum.translateNameToDisplayName(args[2]) + "§e.");
                     }
                 }else{
                     ValkyaUtils.sendChat(sender, "§eLe joueur n'existe pas !");

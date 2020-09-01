@@ -14,6 +14,7 @@ import fr.volax.valkyacore.listener.ListenerManager;
 import fr.volax.valkyacore.listener.PlayerListener;
 import fr.volax.valkyacore.managers.*;
 import fr.volax.valkyacore.obsidianbreaker.*;
+import fr.volax.valkyacore.spawners.SpawnersManager;
 import fr.volax.valkyacore.tool.ConfigType;
 import fr.volax.valkyacore.tool.StaffInventory;
 import fr.volax.valkyacore.util.*;
@@ -92,6 +93,7 @@ public class ValkyaCore extends JavaPlugin {
         pvPPlayerManager = new PvPPlayerManager();
         blockListener = new BlockListener();
         playerListener = new PlayerListener();
+        staffMod = new StaffMod(this);
         storage = new StorageHandler();
         spawnersManager = new SpawnersManager();
         cooldown = new HashMap<>();

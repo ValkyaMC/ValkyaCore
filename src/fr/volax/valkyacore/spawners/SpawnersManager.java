@@ -5,10 +5,9 @@
  * https://www.youtube.com/c/Volax
  */
 
-package fr.volax.valkyacore.managers;
+package fr.volax.valkyacore.spawners;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.util.SpawnersState;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -20,29 +19,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpawnersManager {
-    public void placeBlock(String owner, double X, double Y, double Z, World world, int materialId, int id){
+    public void addSpawner(Spawner spawner){
+        PreparedStatement query = null;
         try {
-            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("UPDATE spawners set(X=?, Y=?, Z=?, worldName=?, owner=?, isDestroy=?, id=?, transit=?) WHERE id=?");
-            query.setDouble(1, X);
-            query.setDouble(2, Y);
-            query.setDouble(3, Z);
-            query.setString(4, world.getName());
-            query.setString(5, owner);
-            query.setBoolean(6, false);
-            query.setInt(7, materialId);
-            query.setString(8, SpawnersState.PLACED.getName());
-            query.setInt(9, id);
+            query = ValkyaCore.getInstance().sql.connection.prepareStatement("INSERT INTO spawners (owner, materialID, state, isDestroy) VALUES (?,?,?,?)");
+            query.setString(1, spawner.getOwner());
+            query.setInt(2, spawner.getId());
+            query.setString(3, spawner.getState().getName());
+            query.setBoolean(4, spawner.isDestroy());
+            query.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    /*
+     * spawner.setDestroy(false);
+     * spawner.setState(SpawnersState.PLACED);
+     */
+    public void placeBlock(Spawner spawner){
+        try {
+            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("UPDATE spawners set(X=?, Y=?, Z=?, worldName=?, owner=?, isDestroy=?, id=?, state=?) WHERE id=?");
+            query.setDouble(1, spawner.getX());
+            query.setDouble(2, spawner.getY());
+            query.setDouble(3, spawner.getZ());
+            query.setString(4, spawner.getWorld().getName());
+            query.setString(5, spawner.getOwner());
+            query.setBoolean(6, spawner.isDestroy());
+            query.setInt(7, spawner.getMaterialId());
+            query.setString(8, spawner.getState().getName());
+            query.setInt(9, spawner.getId());
             query.executeUpdate();
         } catch (SQLException e) { e.printStackTrace(); }
     }
 
-    public void breakBlock(double X, double Y, double Z, World world){
+    public void breakBlock(Spawner spawner){
         try {
-            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("DELETE FROM spawners WHERE X=?,Y=?,Z=?,world=?");
-            query.setDouble(1, X);
-            query.setDouble(2, Y);
-            query.setDouble(3, Z);
-            query.setString(4, world.getName());
+            PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("UPDATE spawners set(X=?, Y=?, Z=?, worldName=?, owner=?, isDestroy=?, id=?, transit=?) WHERE X=?,Y=?,Z=?,world=?");
+            query.setDouble(1, spawner.getX());
+            query.setDouble(2, spawner.getY());
+            query.setDouble(3, spawner.getZ());
+            query.setString(4, spawner.getWorld().getName());
             query.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -30,9 +30,9 @@ public class PvPPlayerEvent implements Listener {
         Player damaged = (Player) event.getEntity();
 
         for(String regions : (List<String>)ConfigBuilder.getList("anti-deco-combat.disabled-region")){
-            if(isInRegion(damaged, regions) || isInRegion(damager, regions))
-                return;
+            if(isInRegion(damaged, regions) || isInRegion(damager, regions)) return;
         }
+        if(ValkyaCore.getInstance().getStaffMod().isInStaffMode(damaged) || ValkyaCore.getInstance().getStaffMod().isInStaffMode(damager)) return;
 
         if(ValkyaCore.getInstance().getPvPPlayerManager().doesPlayerExist(damaged)){
             ValkyaCore.getInstance().getPvPPlayerManager().resetTime(damaged);

@@ -5,7 +5,7 @@
  * https://www.youtube.com/c/Volax
  */
 
-package fr.volax.valkyacore.util;
+package fr.volax.valkyacore.spawners;
 
 import java.util.HashMap;
 
@@ -21,7 +21,7 @@ public enum SpawnersEnum {
     private int id;
     private static HashMap<String, SpawnersEnum> NAME = new HashMap();
 
-    private SpawnersEnum(String displayName, String name, int id) {
+    SpawnersEnum(String displayName, String name, int id) {
         this.displayName = displayName;
         this.name = name;
         this.id = id;
@@ -45,6 +45,10 @@ public enum SpawnersEnum {
 
     public static int getIDByName(String name){
         return NAME.get(name).id;
+    }
+
+    public static String translateNameToDisplayName(String name) {
+        return NAME.get(name).displayName;
     }
 
     static {

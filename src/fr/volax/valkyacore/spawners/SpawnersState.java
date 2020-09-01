@@ -5,7 +5,7 @@
  * https://www.youtube.com/c/Volax
  */
 
-package fr.volax.valkyacore.util;
+package fr.volax.valkyacore.spawners;
 
 public enum SpawnersState {
     BREAKED("break", "Cassé"),
