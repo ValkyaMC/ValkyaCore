@@ -125,7 +125,6 @@ public class MuteManager {
         String name = namea.toLowerCase();
         if(!isMuted(name)) return;
         if(getEnd(name) == -1) return;
-
         if(getEnd(name) < System.currentTimeMillis()) unmute(name);
     }
 

@@ -58,6 +58,7 @@ public class ValkyaCore extends JavaPlugin {
     private StorageHandler storage;
     private StaffMod staffMod;
     private BukkitTask regenRunner;
+    private SpawnersManager spawnersManager;
 
     public Map<Player, StaffInventory> mode;
     public List<UUID> frozen;
@@ -75,15 +76,9 @@ public class ValkyaCore extends JavaPlugin {
         if (getServer().getPluginManager().getPlugin("WorldGuard") == null || !(getServer().getPluginManager().getPlugin("WorldGuard") instanceof WorldGuardPlugin))
             MobStackerConfig.worldguardEnabled = false;
 
-        //********************************************
-        // Sauvegarde config.yml
-        //********************************************
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dSauvegarde et enregistrements des configs...");
         this.saveDefaultConfig();
 
-        //********************************************
-        // Setup des instances
-        //********************************************
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dSetup des instances et des HashMaps/ArrayLists...");
         banManager = new BanManager();
         muteManager = new MuteManager();
@@ -98,7 +93,7 @@ public class ValkyaCore extends JavaPlugin {
         blockListener = new BlockListener();
         playerListener = new PlayerListener();
         storage = new StorageHandler();
-        staffMod = new StaffMod(this);
+        spawnersManager = new SpawnersManager();
         cooldown = new HashMap<>();
         repair  = new HashMap<>();
         admin = new HashMap<>();
@@ -109,23 +104,14 @@ public class ValkyaCore extends JavaPlugin {
         else this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dVault §cOFF§d, the plugin don't work without Vault try to fix him...");
 
 
-        //********************************************
-        // Load des Evénements et des Commandes
-        //********************************************
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dEnregistrement des events et commandes...");
         ListenerManager.registers(this);
         CommandManager.registers();
 
-        //********************************************
-        // Load ChatGames
-        //********************************************
         if(ConfigBuilder.getCBool("enabled", ConfigType.GAMECHAT.getConfigName())){
             this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dInitialisation des chat Games...");
         }
 
-        //********************************************
-        // Setup & connexion du mysql
-        //********************************************
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dSetup et connexion au mysql...");
         sql = new Database("jdbc:mysql://", ConfigBuilder.getString("sql.host"), ConfigBuilder.getString("sql.database"), ConfigBuilder.getString("sql.user"), ConfigBuilder.getString("sql.pass"));
         sql.connection();
@@ -260,9 +246,11 @@ public class ValkyaCore extends JavaPlugin {
         }
     }
 
-
-
     public StaffMod getStaffMod() {
         return staffMod;
+    }
+
+    public SpawnersManager getSpawnersManager() {
+        return spawnersManager;
     }
 }

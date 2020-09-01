@@ -62,6 +62,8 @@ public class PermissionsHelper {
 
     public Permission staffmodeUse = new Permission(ConfigBuilder.getString("permissions.staffmode-use"));
     public Permission staffmodeListUse = new Permission(ConfigBuilder.getString("permissions.staffmodlist-use"));
-    public Permission freezeBypass = new Permission(ConfigBuilder.getString("permissions.freeze-bypass"));
+
+    public Permission spawnersAdd = new Permission(ConfigBuilder.getString("permissions.spawners-add"));
+    public Permission spawnersRemove = new Permission(ConfigBuilder.getString("permissions.spawners-remove"));
 }
 

@@ -47,12 +47,6 @@ public class ChatEvent implements Listener {
                 event.setCancelled(true);
             }
         }
-
-        ValkyaCore.getInstance().getMuteManager().checkDuration(player.getName());
-        if(ValkyaCore.getInstance().getMuteManager().isMuted(player.getName())){
-            player.sendMessage(ConfigBuilder.getCString("messages.mute.player-talking", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getMuteManager().getReason(player.getName())).replaceAll("%time%", ValkyaCore.getInstance().getMuteManager().getTimeLeft(player.getName())));
-            event.setCancelled(true);
-        }
     }
 
     @EventHandler
@@ -64,10 +58,14 @@ public class ChatEvent implements Listener {
             event.setCancelled(true);
         }
 
+        ValkyaCore.getInstance().getMuteManager().checkDuration(player.getName());
         if(ValkyaCore.getInstance().getMuteManager().isMuted(player.getName())){
             if(cmd[0].equalsIgnoreCase("/msg") || cmd[0].equalsIgnoreCase("/message") || cmd[0].equalsIgnoreCase("/tell") || cmd[0].equalsIgnoreCase("/chat") || cmd[0].equalsIgnoreCase("/emsg") || cmd[0].equalsIgnoreCase("/etell")){
                 event.setCancelled(true);
                 ValkyaUtils.sendChat(player, "§eVous ne pouvez pas executer cette commande en étant mute !");
+            }else{
+                player.sendMessage(ConfigBuilder.getCString("messages.mute.player-talking", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getMuteManager().getReason(player.getName())).replaceAll("%time%", ValkyaCore.getInstance().getMuteManager().getTimeLeft(player.getName())));
+                event.setCancelled(true);
             }
         }
 

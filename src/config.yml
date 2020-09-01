@@ -37,6 +37,8 @@ permissions:
   staffmodlist-use: "valkya.staffmod.list.use"
   reportlog-use: "valkya.reportlog.use"
   reportlog-delete: "valkya.reportlog.delete"
+  spawners-add: "valkya.spawners.add"
+  spawners-remove: "valkya.spawners.remove"
 
 chat: true
 
@@ -91,6 +93,7 @@ isActivated:
     staffmod: true
     staffmodlist: true
     reportlog: true
+    spawners: true
 
 anti-deco-combat:
   activated: true

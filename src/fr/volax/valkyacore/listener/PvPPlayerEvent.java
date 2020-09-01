@@ -51,7 +51,7 @@ public class PvPPlayerEvent implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event){
-        if(!ConfigBuilder.getBoolean("anti-deco-combat.activeded")) return;
+        if(!ConfigBuilder.getBoolean("anti-deco-combat.activated")) return;
         if(ValkyaCore.getInstance().getPvPPlayerManager().doesPlayerExist(event.getPlayer())){
             event.getPlayer().setHealth(0);
             ValkyaCore.getInstance().getPvPPlayerManager().remove(ValkyaCore.getInstance().getPvPPlayerManager().getPvPPlayer(event.getPlayer()));
@@ -60,7 +60,7 @@ public class PvPPlayerEvent implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event){
-        if(!ConfigBuilder.getBoolean("anti-deco-combat.activeded")) return;
+        if(!ConfigBuilder.getBoolean("anti-deco-combat.activated")) return;
         if(ValkyaCore.getInstance().getPvPPlayerManager().doesPlayerExist(event.getEntity())){
             ValkyaCore.getInstance().getPvPPlayerManager().remove(ValkyaCore.getInstance().getPvPPlayerManager().getPvPPlayer(event.getEntity()));
             ValkyaUtils.sendChat(event.getEntity(), "§eVous n'êtes plus en combat !");
