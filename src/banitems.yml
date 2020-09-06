@@ -1,4 +1,9 @@
 activated: true
+
+explosions-disabled-in:
+  - "aps"
+  - "warzone"
+
 disabled-items:
   - 4098
   - 4099
@@ -12,8 +17,6 @@ disabled-items:
   - 4588
   - 4587
   - 4586
-  - 4599
-  - 261
   - 4572
   - 4649
   - 4643
@@ -30,7 +33,17 @@ disabled-items:
   - 333
   - 4101
   - 368
+  - 4650
+  - 256
+  - 269
+  - 273
+  - 277
+  - 284
+  - 4534
+  - 4536
+  - 4624
 
 regions:
   - "spawn"
   - "lobby"
+  - "warzone"

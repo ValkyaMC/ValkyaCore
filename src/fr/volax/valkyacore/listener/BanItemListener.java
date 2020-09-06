@@ -12,10 +12,13 @@ import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.tool.ConfigType;
 import fr.volax.valkyacore.util.ValkyaUtils;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockExplodeEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.*;
 
 import java.util.List;
@@ -45,8 +48,25 @@ public class BanItemListener implements Listener {
         }
     }
 
+    @EventHandler
+    public void onExplode(EntityExplodeEvent event){
+        if(ValkyaCore.getInstance().getConfigBuilder().getBoolean("activated", ConfigType.BANITEMS.getConfigName())){
+            for(String regions : ValkyaCore.getInstance().getConfigBuilder().getListString("explosions-disabled-in", ConfigType.BANITEMS.getConfigName())){
+                if(regions.isEmpty()) return;
+                if(isInRegion(event.getLocation(), regions)){
+                    event.setCancelled(true);
+                }
+            }
+        }
+    }
+
     protected boolean isInRegion(Player player, String region) {
         com.sk89q.worldedit.Vector v = new com.sk89q.worldedit.Vector(player.getLocation().getX(), player.getLocation().getBlockY(), player.getLocation().getZ());
         return WorldGuardPlugin.inst().getRegionManager(player.getLocation().getWorld()).getApplicableRegionsIDs(v).contains(region);
+    }
+
+    protected boolean isInRegion(Location location, String region) {
+        com.sk89q.worldedit.Vector v = new com.sk89q.worldedit.Vector(location.getX(), location.getBlockY(), location.getZ());
+        return WorldGuardPlugin.inst().getRegionManager(location.getWorld()).getApplicableRegionsIDs(v).contains(region);
     }
 }

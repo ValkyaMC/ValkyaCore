@@ -1,6 +1,6 @@
 name: ValkyaCore
 main: fr.volax.valkyacore.ValkyaCore
-version: 1.1.07
+version: 1.1.08
 author: Volax
 depend: [WorldGuard, Vault, VolaxAPI]
 description: ValkyaCore plugin for Valkya
