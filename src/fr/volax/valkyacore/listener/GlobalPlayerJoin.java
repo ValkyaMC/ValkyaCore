@@ -30,7 +30,7 @@ public class GlobalPlayerJoin implements Listener {
             Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + event.getPlayer().getName() + " group set Saint");
         }
         ValkyaCore.getInstance().getPlayerUtils().update(event.getPlayer());
-        if (!ConfigBuilder.getBoolean("onJoin.isLobby")) {
+        if (!ValkyaCore.getInstance().getConfigBuilder().getBoolean("onJoin.isLobby")) {
             if (!(ValkyaCore.getInstance().getPlayerUtils().getFirstLoginKit(event.getPlayer().getName()).equalsIgnoreCase("true"))) {
                 ValkyaCore.getInstance().getPlayerUtils().setFirstLoginKit(event.getPlayer().getName(), "true");
                 Player player = event.getPlayer();
@@ -46,13 +46,13 @@ public class GlobalPlayerJoin implements Listener {
 
         event.setJoinMessage(null);
 
-        if(ConfigBuilder.getBoolean("onJoin.execute-command")){
-            for(String command : (List<String>) ConfigBuilder.getList("onJoin.commands"))
+        if(ValkyaCore.getInstance().getConfigBuilder().getBoolean("onJoin.execute-command")){
+            for(String command : (List<String>) ValkyaCore.getInstance().getConfigBuilder().getList("onJoin.commands"))
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command.replaceAll("%playerName%", event.getPlayer().getName()).replaceAll("%onlinePlayers%", String.valueOf(Bukkit.getServer().getOnlinePlayers().size())).replaceAll("%maxPlayers%", String.valueOf(Bukkit.getServer().getMaxPlayers())).replaceAll("%serverName%", Bukkit.getServerName()));
         }
 
-        if(ConfigBuilder.getBoolean("onJoin.teleport"))
-            event.getPlayer().teleport(new Location(Bukkit.getWorld(ConfigBuilder.getString("onJoin.teleport-coos.world")), ConfigBuilder.getInt("onJoin.teleport-coos.X"),ConfigBuilder.getInt("onJoin.teleport-coos.Y"),ConfigBuilder.getInt("onJoin.teleport-coos.Z"),ConfigBuilder.getInt("onJoin.teleport-coos.YAW"),ConfigBuilder.getInt("onJoin.teleport-coos.PITCH")));
+        if(ValkyaCore.getInstance().getConfigBuilder().getBoolean("onJoin.teleport"))
+            event.getPlayer().teleport(new Location(Bukkit.getWorld(ValkyaCore.getInstance().getConfigBuilder().getString("onJoin.teleport-coos.world")), ValkyaCore.getInstance().getConfigBuilder().getInt("onJoin.teleport-coos.X"),ValkyaCore.getInstance().getConfigBuilder().getInt("onJoin.teleport-coos.Y"),ValkyaCore.getInstance().getConfigBuilder().getInt("onJoin.teleport-coos.Z"),ValkyaCore.getInstance().getConfigBuilder().getInt("onJoin.teleport-coos.YAW"),ValkyaCore.getInstance().getConfigBuilder().getInt("onJoin.teleport-coos.PITCH")));
     }
 
     @EventHandler
@@ -62,7 +62,7 @@ public class GlobalPlayerJoin implements Listener {
         ValkyaCore.getInstance().getBanManager().checkDuration(targetUUID);
         if(ValkyaCore.getInstance().getBanManager().isBanned(targetUUID)){
             event.setResult(PlayerLoginEvent.Result.KICK_BANNED);
-            event.setKickMessage(ConfigBuilder.getCString("messages.ban.banned-player-join", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getBanManager().getReason(targetUUID)).replaceAll("%time%", ValkyaCore.getInstance().getBanManager().getTimeLeft(targetUUID)));
+            event.setKickMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.ban.banned-player-join", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getBanManager().getReason(targetUUID)).replaceAll("%time%", ValkyaCore.getInstance().getBanManager().getTimeLeft(targetUUID)));
         }
     }
 }

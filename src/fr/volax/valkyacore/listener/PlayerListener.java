@@ -43,7 +43,7 @@ public class PlayerListener implements Listener {
             totalDurability = status.getTotalDurability();
             remainingDurability = totalDurability - status.getDamage();
           } 
-          if (block.getLocation().getBlockY() == 0 && ConfigBuilder.configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getBoolean("VoidProtector"))
+          if (block.getLocation().getBlockY() == 0 && ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getBoolean("VoidProtector"))
               ValkyaUtils.sendChat(player, "§eDurabilité §6Illimité (Protection du void)");
           else if (totalDurability > 0.0F) {
             DecimalFormat format = new DecimalFormat("##.##");

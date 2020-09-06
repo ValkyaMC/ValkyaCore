@@ -41,7 +41,7 @@ public class MuteCommand implements CommandExecutor {
         UUID targetUUID = ValkyaCore.getInstance().getPlayerUtils().getUUID(targetName);
 
         if(ValkyaCore.getInstance().getMuteManager().isMuted(targetName)){
-            sender.sendMessage(ConfigBuilder.getCString("messages.mute.already-mute", ConfigType.MESSAGES.getConfigName()));
+            sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.mute.already-mute", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
 
@@ -65,12 +65,12 @@ public class MuteCommand implements CommandExecutor {
         try {
             duration = Integer.parseInt(args[1].split(":")[0]);
         } catch (NumberFormatException e){
-            sender.sendMessage(ConfigBuilder.getCString("messages.mute.enter-number", ConfigType.MESSAGES.getConfigName()));
+            sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.mute.enter-number", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
 
         if(!TimeUnit.existFromShortcut(args[1].split(":")[1])){
-            sender.sendMessage(ConfigBuilder.getCString("messages.mute.invalid-format-time", ConfigType.MESSAGES.getConfigName()));
+            sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.mute.invalid-format-time", ConfigType.MESSAGES.getConfigName()));
             for(TimeUnit units : TimeUnit.values()){
                 ValkyaUtils.sendChat(sender,"§b" + units.getName() + " §f: §e" + units.getShortcut());
             }
@@ -81,11 +81,11 @@ public class MuteCommand implements CommandExecutor {
         long muteTime = unit.getToSecond() * duration;
 
         ValkyaCore.getInstance().getMuteManager().tempMute(sender, muteTime, reason, args, unit, duration);
-        sender.sendMessage(ConfigBuilder.getCString("messages.mute.have-been-tempmute", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", targetName).replaceAll("%duration%", duration + " " + unit.getName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
+        sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.mute.have-been-tempmute", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", targetName).replaceAll("%duration%", duration + " " + unit.getName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
         return false;
     }
 
     private void helpMessage(CommandSender sender){
-        sender.sendMessage(ConfigBuilder.getCString("messages.mute.help-message", ConfigType.MESSAGES.getConfigName()));
+        sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.mute.help-message", ConfigType.MESSAGES.getConfigName()));
     }
 }

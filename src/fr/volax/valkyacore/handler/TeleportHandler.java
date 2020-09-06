@@ -84,7 +84,7 @@ public class TeleportHandler {
         x = rdm(x);
         z = rdm(z);
 
-        Location loc = safeY(new Location(Bukkit.getWorld(ConfigBuilder.getString("rtp.world")), x, 63, z));
+        Location loc = safeY(new Location(Bukkit.getWorld(ValkyaCore.getInstance().getConfigBuilder().getString("rtp.world")), x, 63, z));
         set(loc.getX(), loc.getY(), loc.getZ());
 
         return loc;

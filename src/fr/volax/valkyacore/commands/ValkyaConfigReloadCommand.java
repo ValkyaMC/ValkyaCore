@@ -25,13 +25,13 @@ public class ValkyaConfigReloadCommand implements CommandExecutor {
         if(!ValkyaCore.getInstance().getPlayerUtils().hasPerm(sender, ValkyaCore.getInstance().getPermissionsHelper().valkyaConfigReloadUse)) return false;
         if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.valkyaconfigreload")) return false;
         ValkyaCore.getInstance().reloadConfig();
-        ConfigBuilder.configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).reload();
-        ConfigBuilder.configs.getConfig(ConfigType.MESSAGES.getConfigName()).reload();
-        ConfigBuilder.configs.getConfig(ConfigType.MOBSTACKER.getConfigName()).reload();
-        ConfigBuilder.configs.getConfig(ConfigType.PORTALS.getConfigName()).reload();
-        ConfigBuilder.configs.getConfig(ConfigType.BANITEMS.getConfigName()).reload();
-        ConfigBuilder.configs.getConfig(ConfigType.COOLDOWNCHAT.getConfigName()).reload();
-        ConfigBuilder.configs.getConfig(ConfigType.GAMECHAT.getConfigName()).reload();
+        ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).reload();
+        ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.MESSAGES.getConfigName()).reload();
+        ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.MOBSTACKER.getConfigName()).reload();
+        ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.PORTALS.getConfigName()).reload();
+        ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.BANITEMS.getConfigName()).reload();
+        ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.COOLDOWNCHAT.getConfigName()).reload();
+        ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.GAMECHAT.getConfigName()).reload();
         ValkyaUtils.sendChat(sender, "§eVous venez de reload toutes les configs du ValkyaCore");
         return false;
     }

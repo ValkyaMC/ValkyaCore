@@ -55,20 +55,20 @@ public class ReportCommand implements CommandExecutor {
         StringBuilder reason = new StringBuilder();
         for (int i = 1; i < args.length; i++) reason.append(args[i]).append(" ");
 
-        player.sendMessage(ConfigBuilder.getCString("messages.report.have-been-reported", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", target.getName()).replaceAll("%reason%", reason.toString()));
+        player.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.report.have-been-reported", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", target.getName()).replaceAll("%reason%", reason.toString()));
         sendToMods(reason.toString(), target.getName(), player.getName());
         ValkyaCore.getInstance().getReportManager().report(target, sender, reason.toString(), args);
         return false;
     }
 
     private void helpMessage(Player player) {
-        player.sendMessage(ConfigBuilder.getCString("messages.report.help-message", ConfigType.MESSAGES.getConfigName()));
+        player.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.report.help-message", ConfigType.MESSAGES.getConfigName()));
     }
 
     private void sendToMods(String reason, String targetName, String playerName) {
         for (Player players : Bukkit.getServer().getOnlinePlayers()) {
             if (players.hasPermission(new PermissionsHelper().reportReceive)) {
-                players.sendMessage(ConfigBuilder.getCString("messages.report.report-message", ConfigType.MESSAGES.getConfigName()).replaceAll("%reportedPlayer%", targetName).replaceAll("%reason%", reason).replaceAll("%player%", playerName));
+                players.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.report.report-message", ConfigType.MESSAGES.getConfigName()).replaceAll("%reportedPlayer%", targetName).replaceAll("%reason%", reason).replaceAll("%player%", playerName));
             }
         }
     }

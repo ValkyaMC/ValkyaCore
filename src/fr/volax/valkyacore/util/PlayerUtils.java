@@ -29,14 +29,14 @@ public class PlayerUtils {
      */
     public boolean isPlayer(CommandSender sender){
         if(!(sender instanceof Player)){
-            sender.sendMessage(ConfigBuilder.getCString("messages.no-player", ConfigType.MESSAGES.getConfigName()));
+            sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.no-player", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
         return true;
     }
 
     public boolean isAutoCommand(CommandSender sender, String command){
-        if(!ConfigBuilder.getString(command).equalsIgnoreCase("true")){
+        if(!ValkyaCore.getInstance().getConfigBuilder().getString(command).equalsIgnoreCase("true")){
             sender.sendMessage("§cCette commande est actuellement désactivé sur ce serveur !");
             return false;
         }else
@@ -46,7 +46,7 @@ public class PlayerUtils {
     public boolean isOnlinePlayer(CommandSender sender, String target){
         if(!doesPlayerExist(sender, target)) return false;
         if(Bukkit.getPlayer(target) == null){
-            sender.sendMessage(ConfigBuilder.getCString("messages.not-online", ConfigType.MESSAGES.getConfigName()));
+            sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.not-online", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
         return true;
@@ -55,7 +55,7 @@ public class PlayerUtils {
 
     public boolean doesPlayerExist(CommandSender sender, String target){
         if(!exist(target)){
-            sender.sendMessage( ConfigBuilder.getCString("messages.never-join", ConfigType.MESSAGES.getConfigName()));
+            sender.sendMessage( ValkyaCore.getInstance().getConfigBuilder().getString("messages.never-join", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
         return true;
@@ -68,7 +68,7 @@ public class PlayerUtils {
      */
     public boolean hasPerm(CommandSender sender, Permission permission){
         if(!sender.hasPermission(permission)){
-            sender.sendMessage(ConfigBuilder.getCString("messages.no-perm", ConfigType.MESSAGES.getConfigName()));
+            sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.no-perm", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
         return true;

@@ -26,7 +26,7 @@ public class UnBanCommand implements CommandExecutor {
         if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.unban")) return false;
 
         if(args.length != 1){
-            sender.sendMessage(ConfigBuilder.getCString("messages.unban.help-message", ConfigType.MESSAGES.getConfigName()));
+            sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.unban.help-message", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
 
@@ -34,12 +34,12 @@ public class UnBanCommand implements CommandExecutor {
         UUID targetUUID = ValkyaCore.getInstance().getPlayerUtils().getUUID(args[0]);
 
         if(!ValkyaCore.getInstance().getBanManager().isBanned(targetUUID)){
-            sender.sendMessage(ConfigBuilder.getCString("messages.unban.no-ban", ConfigType.MESSAGES.getConfigName()));
+            sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.unban.no-ban", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
 
         ValkyaCore.getInstance().getBanManager().unban(targetUUID);
-        sender.sendMessage(ConfigBuilder.getCString("messages.unban.unban", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", args[0]));
+        sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.unban.unban", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", args[0]));
         return false;
     }
 }

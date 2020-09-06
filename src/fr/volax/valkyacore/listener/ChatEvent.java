@@ -29,9 +29,9 @@ public class ChatEvent implements Listener {
             if(player.hasPermission(ValkyaCore.getInstance().getPermissionsHelper().cooldownChatBypass)) return;
             if(ValkyaCore.getInstance().cooldown.containsKey(playerName)){
                 float time = (System.currentTimeMillis() - ValkyaCore.getInstance().cooldown.get(playerName)) / 1000;
-                if(time < ConfigBuilder.getCInt("cooldownchat.time", ConfigType.COOLDOWNCHAT.getConfigName())){
+                if(time < ValkyaCore.getInstance().getConfigBuilder().getInt("cooldownchat.time", ConfigType.COOLDOWNCHAT.getConfigName())){
                     event.setCancelled(true);
-                    player.sendMessage(ConfigBuilder.getCString("messages.cooldownchat.cooldownchat", ConfigType.MESSAGES.getConfigName()));
+                    player.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.cooldownchat.cooldownchat", ConfigType.MESSAGES.getConfigName()));
                 }else { ValkyaCore.getInstance().cooldown.put(playerName, System.currentTimeMillis()); }
             } else{ ValkyaCore.getInstance().cooldown.put(playerName, System.currentTimeMillis()); }
         }
@@ -41,7 +41,7 @@ public class ChatEvent implements Listener {
     public void onChat(AsyncPlayerChatEvent event){
         Player player = event.getPlayer();
 
-        if(!ConfigBuilder.getString("chat").equalsIgnoreCase("true")){
+        if(!ValkyaCore.getInstance().getConfigBuilder().getString("chat").equalsIgnoreCase("true")){
             if(!player.hasPermission(ValkyaCore.getInstance().getPermissionsHelper().chatOffBypass)){
                 ValkyaUtils.sendChat(player, "§eLe chat est actuellement désactivé !");
                 event.setCancelled(true);
@@ -54,7 +54,7 @@ public class ChatEvent implements Listener {
         String[] cmd = event.getMessage().split(" ");
         Player player = event.getPlayer();
         if(cmd[0].equalsIgnoreCase("/ver") || cmd[0].equalsIgnoreCase("/pl") || cmd[0].equalsIgnoreCase("/bukkit:plugins") || cmd[0].equalsIgnoreCase("/bukkit:pl") || cmd[0].equalsIgnoreCase("/version") || cmd[0].equalsIgnoreCase("/about") || cmd[0].equalsIgnoreCase("//calc") || cmd[0].equalsIgnoreCase("/ipwl") || cmd[0].equalsIgnoreCase("/bukkit:help") || cmd[0].equalsIgnoreCase("/bukkit:?") || cmd[0].equalsIgnoreCase("/?") || cmd[0].equalsIgnoreCase("/bukkit:about") || cmd[0].equalsIgnoreCase("/bukkit:version") || cmd[0].equalsIgnoreCase("/bukkit:ver") || cmd[0].equalsIgnoreCase("/cauldron") || cmd[0].equalsIgnoreCase("/cauldron_e") || cmd[0].equalsIgnoreCase("/cauldron:") || cmd[0].equalsIgnoreCase("/thermos") || cmd[0].equalsIgnoreCase("/thermos:")|| cmd[0].equalsIgnoreCase("/plugins")) {
-            player.sendMessage(ConfigBuilder.getCString("messages.no-command", ConfigType.MESSAGES.getConfigName()));
+            player.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.no-command", ConfigType.MESSAGES.getConfigName()));
             event.setCancelled(true);
         }
 
@@ -64,7 +64,7 @@ public class ChatEvent implements Listener {
                 event.setCancelled(true);
                 ValkyaUtils.sendChat(player, "§eVous ne pouvez pas executer cette commande en étant mute !");
             }else{
-                player.sendMessage(ConfigBuilder.getCString("messages.mute.player-talking", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getMuteManager().getReason(player.getName())).replaceAll("%time%", ValkyaCore.getInstance().getMuteManager().getTimeLeft(player.getName())));
+                player.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.mute.player-talking", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getMuteManager().getReason(player.getName())).replaceAll("%time%", ValkyaCore.getInstance().getMuteManager().getTimeLeft(player.getName())));
                 event.setCancelled(true);
             }
         }

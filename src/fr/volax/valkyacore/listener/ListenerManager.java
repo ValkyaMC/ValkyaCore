@@ -36,6 +36,6 @@ public class ListenerManager {
         pm.registerEvents(new InteractEvent(), instance);
         pm.registerEvents(new ReportLogCommand("reportlog"), instance);
 
-        pm.registerEvents(new SpawnersEvent(), instance);
+        //pm.registerEvents(new SpawnersEvent(), instance);
     }
 }

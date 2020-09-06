@@ -39,11 +39,11 @@ public class RTPCommand implements CommandExecutor {
 
         if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.rtp")) return false;
 
-        if(ConfigBuilder.getBoolean("rtp.cooldown-active") && (!TeleportCooldownHandler.areTherePlayersInTheMap())){
+        if(ValkyaCore.getInstance().getConfigBuilder().getBoolean("rtp.cooldown-active") && (!TeleportCooldownHandler.areTherePlayersInTheMap())){
             TeleportCooldownHandler cooldown = TeleportCooldownHandler.getCooldown(player);
             if(cooldown != null){
                 if(!cooldown.check(player) && (cooldown.getTimeLeft(player) * -1L >= 1L)){
-                    ValkyaUtils.sendChat(player,ConfigBuilder.getCString("messages.rtp.error", ConfigType.MESSAGES.getConfigName()).replaceAll("&","§").replaceAll("%cooldown%", getTimeLeft(Math.toIntExact(cooldown.getTimeLeft(player) * -1L))));
+                    ValkyaUtils.sendChat(player,ValkyaCore.getInstance().getConfigBuilder().getString("messages.rtp.error", ConfigType.MESSAGES.getConfigName()).replaceAll("&","§").replaceAll("%cooldown%", getTimeLeft(Math.toIntExact(cooldown.getTimeLeft(player) * -1L))));
                     return true;
                 }else if(cooldown.getTimeLeft(player) * -1L == 0L){
                     cooldown.finalize();
@@ -52,12 +52,12 @@ public class RTPCommand implements CommandExecutor {
                 }
             }
         }
-        TeleportHandler tp = new TeleportHandler(player, Bukkit.getWorld(ConfigBuilder.getString("rtp.world")), ConfigBuilder.getInt("rtp.x"), ConfigBuilder.getInt("rtp.z"));
+        TeleportHandler tp = new TeleportHandler(player, Bukkit.getWorld(ValkyaCore.getInstance().getConfigBuilder().getString("rtp.world")), ValkyaCore.getInstance().getConfigBuilder().getInt("rtp.x"), ValkyaCore.getInstance().getConfigBuilder().getInt("rtp.z"));
         tp.teleport();
         player.sendMessage(tp.getMessage());
         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "/json {\"type\":\"title\",\"target\":\""+player.getName()+"\",\"title\":\"&eRandomTP\",\"subtitle\":\"§6"+tp.getX()+"X "+tp.getY()+"Y "+tp.getZ()+"Z\"}");
-        if(ConfigBuilder.getBoolean("rtp.cooldown-active")){
-            TeleportCooldownHandler cooldown = new TeleportCooldownHandler(player, ConfigBuilder.getInt("rtp.cooldown-temps"));
+        if(ValkyaCore.getInstance().getConfigBuilder().getBoolean("rtp.cooldown-active")){
+            TeleportCooldownHandler cooldown = new TeleportCooldownHandler(player, ValkyaCore.getInstance().getConfigBuilder().getInt("rtp.cooldown-temps"));
             cooldown.start();
         }
         return false;

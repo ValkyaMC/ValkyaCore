@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.exception.UnknownBlockTypeException;
 import fr.volax.valkyacore.tool.ConfigType;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
@@ -48,7 +49,7 @@ public class StorageHandler {
   
   public boolean isValidBlock(Block block) {
     try {
-      for (String section : ConfigBuilder.configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getConfigurationSection("Blocks").getKeys(false)) {
+      for (String section : ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getConfigurationSection("Blocks").getKeys(false)) {
         String[] s = section.split(":");
         if (block.getTypeId() == Integer.parseInt(s[0]) && (s.length == 1 || block.getData() == Byte.parseByte(s[1])))
           return true; 
@@ -59,10 +60,10 @@ public class StorageHandler {
   
   public float getTotalDurabilityFromConfig(Block block) throws UnknownBlockTypeException {
     try {
-      for (String section : ConfigBuilder.configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getConfigurationSection("Blocks").getKeys(false)) {
+      for (String section : ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getConfigurationSection("Blocks").getKeys(false)) {
         String[] s = section.split(":");
         if (block.getTypeId() == Integer.parseInt(s[0]) && (s.length == 1 || block.getData() == Byte.parseByte(s[1])))
-          return (float)ConfigBuilder.configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getDouble("Blocks." + section);
+          return (float)ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getDouble("Blocks." + section);
       } 
     } catch (Exception exception) {}
     throw new UnknownBlockTypeException();

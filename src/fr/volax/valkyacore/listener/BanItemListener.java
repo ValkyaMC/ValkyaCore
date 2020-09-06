@@ -8,6 +8,7 @@
 package fr.volax.valkyacore.listener;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.tool.ConfigType;
 import fr.volax.valkyacore.util.ValkyaUtils;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
@@ -22,13 +23,13 @@ import java.util.List;
 public class BanItemListener implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent event){
-        if(ConfigBuilder.getCBool("activated", ConfigType.BANITEMS.getConfigName())){
-            for(int id : (List<Integer>)ConfigBuilder.getCList("disabled-items", ConfigType.BANITEMS.getConfigName())){
+        if(ValkyaCore.getInstance().getConfigBuilder().getBoolean("activated", ConfigType.BANITEMS.getConfigName())){
+            for(Integer id: ValkyaCore.getInstance().getConfigBuilder().getListInt("disabled-items", ConfigType.BANITEMS.getConfigName())){
                 if(id == 0) return;
                 Material banItem = Material.getMaterial(id);
                 Player player = event.getPlayer();
 
-                for(String regions : (List<String>)ConfigBuilder.getCList("regions", ConfigType.BANITEMS.getConfigName())){
+                for(String regions : ValkyaCore.getInstance().getConfigBuilder().getListString("regions", ConfigType.BANITEMS.getConfigName())){
                     if(regions.isEmpty()) return;
                     if(isInRegion(player, regions)){
                        if(event.getItem() == null) return;

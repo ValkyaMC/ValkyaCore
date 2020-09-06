@@ -22,10 +22,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class XPBottleCommand implements CommandExecutor {
-    private final String help = ConfigBuilder.getCString("messages.xpbottle.help-message", ConfigType.MESSAGES.getConfigName());
-    private final String helpGive = ConfigBuilder.getCString("messages.xpbottle.help-message-give", ConfigType.MESSAGES.getConfigName());
-    private final String noXP = ConfigBuilder.getCString("messages.xpbottle.no-level", ConfigType.MESSAGES.getConfigName());
-    private final String noNumber = ConfigBuilder.getCString("messages.xpbottle.no-number", ConfigType.MESSAGES.getConfigName());
+    private final String help = ValkyaCore.getInstance().getConfigBuilder().getString("messages.xpbottle.help-message", ConfigType.MESSAGES.getConfigName());
+    private final String helpGive = ValkyaCore.getInstance().getConfigBuilder().getString("messages.xpbottle.help-message-give", ConfigType.MESSAGES.getConfigName());
+    private final String noXP = ValkyaCore.getInstance().getConfigBuilder().getString("messages.xpbottle.no-level", ConfigType.MESSAGES.getConfigName());
+    private final String noNumber = ValkyaCore.getInstance().getConfigBuilder().getString("messages.xpbottle.no-number", ConfigType.MESSAGES.getConfigName());
 
     XPBottleCommand(String string) {
         ValkyaCore.getInstance().getCommand(string).setExecutor(this);
@@ -66,11 +66,11 @@ public class XPBottleCommand implements CommandExecutor {
                 }
             }else{
                 if(args[0].equalsIgnoreCase("give")) {
-                    if (player.hasPermission(ConfigBuilder.getString("permissions.xp-give"))) {
+                    if (player.hasPermission(ValkyaCore.getInstance().getConfigBuilder().getString("permissions.xp-give"))) {
                         player.sendMessage(helpGive);
                         return false;
                     }else{
-                        player.sendMessage(ConfigBuilder.getString("messages.no-perm"));
+                        player.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.no-perm"));
                         return false;
                     }
                 }else if(args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("aide")){
@@ -100,7 +100,7 @@ public class XPBottleCommand implements CommandExecutor {
             }else{
                 Player target = Bukkit.getPlayer(args[2]);
                 if(target == null){
-                    player.sendMessage(ConfigBuilder.getCString("messages.xpbottle.not-online", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", args[2]));
+                    player.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.xpbottle.not-online", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", args[2]));
                     return false;
                 }else{
                     Inventory inventaireT = target.getInventory();
@@ -108,8 +108,8 @@ public class XPBottleCommand implements CommandExecutor {
                     inventaireT.addItem(xpbottle);
                     player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 10, 1);
 
-                    player.sendMessage(ConfigBuilder.getCString("messages.xpbottle.give-message", ConfigType.MESSAGES.getConfigName()).replaceAll("%nombre%", args[1]).replaceAll("%player%", target.getName()));
-                    target.sendMessage(ConfigBuilder.getCString("messages.xpbottle.receive-message", ConfigType.MESSAGES.getConfigName()).replaceAll("%nombre%", args[1]));
+                    player.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.xpbottle.give-message", ConfigType.MESSAGES.getConfigName()).replaceAll("%nombre%", args[1]).replaceAll("%player%", target.getName()));
+                    target.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.xpbottle.receive-message", ConfigType.MESSAGES.getConfigName()).replaceAll("%nombre%", args[1]));
                     return false;
                 }
             }

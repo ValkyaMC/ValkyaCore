@@ -9,7 +9,6 @@ package fr.volax.valkyacore.util;
 
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.tool.ConfigType;
-import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -39,23 +38,23 @@ public class MobStackerConfig {
 
 
     public static void reloadConfig() {
-        stackRadius = ConfigBuilder.getCInt("StackRadius", ConfigType.MOBSTACKER.getConfigName());
-        compileEntityTypesList((List<String>) ConfigBuilder.getCList("MobTypes", ConfigType.MOBSTACKER.getConfigName())); // Load EntityTypes list (mobTypes)
-        updateTickDelay = ConfigBuilder.getCInt("UpdateTickDelay", ConfigType.MOBSTACKER.getConfigName());
-        maxAllowedInStack = ConfigBuilder.getCInt("MaxAllowedInStack", ConfigType.MOBSTACKER.getConfigName());
-        String stackFormat = ConfigBuilder.getCString("StackFormat", ConfigType.MOBSTACKER.getConfigName());
+        stackRadius = ValkyaCore.getInstance().getConfigBuilder().getInt("StackRadius", ConfigType.MOBSTACKER.getConfigName());
+        compileEntityTypesList(ValkyaCore.getInstance().getConfigBuilder().getListString("MobTypes", ConfigType.MOBSTACKER.getConfigName())); // Load EntityTypes list (mobTypes)
+        updateTickDelay = ValkyaCore.getInstance().getConfigBuilder().getInt("UpdateTickDelay", ConfigType.MOBSTACKER.getConfigName());
+        maxAllowedInStack = ValkyaCore.getInstance().getConfigBuilder().getInt("MaxAllowedInStack", ConfigType.MOBSTACKER.getConfigName());
+        String stackFormat = ValkyaCore.getInstance().getConfigBuilder().getString("StackFormat", ConfigType.MOBSTACKER.getConfigName());
         stackMobsDispalyName = ChatColor.translateAlternateColorCodes('&',stackFormat);
         for(String s : stackFormat.split(" ")){
             if(s.contains("%number%")) break;
             else indexLocation++;
         }
 
-        compileWorldList((List<String>) ConfigBuilder.getCList("DisabledWorlds", ConfigType.MOBSTACKER.getConfigName())); // Load Worlds
-        stackOnlySpawnerMobs = ConfigBuilder.getCBool("MergeOnlySpawnerMobs", ConfigType.MOBSTACKER.getConfigName());
-        stackTamedMobs = ConfigBuilder.getCBool("MergeTamedMobs", ConfigType.MOBSTACKER.getConfigName());
-        stackLeachedMobs = ConfigBuilder.getCBool("MergeLeashedMobs", ConfigType.MOBSTACKER.getConfigName());
-        killMobStackOnFall = ConfigBuilder.getCBool("killMobStackOnFall", ConfigType.MOBSTACKER.getConfigName());
-        compileRegionList((List<String>) ConfigBuilder.getCList("WorldGuardRegions", ConfigType.MOBSTACKER.getConfigName())); // Load EntityTypes list (mobTypes)
+        compileWorldList( ValkyaCore.getInstance().getConfigBuilder().getListString("DisabledWorlds", ConfigType.MOBSTACKER.getConfigName())); // Load Worlds
+        stackOnlySpawnerMobs = ValkyaCore.getInstance().getConfigBuilder().getBoolean("MergeOnlySpawnerMobs", ConfigType.MOBSTACKER.getConfigName());
+        stackTamedMobs = ValkyaCore.getInstance().getConfigBuilder().getBoolean("MergeTamedMobs", ConfigType.MOBSTACKER.getConfigName());
+        stackLeachedMobs = ValkyaCore.getInstance().getConfigBuilder().getBoolean("MergeLeashedMobs", ConfigType.MOBSTACKER.getConfigName());
+        killMobStackOnFall = ValkyaCore.getInstance().getConfigBuilder().getBoolean("killMobStackOnFall", ConfigType.MOBSTACKER.getConfigName());
+        compileRegionList( ValkyaCore.getInstance().getConfigBuilder().getListString("WorldGuardRegions", ConfigType.MOBSTACKER.getConfigName())); // Load EntityTypes list (mobTypes)
 
 
     }

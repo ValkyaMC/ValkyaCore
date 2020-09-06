@@ -41,15 +41,15 @@ public class KickCommand implements CommandExecutor {
             reason += args[i] + " ";
         }
         if(player.hasPermission(new PermissionsHelper().kickBypass)){
-            sender.sendMessage(ConfigBuilder.getCString("messages.kick.cant-kick", ConfigType.MESSAGES.getConfigName()));
+            sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.kick.cant-kick", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
-        player.kickPlayer(ConfigBuilder.getCString("messages.kick.have-been-kick", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
-        sender.sendMessage(ConfigBuilder.getCString("messages.kick.kick", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", player.getName()).replaceAll("%reason%",ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
+        player.kickPlayer(ValkyaCore.getInstance().getConfigBuilder().getString("messages.kick.have-been-kick", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
+        sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.kick.kick", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", player.getName()).replaceAll("%reason%",ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
         return false;
     }
 
     private void helpMessage(CommandSender sender){
-        sender.sendMessage(ConfigBuilder.getCString("messages.kick.help-message", ConfigType.MESSAGES.getConfigName()));
+        sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.kick.help-message", ConfigType.MESSAGES.getConfigName()));
     }
 }

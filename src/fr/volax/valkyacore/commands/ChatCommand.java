@@ -32,12 +32,12 @@ public class ChatCommand implements CommandExecutor {
             return false;
         }else if(args.length == 1){
             if(args[0].equalsIgnoreCase("toggle")){
-                if(ConfigBuilder.getString("chat").equalsIgnoreCase("false")) {
-                    ConfigBuilder.set("chat", "true");
+                if(ValkyaCore.getInstance().getConfigBuilder().getString("chat").equalsIgnoreCase("false")) {
+                    ValkyaCore.getInstance().getConfigBuilder().set("chat", "true");
                     ValkyaUtils.broadcast("§eLe chat vient d'être activé par §6§l" + sender.getName() + "§e.");
                     return false;
-                }else if(ConfigBuilder.getString("chat").equalsIgnoreCase("true")){
-                    ConfigBuilder.set("chat", "false");
+                }else if(ValkyaCore.getInstance().getConfigBuilder().getString("chat").equalsIgnoreCase("true")){
+                    ValkyaCore.getInstance().getConfigBuilder().set("chat", "false");
                     ValkyaUtils.broadcast("§eLe chat vient d'être désactivé par §6§l" + sender.getName() + "§e.");
                     return false;
                 }

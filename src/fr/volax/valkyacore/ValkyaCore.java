@@ -20,6 +20,7 @@ import fr.volax.valkyacore.tool.StaffInventory;
 import fr.volax.valkyacore.util.*;
 import fr.volax.volaxapi.VolaxAPI;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
+import fr.volax.volaxapi.tool.config.FileManager;
 import fr.volax.volaxapi.tool.database.Database;
 import fr.volax.volaxapi.tool.gui.GuiManager;
 import net.milkbowl.vault.economy.Economy;
@@ -60,6 +61,7 @@ public class ValkyaCore extends JavaPlugin {
     private StaffMod staffMod;
     private BukkitTask regenRunner;
     private SpawnersManager spawnersManager;
+    private ConfigBuilder configBuilder;
 
     public Map<Player, StaffInventory> mode;
     public List<UUID> frozen;
@@ -81,6 +83,7 @@ public class ValkyaCore extends JavaPlugin {
         this.saveDefaultConfig();
 
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dSetup des instances et des HashMaps/ArrayLists...");
+        configBuilder = new ConfigBuilder(new FileManager(this));
         banManager = new BanManager();
         muteManager = new MuteManager();
         reportManager = new ReportManager();
@@ -110,12 +113,8 @@ public class ValkyaCore extends JavaPlugin {
         ListenerManager.registers(this);
         CommandManager.registers();
 
-        if(ConfigBuilder.getCBool("enabled", ConfigType.GAMECHAT.getConfigName())){
-            this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dInitialisation des chat Games...");
-        }
-
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dSetup et connexion au mysql...");
-        sql = new Database("jdbc:mysql://", ConfigBuilder.getString("sql.host"), ConfigBuilder.getString("sql.database"), ConfigBuilder.getString("sql.user"), ConfigBuilder.getString("sql.pass"));
+        sql = new Database("jdbc:mysql://", ValkyaCore.getInstance().getConfigBuilder().getString("sql.host"), ValkyaCore.getInstance().getConfigBuilder().getString("sql.database"), ValkyaCore.getInstance().getConfigBuilder().getString("sql.user"), ValkyaCore.getInstance().getConfigBuilder().getString("sql.pass"));
         sql.connection();
 
         this.getServer().getConsoleSender().sendMessage("\n\n\n" +
@@ -254,5 +253,9 @@ public class ValkyaCore extends JavaPlugin {
 
     public SpawnersManager getSpawnersManager() {
         return spawnersManager;
+    }
+
+    public ConfigBuilder getConfigBuilder() {
+        return configBuilder;
     }
 }

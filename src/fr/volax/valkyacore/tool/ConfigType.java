@@ -7,6 +7,7 @@
 
 package fr.volax.valkyacore.tool;
 
+import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
 
 public enum ConfigType {
@@ -22,7 +23,7 @@ public enum ConfigType {
 
     ConfigType(String configName) {
         this.configName = configName;
-        ConfigBuilder.configs.getConfig(configName).saveDefaultConfig();
+        ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(configName).saveDefaultConfig();
     }
 
     public String getConfigName() {

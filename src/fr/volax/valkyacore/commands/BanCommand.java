@@ -41,7 +41,7 @@ public class BanCommand implements CommandExecutor {
         UUID targetUUID = ValkyaCore.getInstance().getPlayerUtils().getUUID(targetName);
 
         if (ValkyaCore.getInstance().getBanManager().isBanned(targetUUID)) {
-            sender.sendMessage(ConfigBuilder.getCString("messages.ban.already-ban", ConfigType.MESSAGES.getConfigName()));
+            sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.ban.already-ban", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
 
@@ -65,12 +65,12 @@ public class BanCommand implements CommandExecutor {
         try {
             duration = Integer.parseInt(args[1].split(":")[0]);
         } catch (NumberFormatException e) {
-            sender.sendMessage(ConfigBuilder.getCString("messages.ban.enter-number", ConfigType.MESSAGES.getConfigName()));
+            sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.ban.enter-number", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
 
         if (!TimeUnit.existFromShortcut(args[1].split(":")[1])) {
-            sender.sendMessage(ConfigBuilder.getCString("messages.ban.invalid-format-time", ConfigType.MESSAGES.getConfigName()));
+            sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.ban.invalid-format-time", ConfigType.MESSAGES.getConfigName()));
             for (TimeUnit units : TimeUnit.values()) {
                 ValkyaUtils.sendChat(sender,"§b" + units.getName() + " §f: §e" + units.getShortcut());
             }
@@ -85,6 +85,6 @@ public class BanCommand implements CommandExecutor {
     }
 
     private void helpMessage(CommandSender sender) {
-        sender.sendMessage(ConfigBuilder.getCString("messages.ban.help-message", ConfigType.MESSAGES.getConfigName()));
+        sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.ban.help-message", ConfigType.MESSAGES.getConfigName()));
     }
 }

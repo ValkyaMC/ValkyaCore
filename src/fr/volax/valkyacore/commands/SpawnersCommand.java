@@ -13,7 +13,6 @@ import fr.volax.valkyacore.spawners.SpawnersEnum;
 import fr.volax.valkyacore.spawners.SpawnersState;
 import fr.volax.valkyacore.util.ValkyaUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

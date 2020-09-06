@@ -27,7 +27,7 @@ public class CheckCommand implements CommandExecutor {
         if(!ValkyaCore.getInstance().getPlayerUtils().isAutoCommand(sender, "isActivated.commands.check")) return false;
 
         if(args.length != 1){
-            sender.sendMessage(ConfigBuilder.getCString("messages.check.help-message", ConfigType.MESSAGES.getConfigName()));
+            sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.check.help-message", ConfigType.MESSAGES.getConfigName()));
             return false;
         }
 
@@ -35,28 +35,28 @@ public class CheckCommand implements CommandExecutor {
         UUID targetUUID = ValkyaCore.getInstance().getPlayerUtils().getUUID(args[0]);
         String targetName = args[0];
 
-        sender.sendMessage(ConfigBuilder.getCString("messages.check.separator", ConfigType.MESSAGES.getConfigName()));
-        sender.sendMessage(ConfigBuilder.getCString("messages.check.player", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", args[0]));
-        sender.sendMessage(ConfigBuilder.getCString("messages.check.uuid", ConfigType.MESSAGES.getConfigName()).replaceAll("%uuid%", targetUUID.toString()));
+        sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.check.separator", ConfigType.MESSAGES.getConfigName()));
+        sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.check.player", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", args[0]));
+        sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.check.uuid", ConfigType.MESSAGES.getConfigName()).replaceAll("%uuid%", targetUUID.toString()));
         sender.sendMessage("§eIP §f: §b" + ValkyaCore.getInstance().getPlayerUtils().getAddress(args[0]));
-        sender.sendMessage(ConfigBuilder.getCString("messages.check.mute", ConfigType.MESSAGES.getConfigName()).replaceAll("%isMute%", ValkyaCore.getInstance().getMuteManager().isMuted(targetName) ? "§a✔" : "§c✖"));
+        sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.check.mute", ConfigType.MESSAGES.getConfigName()).replaceAll("%isMute%", ValkyaCore.getInstance().getMuteManager().isMuted(targetName) ? "§a✔" : "§c✖"));
         if(ValkyaCore.getInstance().getMuteManager().isMuted(targetName)){
             sender.sendMessage("");
-            sender.sendMessage(ConfigBuilder.getCString("messages.check.reason", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getMuteManager().getReason(targetName)));
-            sender.sendMessage(ConfigBuilder.getCString("messages.check.time", ConfigType.MESSAGES.getConfigName()).replaceAll("%duration%", ValkyaCore.getInstance().getMuteManager().getTimeLeft(targetName)));
+            sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.check.reason", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getMuteManager().getReason(targetName)));
+            sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.check.time", ConfigType.MESSAGES.getConfigName()).replaceAll("%duration%", ValkyaCore.getInstance().getMuteManager().getTimeLeft(targetName)));
             sender.sendMessage("");
         }
 
 
-        sender.sendMessage(ConfigBuilder.getCString("messages.check.ban", ConfigType.MESSAGES.getConfigName()).replaceAll("%isBan%", ValkyaCore.getInstance().getBanManager().isBanned(targetUUID) ? "§a✔" : "§c✖"));
+        sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.check.ban", ConfigType.MESSAGES.getConfigName()).replaceAll("%isBan%", ValkyaCore.getInstance().getBanManager().isBanned(targetUUID) ? "§a✔" : "§c✖"));
 
         if(ValkyaCore.getInstance().getBanManager().isBanned(targetUUID)){
             sender.sendMessage("");
-            sender.sendMessage(ConfigBuilder.getCString("messages.check.reason", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getBanManager().getReason(targetUUID)));
-            sender.sendMessage(ConfigBuilder.getCString("messages.check.time", ConfigType.MESSAGES.getConfigName()).replaceAll("%duration%", ValkyaCore.getInstance().getBanManager().getTimeLeft(targetUUID)));
+            sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.check.reason", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getBanManager().getReason(targetUUID)));
+            sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.check.time", ConfigType.MESSAGES.getConfigName()).replaceAll("%duration%", ValkyaCore.getInstance().getBanManager().getTimeLeft(targetUUID)));
         }
 
-        sender.sendMessage(ConfigBuilder.getCString("messages.check.separator", ConfigType.MESSAGES.getConfigName()));
+        sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.check.separator", ConfigType.MESSAGES.getConfigName()));
 
         return false;
     }
