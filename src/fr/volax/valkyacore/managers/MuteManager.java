@@ -10,7 +10,6 @@ package fr.volax.valkyacore.managers;
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.tool.ConfigType;
 import fr.volax.valkyacore.util.PermissionsHelper;
-import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import fr.volax.volaxapi.tool.time.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -23,15 +22,13 @@ import java.sql.SQLException;
 
 public class MuteManager {
     public void mute(CommandSender moderator, long endInSeconds, String reason, String[] args){
-        String playerName = args[0].toLowerCase();
+        String playerName = ValkyaCore.getInstance().getPlayerUtils().getName(args[0]);
         if(isMuted(args[0])) return;
 
         long endToMillis = endInSeconds * 1000;
         long end = endToMillis + System.currentTimeMillis();
 
-        if(endInSeconds == -1){
-            end = -1;
-        }
+        if(endInSeconds == -1) end = -1;
 
         Player playerP = Bukkit.getPlayer(playerName);
 
@@ -62,11 +59,10 @@ public class MuteManager {
     }
 
     public void tempMute(CommandSender moderator, long endInSeconds, String reason, String[] args, TimeUnit unit, long duration){
-        String playerName = args[0].toLowerCase();
+        String playerName = ValkyaCore.getInstance().getPlayerUtils().getName(args[0]);
         if(isMuted(playerName)) return;
 
-        long endToMillis = endInSeconds * 1000;
-        long end = endToMillis + System.currentTimeMillis();
+        long end = endInSeconds * 1000 + System.currentTimeMillis();
         Player playerP = Bukkit.getPlayer(playerName);
 
         if(playerP != null){
@@ -95,8 +91,8 @@ public class MuteManager {
         } catch (SQLException e) { e.printStackTrace(); }
     }
 
-    public void unmute(String namea){
-        String name = namea.toLowerCase();
+    public void unmute(String nameDefault){
+        String name = ValkyaCore.getInstance().getPlayerUtils().getName(nameDefault);
         if(!isMuted(name)) return;
 
         try {
@@ -108,28 +104,28 @@ public class MuteManager {
         }
     }
 
-    public boolean isMuted(String namea){
-        String name = namea.toLowerCase();
+    public boolean isMuted(String nameDefault){
+        String name = ValkyaCore.getInstance().getPlayerUtils().getName(nameDefault);
         try {
             PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT * FROM mutes WHERE playerName=?");
             query.setString(1, name);
             ResultSet rs = query.executeQuery();
-            if(rs.next()) return rs.next();
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    public void checkDuration(String namea){
-        String name = namea.toLowerCase();
+    public void checkDuration(String nameDefault){
+        String name = ValkyaCore.getInstance().getPlayerUtils().getName(nameDefault);
         if(!isMuted(name)) return;
         if(getEnd(name) == -1) return;
         if(getEnd(name) < System.currentTimeMillis()) unmute(name);
     }
 
-    public long getEnd(String namea){
-        String name = namea.toLowerCase();
+    public long getEnd(String nameDefault){
+        String name = ValkyaCore.getInstance().getPlayerUtils().getName(nameDefault);
         if(!isMuted(name)) return 0;
         try {
             PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT * FROM mutes WHERE playerName=?");
@@ -144,8 +140,8 @@ public class MuteManager {
         return 0;
     }
 
-    public String getTimeLeft(String namea){
-        String name = namea.toLowerCase();
+    public String getTimeLeft(String nameDefault){
+        String name = ValkyaCore.getInstance().getPlayerUtils().getName(nameDefault);
         if(!isMuted(name)) return ValkyaCore.getInstance().getConfigBuilder().getString("messages.mute.not-mute", ConfigType.MESSAGES.getConfigName());
         if(getEnd(name) == -1 ) return ValkyaCore.getInstance().getConfigBuilder().getString("messages.mute.permanent", ConfigType.MESSAGES.getConfigName());
 
@@ -184,8 +180,8 @@ public class MuteManager {
         return mois + " " + TimeUnit.MOIS.getName() + ", " + jours + " " + TimeUnit.JOUR.getName() + ", " + heures + " " + TimeUnit.HEURE.getName() + ", " + minutes + " " + TimeUnit.MINUTE.getName() + ", " + secondes + " " + TimeUnit.SECONDE.getName();
     }
 
-    public String getReason(String namea){
-        String name = namea.toLowerCase();
+    public String getReason(String nameDefault){
+        String name = ValkyaCore.getInstance().getPlayerUtils().getName(nameDefault);
         if(!isMuted(name)) return ValkyaCore.getInstance().getConfigBuilder().getString("messages.mute.not-mute", ConfigType.MESSAGES.getConfigName());
         try {
             PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT * FROM mutes WHERE playerName=?");

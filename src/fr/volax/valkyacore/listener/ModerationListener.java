@@ -120,7 +120,7 @@ public class ModerationListener implements Listener {
                 if (!p.equals(player))
                     pls.add(p);
             }
-            if(pls.isEmpty() || pls.size() < 2){
+            if(pls.isEmpty()){
                 ValkyaUtils.sendChat(player, "§eIl n'y aucun joueur sur lequel se téléporter !");
                 event.setCancelled(true);
                 return;
@@ -207,6 +207,14 @@ public class ModerationListener implements Listener {
             player.setFoodLevel(20);
             player.setHealth(player.getMaxHealth());
             player.setFoodLevel(20);
+        }
+    }
+
+    @EventHandler
+    public void join(PlayerJoinEvent event){
+        Player player = event.getPlayer();
+        for (Player p : ValkyaCore.getInstance().getStaffMod().getMode().keySet()) {
+            player.hidePlayer(p);
         }
     }
 

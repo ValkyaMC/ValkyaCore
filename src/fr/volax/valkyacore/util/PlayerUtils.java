@@ -146,6 +146,21 @@ public class PlayerUtils {
         throw new NullPointerException("Le joueur n'a pas d'informations dans la BDD !");
     }
 
+    public String getName(String string){
+        try {
+            PreparedStatement sts = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT playerName FROM users WHERE playerName=?");
+            sts.setString(1, string);
+            ResultSet rs = sts.executeQuery();
+
+            if(rs.next()){
+                return rs.getString("playerName");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new NullPointerException("Le joueur n'a pas d'informations dans la BDD !");
+    }
+
     public String getAddress(String playerName){
         try {
             PreparedStatement sts = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT lastIP FROM users WHERE playerName=?");

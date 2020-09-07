@@ -81,7 +81,6 @@ public class MuteCommand implements CommandExecutor {
         long muteTime = unit.getToSecond() * duration;
 
         ValkyaCore.getInstance().getMuteManager().tempMute(sender, muteTime, reason, args, unit, duration);
-        sender.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.mute.have-been-tempmute", ConfigType.MESSAGES.getConfigName()).replaceAll("%player%", targetName).replaceAll("%duration%", duration + " " + unit.getName()).replaceAll("%reason%", ChatColor.translateAlternateColorCodes('&', String.join(" ", reason))));
         return false;
     }
 

@@ -47,30 +47,33 @@ public class ChatEvent implements Listener {
                 event.setCancelled(true);
             }
         }
+        System.out.println("A");
+        ValkyaCore.getInstance().getMuteManager().checkDuration(player.getName());
+        if(ValkyaCore.getInstance().getMuteManager().isMuted(player.getName())){
+            System.out.println("C");
+            player.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.mute.player-talking", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getMuteManager().getReason(player.getName())).replaceAll("%time%", ValkyaCore.getInstance().getMuteManager().getTimeLeft(player.getName())));
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler
-    public void onChat(PlayerCommandPreprocessEvent event){
+    public void onChat(PlayerCommandPreprocessEvent event) {
         String[] cmd = event.getMessage().split(" ");
         Player player = event.getPlayer();
-        if(cmd[0].equalsIgnoreCase("/ver") || cmd[0].equalsIgnoreCase("/pl") || cmd[0].equalsIgnoreCase("/bukkit:plugins") || cmd[0].equalsIgnoreCase("/bukkit:pl") || cmd[0].equalsIgnoreCase("/version") || cmd[0].equalsIgnoreCase("/about") || cmd[0].equalsIgnoreCase("//calc") || cmd[0].equalsIgnoreCase("/ipwl") || cmd[0].equalsIgnoreCase("/bukkit:help") || cmd[0].equalsIgnoreCase("/bukkit:?") || cmd[0].equalsIgnoreCase("/?") || cmd[0].equalsIgnoreCase("/bukkit:about") || cmd[0].equalsIgnoreCase("/bukkit:version") || cmd[0].equalsIgnoreCase("/bukkit:ver") || cmd[0].equalsIgnoreCase("/cauldron") || cmd[0].equalsIgnoreCase("/cauldron_e") || cmd[0].equalsIgnoreCase("/cauldron:") || cmd[0].equalsIgnoreCase("/thermos") || cmd[0].equalsIgnoreCase("/thermos:")|| cmd[0].equalsIgnoreCase("/plugins")) {
+        if (cmd[0].equalsIgnoreCase("/ver") || cmd[0].equalsIgnoreCase("/pl") || cmd[0].equalsIgnoreCase("/bukkit:plugins") || cmd[0].equalsIgnoreCase("/bukkit:pl") || cmd[0].equalsIgnoreCase("/version") || cmd[0].equalsIgnoreCase("/about") || cmd[0].equalsIgnoreCase("//calc") || cmd[0].equalsIgnoreCase("/ipwl") || cmd[0].equalsIgnoreCase("/bukkit:help") || cmd[0].equalsIgnoreCase("/bukkit:?") || cmd[0].equalsIgnoreCase("/?") || cmd[0].equalsIgnoreCase("/bukkit:about") || cmd[0].equalsIgnoreCase("/bukkit:version") || cmd[0].equalsIgnoreCase("/bukkit:ver") || cmd[0].equalsIgnoreCase("/cauldron") || cmd[0].equalsIgnoreCase("/cauldron_e") || cmd[0].equalsIgnoreCase("/cauldron:") || cmd[0].equalsIgnoreCase("/thermos") || cmd[0].equalsIgnoreCase("/thermos:") || cmd[0].equalsIgnoreCase("/plugins")) {
             player.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.no-command", ConfigType.MESSAGES.getConfigName()));
             event.setCancelled(true);
         }
-
         ValkyaCore.getInstance().getMuteManager().checkDuration(player.getName());
         if(ValkyaCore.getInstance().getMuteManager().isMuted(player.getName())){
             if(cmd[0].equalsIgnoreCase("/msg") || cmd[0].equalsIgnoreCase("/message") || cmd[0].equalsIgnoreCase("/tell") || cmd[0].equalsIgnoreCase("/chat") || cmd[0].equalsIgnoreCase("/emsg") || cmd[0].equalsIgnoreCase("/etell")){
                 event.setCancelled(true);
                 ValkyaUtils.sendChat(player, "§eVous ne pouvez pas executer cette commande en étant mute !");
-            }else{
-                player.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.mute.player-talking", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getMuteManager().getReason(player.getName())).replaceAll("%time%", ValkyaCore.getInstance().getMuteManager().getTimeLeft(player.getName())));
-                event.setCancelled(true);
             }
         }
 
-        if(ValkyaCore.getInstance().getPvPPlayerManager().doesPlayerExist(player)){
-            if(cmd[0].equalsIgnoreCase("/hub") || cmd[0].equalsIgnoreCase("/spawn") || cmd[0].equalsIgnoreCase("/sethome") || cmd[0].equalsIgnoreCase("/home") || cmd[0].equalsIgnoreCase("/espawn") || cmd[0].equalsIgnoreCase("/ehome") || cmd[0].equalsIgnoreCase("/esethome") || cmd[0].equalsIgnoreCase("/f") && cmd[1].equalsIgnoreCase("claim") || cmd[0].equalsIgnoreCase("/rtp") || cmd[0].equalsIgnoreCase("/tpa") || cmd[0].equalsIgnoreCase("/etpa") || cmd[0].equalsIgnoreCase("/ewarp")  || cmd[0].equalsIgnoreCase("/warp")){
+        if(ValkyaCore.getInstance().getPvPPlayerManager().doesPlayerExist(player)) {
+            if (cmd[0].equalsIgnoreCase("/hub") || cmd[0].equalsIgnoreCase("/spawn") || cmd[0].equalsIgnoreCase("/sethome") || cmd[0].equalsIgnoreCase("/home") || cmd[0].equalsIgnoreCase("/espawn") || cmd[0].equalsIgnoreCase("/ehome") || cmd[0].equalsIgnoreCase("/esethome") || cmd[0].equalsIgnoreCase("/f") && cmd[1].equalsIgnoreCase("claim") || cmd[0].equalsIgnoreCase("/rtp") || cmd[0].equalsIgnoreCase("/tpa") || cmd[0].equalsIgnoreCase("/etpa") || cmd[0].equalsIgnoreCase("/ewarp") || cmd[0].equalsIgnoreCase("/warp")) {
                 event.setCancelled(true);
                 ValkyaUtils.sendChat(player, "§eVous ne pouvez pas executer cette commande en étant en combat !");
             }
