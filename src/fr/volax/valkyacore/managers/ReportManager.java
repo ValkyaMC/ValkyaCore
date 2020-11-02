@@ -62,10 +62,10 @@ public class ReportManager {
         } catch (SQLException e) { e.printStackTrace(); }
     }
 
-    public List<ItemStack> getAllReport(Player player){
+    public List<ItemStack> getAllReport(String playerName){
         try{
             PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT * FROM reports WHERE reportedName=?");
-            query.setString(1, player.getName());
+            query.setString(1, playerName);
             ResultSet rs = query.executeQuery();
             List<ItemStack> reports = new ArrayList<>();
             while(rs.next()){

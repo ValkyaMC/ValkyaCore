@@ -75,7 +75,8 @@ public class ValkyaCore extends JavaPlugin {
     public void onEnable() {
         instance = this;
         VolaxAPI.setInstance(this);
-
+        configBuilder = new ConfigBuilder(new FileManager(this));
+        
         if (getServer().getPluginManager().getPlugin("WorldGuard") == null || !(getServer().getPluginManager().getPlugin("WorldGuard") instanceof WorldGuardPlugin))
             MobStackerConfig.worldguardEnabled = false;
 
@@ -83,7 +84,6 @@ public class ValkyaCore extends JavaPlugin {
         this.saveDefaultConfig();
 
         this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dSetup des instances et des HashMaps/ArrayLists...");
-        configBuilder = new ConfigBuilder(new FileManager(this));
         banManager = new BanManager();
         muteManager = new MuteManager();
         reportManager = new ReportManager();
@@ -104,7 +104,6 @@ public class ValkyaCore extends JavaPlugin {
         admin = new HashMap<>();
         mode = new HashMap<>();
         frozen = new ArrayList<>();
-
         if (setupEconomy()) this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dVault §aON...");
         else this.getServer().getConsoleSender().sendMessage(LOGGER_PREFIX + " §dVault §cOFF§d, the plugin don't work without Vault try to fix him...");
 
@@ -250,11 +249,9 @@ public class ValkyaCore extends JavaPlugin {
     public StaffMod getStaffMod() {
         return staffMod;
     }
-
     public SpawnersManager getSpawnersManager() {
         return spawnersManager;
     }
-
     public ConfigBuilder getConfigBuilder() {
         return configBuilder;
     }

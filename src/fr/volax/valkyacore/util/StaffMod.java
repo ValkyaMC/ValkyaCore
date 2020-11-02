@@ -44,7 +44,7 @@ public class StaffMod {
         } else {
             StaffInventory inv = new StaffInventory(player);
             inv.save();
-            player.setGameMode(GameMode.SURVIVAL);
+            player.setGameMode(GameMode.CREATIVE);
             player.setAllowFlight(true);
             player.setFlying(true);
             player.setHealth(player.getMaxHealth());

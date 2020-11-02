@@ -109,11 +109,11 @@ public class PlayerUtils {
             PreparedStatement sts = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT * FROM users WHERE playerName=?");
             sts.setString(1, playerName);
             ResultSet rs = sts.executeQuery();
-            return rs.next();
+            if(rs.next()) return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        throw new NullPointerException("Le joueur n'a pas d'informations dans la BDD !");
     }
 
     public UUID getUUID(String playerName){

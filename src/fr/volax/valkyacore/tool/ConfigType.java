@@ -8,7 +8,6 @@
 package fr.volax.valkyacore.tool;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.volaxapi.tool.config.ConfigBuilder;
 
 public enum ConfigType {
     MESSAGES("messages.yml"),

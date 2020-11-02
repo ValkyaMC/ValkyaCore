@@ -40,14 +40,14 @@ public class ReportLogCommand implements CommandExecutor, Listener {
             ValkyaUtils.sendChat(player, "§c/reportlog <Joueur>");
             return false;
         }
-        Player target = Bukkit.getPlayer(args[0]);
-        if(target == null){
+
+        if(!ValkyaCore.getInstance().getPlayerUtils().exist(args[0])){
             ValkyaUtils.sendChat(player, "§c/reportlog <Joueur>");
             return false;
         }
 
-        List<ItemStack> reports = ValkyaCore.getInstance().getReportManager().getAllReport(player);
-        Inventory inventory = Bukkit.createInventory(null, 5*9, "§eLog " + target.getName());
+        List<ItemStack> reports = ValkyaCore.getInstance().getReportManager().getAllReport(args[0]);
+        Inventory inventory = Bukkit.createInventory(null, 5*9, "§eLog " + args[0]);
         int i = 0;
         for(ItemStack itemStack : reports){
             inventory.setItem(i, itemStack);
