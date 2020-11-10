@@ -4,3 +4,5 @@ This plugin is made by Volax.
 
 - Website of Valkya: https://valkya.fr
 - Discord of Valkya: https://discord.valkya.fr
+
+***© Valkya.***
