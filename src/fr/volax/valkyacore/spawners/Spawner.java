@@ -9,6 +9,7 @@ package fr.volax.valkyacore.spawners;
 
 import org.bukkit.World;
 
+@Deprecated
 public class Spawner {
     private String owner;
     private double X, Y,  Z;

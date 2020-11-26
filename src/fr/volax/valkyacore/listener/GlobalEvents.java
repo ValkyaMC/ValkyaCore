@@ -8,7 +8,7 @@
 package fr.volax.valkyacore.listener;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.util.MobStackerConfig;
+import fr.volax.valkyacore.utils.MobStackerConfig;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;

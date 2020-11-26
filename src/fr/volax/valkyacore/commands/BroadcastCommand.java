@@ -8,13 +8,11 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.util.ValkyaUtils;
-import org.bukkit.Bukkit;
+import fr.volax.valkyacore.utils.ValkyaUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class BroadcastCommand implements CommandExecutor {
     public BroadcastCommand(String string) {

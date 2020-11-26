@@ -8,8 +8,7 @@
 package fr.volax.valkyacore.listener;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.tool.ConfigType;
-import fr.volax.volaxapi.tool.config.ConfigBuilder;
+import fr.volax.valkyacore.tools.ConfigType;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

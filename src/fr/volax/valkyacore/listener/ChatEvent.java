@@ -8,17 +8,13 @@
 package fr.volax.valkyacore.listener;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.util.PermissionsHelper;
-import fr.volax.valkyacore.tool.ConfigType;
-import fr.volax.valkyacore.util.ValkyaUtils;
-import fr.volax.volaxapi.tool.config.ConfigBuilder;
+import fr.volax.valkyacore.tools.ConfigType;
+import fr.volax.valkyacore.utils.ValkyaUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-
-import java.util.UUID;
 
 public class ChatEvent implements Listener {
     @EventHandler

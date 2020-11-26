@@ -21,6 +21,7 @@ import org.bukkit.metadata.MetadataValue;
 import java.util.List;
 import java.util.Random;
 
+@Deprecated
 public class SpawnersEvent implements Listener {
 
     @EventHandler
@@ -29,7 +30,6 @@ public class SpawnersEvent implements Listener {
         Block block = event.getBlock();
 
         if(block.getType() == Material.QUARTZ_BLOCK){
-            //TODO if...
             block.setMetadata("spawnerID", new FixedMetadataValue(ValkyaCore.getInstance(), /*spawner.getID()*/ new Random().nextInt(100000)));
         }
     }

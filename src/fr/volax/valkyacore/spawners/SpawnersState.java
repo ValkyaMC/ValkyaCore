@@ -7,6 +7,7 @@
 
 package fr.volax.valkyacore.spawners;
 
+@Deprecated
 public enum SpawnersState {
     BREAKED("break", "Cassé"),
     TRANSIT("transit", "En transit"),

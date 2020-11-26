@@ -8,7 +8,7 @@
 package fr.volax.valkyacore.managers;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.util.ValkyaUtils;
+import fr.volax.valkyacore.utils.ValkyaUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

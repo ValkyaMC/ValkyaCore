@@ -8,8 +8,8 @@
 package fr.volax.valkyacore.managers;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.tool.ConfigType;
-import fr.volax.valkyacore.util.PermissionsHelper;
+import fr.volax.valkyacore.tools.ConfigType;
+import fr.volax.valkyacore.utils.PermissionsHelper;
 import fr.volax.volaxapi.tool.time.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

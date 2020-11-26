@@ -10,22 +10,14 @@ package fr.volax.valkyacore.commands;
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.handler.TeleportCooldownHandler;
 import fr.volax.valkyacore.handler.TeleportHandler;
-import fr.volax.valkyacore.tool.ConfigType;
-import fr.volax.valkyacore.util.PlayerUtils;
-import fr.volax.valkyacore.util.ValkyaUtils;
-import fr.volax.volaxapi.tool.config.ConfigBuilder;
+import fr.volax.valkyacore.tools.ConfigType;
+import fr.volax.valkyacore.utils.ValkyaUtils;
 import fr.volax.volaxapi.tool.time.TimeUnit;
-import net.minecraft.server.v1_8_R3.MinecraftServer;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class RTPCommand implements CommandExecutor {
     public RTPCommand(String string) {

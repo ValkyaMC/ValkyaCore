@@ -9,8 +9,7 @@ package fr.volax.valkyacore.listener;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.util.ValkyaUtils;
-import fr.volax.volaxapi.tool.config.ConfigBuilder;
+import fr.volax.valkyacore.utils.ValkyaUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -11,7 +11,7 @@ import com.sk89q.worldguard.bukkit.WGBukkit;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.util.MobStackerConfig;
+import fr.volax.valkyacore.utils.MobStackerConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;

@@ -8,8 +8,8 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.tool.StaffInventory;
-import fr.volax.valkyacore.util.ValkyaUtils;
+import fr.volax.valkyacore.tools.StaffInventory;
+import fr.volax.valkyacore.utils.ValkyaUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

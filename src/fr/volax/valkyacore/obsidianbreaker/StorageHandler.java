@@ -15,8 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.exception.UnknownBlockTypeException;
-import fr.volax.valkyacore.tool.ConfigType;
-import fr.volax.volaxapi.tool.config.ConfigBuilder;
+import fr.volax.valkyacore.tools.ConfigType;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;

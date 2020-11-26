@@ -8,7 +8,7 @@
 package fr.volax.valkyacore.managers;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.util.MobStackerConfig;
+import fr.volax.valkyacore.utils.MobStackerConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
 

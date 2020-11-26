@@ -8,7 +8,7 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.util.ValkyaUtils;
+import fr.volax.valkyacore.utils.ValkyaUtils;
 import fr.volax.volaxapi.tool.time.TimeUnit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;

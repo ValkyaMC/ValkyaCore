@@ -5,10 +5,10 @@
  * https://www.youtube.com/c/Volax
  */
 
-package fr.volax.valkyacore.util;
+package fr.volax.valkyacore.utils;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.tool.ConfigType;
+import fr.volax.valkyacore.tools.ConfigType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -35,8 +35,6 @@ public class MobStackerConfig {
     public static String stackMobsDispalyName = "§6%number% §eMobs";
     public static int indexLocation = 0;
 
-
-
     public static void reloadConfig() {
         stackRadius = ValkyaCore.getInstance().getConfigBuilder().getInt("StackRadius", ConfigType.MOBSTACKER.getConfigName());
         compileEntityTypesList(ValkyaCore.getInstance().getConfigBuilder().getListString("MobTypes", ConfigType.MOBSTACKER.getConfigName())); // Load EntityTypes list (mobTypes)
@@ -55,15 +53,10 @@ public class MobStackerConfig {
         stackLeachedMobs = ValkyaCore.getInstance().getConfigBuilder().getBoolean("MergeLeashedMobs", ConfigType.MOBSTACKER.getConfigName());
         killMobStackOnFall = ValkyaCore.getInstance().getConfigBuilder().getBoolean("killMobStackOnFall", ConfigType.MOBSTACKER.getConfigName());
         compileRegionList( ValkyaCore.getInstance().getConfigBuilder().getListString("WorldGuardRegions", ConfigType.MOBSTACKER.getConfigName())); // Load EntityTypes list (mobTypes)
-
-
     }
 
-    /*
-     * Helping Methods
-     */
     private static void compileEntityTypesList(List<String> list) {
-        if (list == null || list.size() == 0) return; // List may be nothing
+        if (list == null || list.size() == 0) return;
 
         for (String entityName : list) {
             try {
@@ -77,14 +70,13 @@ public class MobStackerConfig {
     }
 
     private static void compileWorldList(List<String> list) {
-        if (list == null || list.size() == 0) return; // List may be nothing
+        if (list == null || list.size() == 0) return;
 
         for (String worldName : list) {
             World world = Bukkit.getWorld(worldName);
             if(world == null){
                 System.out.println("Valkya Mob Stacker");
                 System.out.println("Monde invalide: "+ worldName);
-                continue;
             }else{
                 disabledWorlds.add(world);
             }
@@ -97,8 +89,6 @@ public class MobStackerConfig {
             return;
         }
         worldguardEnabled = true;
-        for (String regionName : list) {
-            disabledRegions.add(regionName);
-        }
+        disabledRegions.addAll(list);
     }
 }

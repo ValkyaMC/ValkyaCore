@@ -8,9 +8,8 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.util.PermissionsHelper;
-import fr.volax.valkyacore.tool.ConfigType;
-import fr.volax.volaxapi.tool.config.ConfigBuilder;
+import fr.volax.valkyacore.utils.PermissionsHelper;
+import fr.volax.valkyacore.tools.ConfigType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

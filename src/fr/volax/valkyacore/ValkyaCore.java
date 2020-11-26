@@ -15,9 +15,8 @@ import fr.volax.valkyacore.listener.PlayerListener;
 import fr.volax.valkyacore.managers.*;
 import fr.volax.valkyacore.obsidianbreaker.*;
 import fr.volax.valkyacore.spawners.SpawnersManager;
-import fr.volax.valkyacore.tool.ConfigType;
-import fr.volax.valkyacore.tool.StaffInventory;
-import fr.volax.valkyacore.util.*;
+import fr.volax.valkyacore.tools.StaffInventory;
+import fr.volax.valkyacore.utils.*;
 import fr.volax.volaxapi.VolaxAPI;
 import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import fr.volax.volaxapi.tool.config.FileManager;
@@ -40,9 +39,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Volax
  */
 public class ValkyaCore extends JavaPlugin {
-    /**
-     * TODO Commande pour give un stick pour get la dura des items
-     */
     private static ValkyaCore instance;
     private BanManager banManager;
     private MuteManager muteManager;
@@ -55,8 +51,6 @@ public class ValkyaCore extends JavaPlugin {
     private PvPPlayerManager pvPPlayerManager;
     private StackEntity stackEntity;
     public static Economy economy;
-    private BlockListener blockListener;
-    private PlayerListener playerListener;
     private StorageHandler storage;
     private StaffMod staffMod;
     private BukkitTask regenRunner;
@@ -94,8 +88,8 @@ public class ValkyaCore extends JavaPlugin {
         entityStacker = new EntityStackerManager(MobStackerConfig.stackRadius, MobStackerConfig.mobsToStack);
         stackEntity = new StackEntity();
         pvPPlayerManager = new PvPPlayerManager();
-        blockListener = new BlockListener();
-        playerListener = new PlayerListener();
+        BlockListener blockListener = new BlockListener();
+        PlayerListener playerListener = new PlayerListener();
         staffMod = new StaffMod(this);
         storage = new StorageHandler();
         spawnersManager = new SpawnersManager();
@@ -240,9 +234,7 @@ public class ValkyaCore extends JavaPlugin {
                             ValkyaCore.this.getStorage().removeBlockStatus(status);
                     }
                 }
-            } catch (Exception e) {
-                System.err.println("Error occured while trying to regen block (task " + getTaskId() + ")" + e);
-            }
+            } catch (Exception ignored) {}
         }
     }
 

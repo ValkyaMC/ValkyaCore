@@ -9,6 +9,7 @@ package fr.volax.valkyacore.spawners;
 
 import java.util.HashMap;
 
+@Deprecated
 public enum SpawnersEnum {
     ZOMBIE("Zombies", "zombie",4649),
     SKELETON("Squelettes","skeleton", 4571),

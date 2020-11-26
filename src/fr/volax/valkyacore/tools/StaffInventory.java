@@ -5,7 +5,7 @@
  * https://www.youtube.com/c/Volax
  */
 
-package fr.volax.valkyacore.tool;
+package fr.volax.valkyacore.tools;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;

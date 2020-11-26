@@ -5,17 +5,15 @@
  * https://www.youtube.com/c/Volax
  */
 
-package fr.volax.valkyacore.util;
+package fr.volax.valkyacore.utils;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.tool.StaffInventory;
+import fr.volax.valkyacore.tools.StaffInventory;
 import fr.volax.volaxapi.tool.item.ItemBuilder;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashMap;
 import java.util.List;

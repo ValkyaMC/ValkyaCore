@@ -8,7 +8,6 @@
 package fr.volax.valkyacore.listener;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.util.PermissionsHelper;
 import fr.volax.volaxapi.tool.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

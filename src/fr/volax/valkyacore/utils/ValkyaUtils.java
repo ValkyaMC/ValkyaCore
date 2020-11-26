@@ -5,12 +5,11 @@
  * https://www.youtube.com/c/Volax
  */
 
-package fr.volax.valkyacore.util;
+package fr.volax.valkyacore.utils;
 
 import fr.volax.valkyacore.ValkyaCore;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class ValkyaUtils {
     public static void sendChat(CommandSender player, String string){

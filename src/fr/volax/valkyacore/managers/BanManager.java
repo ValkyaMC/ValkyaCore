@@ -8,8 +8,7 @@
 package fr.volax.valkyacore.managers;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.tool.ConfigType;
-import fr.volax.volaxapi.tool.config.ConfigBuilder;
+import fr.volax.valkyacore.tools.ConfigType;
 import fr.volax.volaxapi.tool.time.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,7 +18,6 @@ import org.bukkit.entity.Player;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Random;
 import java.util.UUID;
 
 public class BanManager {

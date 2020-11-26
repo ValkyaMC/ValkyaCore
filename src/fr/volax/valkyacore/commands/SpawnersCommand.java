@@ -11,12 +11,13 @@ import fr.volax.valkyacore.ValkyaCore;
 import fr.volax.valkyacore.spawners.Spawner;
 import fr.volax.valkyacore.spawners.SpawnersEnum;
 import fr.volax.valkyacore.spawners.SpawnersState;
-import fr.volax.valkyacore.util.ValkyaUtils;
+import fr.volax.valkyacore.utils.ValkyaUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+@Deprecated
 public class SpawnersCommand implements CommandExecutor {
     public SpawnersCommand(String string) {
         ValkyaCore.getInstance().getCommand(string).setExecutor(this);

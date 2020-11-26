@@ -8,15 +8,11 @@
 package fr.volax.valkyacore.commands;
 
 import fr.volax.valkyacore.ValkyaCore;
-import fr.volax.valkyacore.util.ValkyaUtils;
-import fr.volax.volaxapi.tool.config.ConfigBuilder;
+import fr.volax.valkyacore.utils.ValkyaUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.inventory.InventoryClickEvent;
 
 public class ChatCommand implements CommandExecutor {
     public ChatCommand(String string) {
