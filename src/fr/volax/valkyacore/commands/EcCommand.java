@@ -19,7 +19,6 @@ public class EcCommand implements CommandExecutor {
         ValkyaCore.getInstance().getCommand(string).setExecutor(this);
     }
 
-
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!ValkyaCore.getInstance().getPlayerUtils().isPlayer(sender)) return false;

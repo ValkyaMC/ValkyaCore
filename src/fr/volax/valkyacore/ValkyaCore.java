@@ -22,6 +22,7 @@ import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import fr.volax.volaxapi.tool.config.FileManager;
 import fr.volax.volaxapi.tool.database.Database;
 import fr.volax.volaxapi.tool.gui.GuiManager;
+import lombok.Getter;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -39,23 +40,23 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Volax
  */
 public class ValkyaCore extends JavaPlugin {
-    private static ValkyaCore instance;
-    private BanManager banManager;
-    private MuteManager muteManager;
-    private ReportManager reportManager;
-    private PlayerUtils playerUtils;
-    private PermissionsHelper permissionsHelper;
+    @Getter private static ValkyaCore instance;
+    @Getter private BanManager banManager;
+    @Getter private MuteManager muteManager;
+    @Getter private ReportManager reportManager;
+    @Getter private PlayerUtils playerUtils;
+    @Getter private PermissionsHelper permissionsHelper;
     public Database sql;
-    private GuiManager guiManager;
-    private EntityStackerManager entityStacker;
-    private PvPPlayerManager pvPPlayerManager;
-    private StackEntity stackEntity;
+    @Getter private GuiManager guiManager;
+    @Getter private EntityStackerManager entityStacker;
+    @Getter private PvPPlayerManager pvPPlayerManager;
+    @Getter private StackEntity stackEntity;
     public static Economy economy;
-    private StorageHandler storage;
-    private StaffMod staffMod;
+    @Getter private StorageHandler storage;
+    @Getter private StaffMod staffMod;
     private BukkitTask regenRunner;
-    private SpawnersManager spawnersManager;
-    private ConfigBuilder configBuilder;
+    @Getter private SpawnersManager spawnersManager;
+    @Getter private ConfigBuilder configBuilder;
 
     public Map<Player, StaffInventory> mode;
     public List<UUID> frozen;
@@ -155,47 +156,11 @@ public class ValkyaCore extends JavaPlugin {
         }
     }
 
-    public static ValkyaCore getInstance() {
-        return instance;
-    }
-    public BanManager getBanManager() {
-        return banManager;
-    }
-    public MuteManager getMuteManager() {
-        return muteManager;
-    }
-    public ReportManager getReportManager() {
-        return reportManager;
-    }
-    public PlayerUtils getPlayerUtils() {
-        return playerUtils;
-    }
-
-    public GuiManager getGuiManager() {
-        return guiManager;
-    }
-
-    public PermissionsHelper getPermissionsHelper() {
-        return permissionsHelper;
-    }
-
-    public StackEntity getStackEntity() {
-        return stackEntity;
-    }
-
-    public EntityStackerManager getEntityStacker() {
-        return entityStacker;
-    }
-
     private boolean setupEconomy() {
         RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(Economy.class);
         if (economyProvider != null)
             economy = economyProvider.getProvider();
         return (economy != null);
-    }
-
-    public PvPPlayerManager getPvPPlayerManager() {
-        return pvPPlayerManager;
     }
 
     public static String getLOGGER_PREFIX() {
@@ -204,10 +169,6 @@ public class ValkyaCore extends JavaPlugin {
 
     public static String getPREFIX() {
         return getInstance().PREFIX;
-    }
-
-    public StorageHandler getStorage() {
-        return this.storage;
     }
 
     public void scheduleRegenRunner() {
@@ -236,15 +197,5 @@ public class ValkyaCore extends JavaPlugin {
                 }
             } catch (Exception ignored) {}
         }
-    }
-
-    public StaffMod getStaffMod() {
-        return staffMod;
-    }
-    public SpawnersManager getSpawnersManager() {
-        return spawnersManager;
-    }
-    public ConfigBuilder getConfigBuilder() {
-        return configBuilder;
     }
 }

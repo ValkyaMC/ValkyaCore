@@ -23,6 +23,7 @@ public class HeadOnDeath implements Listener {
         if(event.getEntity().getKiller() == null) return;
         if(event.getEntity().getKiller() == event.getEntity().getPlayer()) return;
         if(ValkyaCore.getInstance().getStaffMod().isInStaffMode(event.getEntity().getKiller())) return;
+
         ItemStack player_head = new ItemBuilder(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal()).setSkullOwner(event.getEntity().getPlayer().getName()).setName("§eTête de §6" + event.getEntity().getPlayer().getName()).toItemStack();
         Bukkit.getWorld(event.getEntity().getPlayer().getWorld().getName()).dropItemNaturally(event.getEntity().getPlayer().getLocation(), player_head);
     }
