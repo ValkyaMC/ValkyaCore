@@ -8,6 +8,7 @@
 package fr.volax.valkyacore.tools;
 
 import fr.volax.valkyacore.ValkyaCore;
+import lombok.Getter;
 
 public enum ConfigType {
     MESSAGES("messages.yml"),
@@ -18,14 +19,10 @@ public enum ConfigType {
     OBSIDIANBREAKER("obsidianbreaker.yml"),
     BANITEMS("banitems.yml");
 
-    public String configName;
+    @Getter public String configName;
 
     ConfigType(String configName) {
         this.configName = configName;
         ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(configName).saveDefaultConfig();
-    }
-
-    public String getConfigName() {
-        return configName;
     }
 }

@@ -39,7 +39,7 @@ public class PlayerListener implements Listener {
             totalDurability = ValkyaCore.getInstance().getStorage().getTotalDurabilityFromConfig(block);
             remainingDurability = totalDurability;
           } else {
-            totalDurability = status.getTotalDurability();
+            totalDurability = status.getMaxDamage();
             remainingDurability = totalDurability - status.getDamage();
           } 
           if (block.getLocation().getBlockY() == 0 && ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getBoolean("VoidProtector"))

@@ -80,7 +80,7 @@ public class StorageHandler {
         throw new UnknownBlockTypeException(); 
     } 
     status.setDamage(status.getDamage() + addDamage);
-    if (status.getDamage() >= status.getTotalDurability() - 0.001F) {
+    if (status.getDamage() >= status.getMaxDamage() - 0.001F) {
       removeBlockStatus(status);
       return true;
     } 

@@ -7,24 +7,19 @@
 
 package fr.volax.valkyacore.spawners;
 
+import lombok.Getter;
+
 @Deprecated
 public enum SpawnersState {
     BREAKED("break", "Cassé"),
     TRANSIT("transit", "En transit"),
     PLACED("placed", "Placé");
 
+    @Getter
     private String name, displayName;
 
     SpawnersState(String name, String displayName) {
         this.name = name;
         this.displayName = displayName;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDisplayName() {
-        return displayName;
     }
 }

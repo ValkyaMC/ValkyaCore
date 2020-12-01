@@ -7,6 +7,8 @@
 
 package fr.volax.valkyacore.spawners;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 
 @Deprecated
@@ -18,26 +20,14 @@ public enum SpawnersEnum {
     SPIDER("Araignées", "spider",4626),
     COW("Vaches", "cow",4575);
 
-    private String displayName, name;
-    private int id;
+    @Getter private String displayName, name;
+    @Getter private int id;
     private static HashMap<String, SpawnersEnum> NAME = new HashMap();
 
     SpawnersEnum(String displayName, String name, int id) {
         this.displayName = displayName;
         this.name = name;
         this.id = id;
-    }
-
-    public String getDisplayName() {
-        return this.displayName;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public static boolean existFromName(String name) {
