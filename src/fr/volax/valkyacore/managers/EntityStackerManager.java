@@ -40,18 +40,12 @@ public class EntityStackerManager {
     private void startEntityClock(){
         Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(ValkyaCore.getInstance(), new Runnable() {
             public void run() {
-                // Iterate through all worlds
                 for (World world : Bukkit.getServer().getWorlds()) {
-                    // Iterate through all entities in this world (if not disabled)
                     if(MobStackerConfig.disabledWorlds.contains(world)) continue;
                     for (LivingEntity entity : world.getLivingEntities()) {
                         if(!checkEntity(entity)) continue;
-                        // Iterate through all entities in range
                         for (Entity nearby : entity.getNearbyEntities(mobStackRadius, mobStackRadius, mobStackRadius)) {
-
-                            if(checkEntity(nearby)) {
-                                ValkyaCore.getInstance().getStackEntity().stack(entity, (LivingEntity) nearby);
-                            }
+                            if(checkEntity(nearby)) ValkyaCore.getInstance().getStackEntity().stack(entity, (LivingEntity) nearby);
                         }
                     }
                 }
@@ -98,14 +92,9 @@ public class EntityStackerManager {
             }
         }
         if(MobStackerConfig.stackOnlySpawnerMobs){
-            if (!validEnity.contains((LivingEntity) entity)){
-                return false;
-            }
+            if (!validEnity.contains(entity)) return false;
         }
-        if(entity.getType() == EntityType.SLIME){
-            return false;
-        }
-        return true;
+        return entity.getType() != EntityType.SLIME;
     }
 
     public ArrayList<LivingEntity> getValidEntity() {

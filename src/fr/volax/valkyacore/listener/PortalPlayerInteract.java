@@ -93,7 +93,6 @@ public class PortalPlayerInteract implements Listener {
                 System.err.println(ValkyaCore.getLOGGER_PREFIX() + player.getName() + " tried to enter in a Nether portal at (Player Location)");
                 System.err.println(ValkyaCore.getLOGGER_PREFIX() + "X: " +player.getLocation().getX() + " Y: " +player.getLocation().getY() + " Z: " +player.getLocation().getZ());
                 event.setCancelled(true);
-                return;
             }
         }
     }

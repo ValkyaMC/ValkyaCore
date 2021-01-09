@@ -49,10 +49,7 @@ public class GlobalEvents implements Listener {
 
     @EventHandler(priority = EventPriority.LOW)
     public void onEntityDeath(EntityDeathEvent e) {
-        if (!(e.getEntity() instanceof LivingEntity)) {
-            return; // Not a living entity.
-        }
-
+        if (e.getEntity() == null) return;
         LivingEntity entity =  e.getEntity();
 
         if(entity.getType() == EntityType.SLIME){

@@ -1,6 +1,6 @@
 name: ValkyaCore
 main: fr.volax.valkyacore.ValkyaCore
-version: 1.1.13
+version: 1.1.14
 author: Volax
 depend: [WorldGuard, Vault, VolaxAPI]
 description: ValkyaCore plugin for Valkya
@@ -30,11 +30,11 @@ commands:
     aliases: [gm]
     description: Gamemode commande
   gmc:
-      description: GamemodeC commande
+      description: Aliases gamemode creatif commande
   gms:
-      description: GamemodeS commande
+      description: Aliases gamemode survie commande
   gma:
-      description: GamemodeA commande
+      description: Aliases gamemode aventure commande
   kd:
     description: KD commande
   repair:

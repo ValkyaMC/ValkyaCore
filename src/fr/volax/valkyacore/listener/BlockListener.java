@@ -118,28 +118,29 @@ public class BlockListener implements Listener {
   }
   
   private void removeBlock(Block block, boolean isLiquid, EntityType explosive) {
-    try {
-      float liquidDivider = (float)ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getDouble("LiquidMultiplier");
-      if (isLiquid && liquidDivider <= 0.0F)
-        return; 
-      float rawDamage = (explosive == null) ? 1.0F : (float)ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getDouble("ExplosionSources." + explosive.toString());
-      if (ValkyaCore.getInstance().getStorage().addDamage(block, isLiquid ? (rawDamage / liquidDivider) : rawDamage)) {
-        List<String> list = (List<String>) ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getList("Drops.DontDrop");
-        for (Object section : list) {
-          if (section instanceof Integer)
-            section = Integer.toString(((Integer)section).intValue()); 
-          String[] s = ((String)section).split(":");
-          if (block.getTypeId() == Integer.parseInt(s[0]) && (s.length == 1 || block.getData() == Byte.parseByte(s[1]))) {
-            block.setType(Material.AIR);
-            return;
-          } 
-        } 
-        if ((new Random()).nextInt(100) + 1 >= ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getInt("Drops.DropChance")) {
-          block.setType(Material.AIR);
-        } else {
-          block.breakNaturally();
-        } 
+      try {
+          float liquidDivider = (float) ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getDouble("LiquidMultiplier");
+          if (isLiquid && liquidDivider <= 0.0F)
+              return;
+          float rawDamage = (explosive == null) ? 1.0F : (float) ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getDouble("ExplosionSources." + explosive.toString());
+          if (ValkyaCore.getInstance().getStorage().addDamage(block, isLiquid ? (rawDamage / liquidDivider) : rawDamage)) {
+              List<String> list = (List<String>) ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getList("Drops.DontDrop");
+              for (Object section : list) {
+                  if (section instanceof Integer)
+                      section = Integer.toString((Integer) section);
+                  String[] s = ((String) section).split(":");
+                  if (block.getTypeId() == Integer.parseInt(s[0]) && (s.length == 1 || block.getData() == Byte.parseByte(s[1]))) {
+                      block.setType(Material.AIR);
+                      return;
+                  }
+              }
+              if ((new Random()).nextInt(100) + 1 >= ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getInt("Drops.DropChance")) {
+                  block.setType(Material.AIR);
+              } else {
+                  block.breakNaturally();
+              }
+          }
+      } catch (UnknownBlockTypeException ignored) {
       }
-    } catch (UnknownBlockTypeException unknownBlockTypeException) {}
   }
 }

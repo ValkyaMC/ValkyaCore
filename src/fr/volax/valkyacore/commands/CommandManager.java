@@ -33,7 +33,6 @@ public class CommandManager {
         new StaffModCommand("staffmod");
         new StaffModListCommand("staffmodlist");
         new ReportLogCommand("reportlog");
-        //new SpawnersCommand("spawners");
 
         if(Bukkit.getServer().getPluginCommand("ec").getPlugin().getDescription().getName().equals("CustomEnderChest")) Bukkit.getServer().getPluginCommand("ec").setExecutor(new EcCommand("ec"));
     }

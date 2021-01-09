@@ -37,11 +37,8 @@ public class RTPCommand implements CommandExecutor {
                 if(!cooldown.check(player) && (cooldown.getTimeLeft(player) * -1L >= 1L)){
                     ValkyaUtils.sendChat(player,ValkyaCore.getInstance().getConfigBuilder().getString("messages.rtp.error", ConfigType.MESSAGES.getConfigName()).replaceAll("&","§").replaceAll("%cooldown%", getTimeLeft(Math.toIntExact(cooldown.getTimeLeft(player) * -1L))));
                     return true;
-                }else if(cooldown.getTimeLeft(player) * -1L == 0L){
-                    cooldown.finalize();
-                }else{
-                    cooldown.finalize();
-                }
+                }else if(cooldown.getTimeLeft(player) * -1L == 0L) cooldown.finalize();
+                else cooldown.finalize();
             }
         }
         TeleportHandler tp = new TeleportHandler(player, Bukkit.getWorld(ValkyaCore.getInstance().getConfigBuilder().getString("rtp.world")), ValkyaCore.getInstance().getConfigBuilder().getInt("rtp.x"), ValkyaCore.getInstance().getConfigBuilder().getInt("rtp.z"));

@@ -113,8 +113,7 @@ public class BanManager {
             PreparedStatement query = ValkyaCore.getInstance().sql.connection.prepareStatement("SELECT * FROM bans WHERE playerUUID=?");
             query.setString(1, uuid.toString());
             ResultSet rs = query.executeQuery();
-            boolean isBanned = rs.next();
-            return isBanned;
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }

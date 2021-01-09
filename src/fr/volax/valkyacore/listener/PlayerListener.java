@@ -25,37 +25,38 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class PlayerListener implements Listener {
 
-  @EventHandler
-  public void onPlayerInteract(PlayerInteractEvent event) {
-    if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-      Player player = event.getPlayer();
-      if(player.getItemInHand().getType() == Material.AIR) return;
-      if (player.getItemInHand().getType() == Material.STICK && player.getItemInHand().getItemMeta().getDisplayName().equals("§eChecker"))
-        try {
-          float totalDurability, remainingDurability;
-          Block block = event.getClickedBlock();
-          BlockStatus status = ValkyaCore.getInstance().getStorage().getBlockStatus(block, false);
-          if (status == null) {
-            totalDurability = ValkyaCore.getInstance().getStorage().getTotalDurabilityFromConfig(block);
-            remainingDurability = totalDurability;
-          } else {
-            totalDurability = status.getMaxDamage();
-            remainingDurability = totalDurability - status.getDamage();
-          } 
-          if (block.getLocation().getBlockY() == 0 && ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getBoolean("VoidProtector"))
-              ValkyaUtils.sendChat(player, "§eDurabilité §6Illimité (Protection du void)");
-          else if (totalDurability > 0.0F) {
-            DecimalFormat format = new DecimalFormat("##.##");
-            DecimalFormatSymbols symbol = new DecimalFormatSymbols();
-            symbol.setDecimalSeparator('.');
-            format.setDecimalFormatSymbols(symbol);
-            String durability = format.format(totalDurability);
-            String durabilityLeft = format.format(remainingDurability);
-            ValkyaUtils.sendChat(player, "§eDurabilité §6" + durabilityLeft + " §esur §6" + durability);
-          } else {
-              ValkyaUtils.sendChat(player, "§eDurabilité §6Illimité");
-          } 
-        } catch (UnknownBlockTypeException ignored) {}
-    } 
-  }
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            Player player = event.getPlayer();
+            if (player.getItemInHand().getType() == Material.AIR) return;
+            if (player.getItemInHand().getType() == Material.STICK && player.getItemInHand().getItemMeta().getDisplayName().equals("§eChecker"))
+                try {
+                    float totalDurability, remainingDurability;
+                    Block block = event.getClickedBlock();
+                    BlockStatus status = ValkyaCore.getInstance().getStorage().getBlockStatus(block, false);
+                    if (status == null) {
+                        totalDurability = ValkyaCore.getInstance().getStorage().getTotalDurabilityFromConfig(block);
+                        remainingDurability = totalDurability;
+                    } else {
+                        totalDurability = status.getMaxDamage();
+                        remainingDurability = totalDurability - status.getDamage();
+                    }
+                    if (block.getLocation().getBlockY() == 0 && ValkyaCore.getInstance().getConfigBuilder().configs.getConfig(ConfigType.OBSIDIANBREAKER.getConfigName()).get().getBoolean("VoidProtector"))
+                        ValkyaUtils.sendChat(player, "§eDurabilité §6Illimité (Protection du void)");
+                    else if (totalDurability > 0.0F) {
+                        DecimalFormat format = new DecimalFormat("##.##");
+                        DecimalFormatSymbols symbol = new DecimalFormatSymbols();
+                        symbol.setDecimalSeparator('.');
+                        format.setDecimalFormatSymbols(symbol);
+                        String durability = format.format(totalDurability);
+                        String durabilityLeft = format.format(remainingDurability);
+                        ValkyaUtils.sendChat(player, "§eDurabilité §6" + durabilityLeft + " §esur §6" + durability);
+                    } else {
+                        ValkyaUtils.sendChat(player, "§eDurabilité §6Illimité");
+                    }
+                } catch (UnknownBlockTypeException ignored) {
+                }
+        }
+    }
 }

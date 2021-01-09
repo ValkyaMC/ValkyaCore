@@ -34,15 +34,15 @@ public class TeleportHandler {
         this.zCoord = zCoord;
     }
 
-    public void teleport(){
+    public void teleport() {
         Location location = getLocation();
         boolean onLand = false;
 
-        while (!onLand){
-            if(location.getY() == 0){
+        while (!onLand) {
+            if (location.getY() == 0) {
                 location = getLocation();
                 onLand = false;
-            }else{
+            } else {
                 onLand = true;
             }
         }
@@ -61,13 +61,13 @@ public class TeleportHandler {
         return this.zF;
     }
 
-    private void set(double x,double y,double z){
-        this.xF = ((int)x);
-        this.yF = ((int)y);
-        this.zF = ((int)z);
+    private void set(double x, double y, double z) {
+        this.xF = ((int) x);
+        this.yF = ((int) y);
+        this.zF = ((int) z);
     }
 
-    public String getMessage(){
+    public String getMessage() {
         String msg1 = "§eTéléportation à la location:";
         String msg2 = "§eX: §6" + getX();
         String msg3 = "§eY: §6" + getY();
@@ -95,7 +95,7 @@ public class TeleportHandler {
         return location;
     }
 
-    public int rdm(int i){
+    public int rdm(int i) {
         Random random = new Random();
         int j = random.nextInt(2);
         switch (j) {

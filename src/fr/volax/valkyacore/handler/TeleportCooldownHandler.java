@@ -19,17 +19,17 @@ public class TeleportCooldownHandler {
     Map<String, Long> map = new HashMap();
     private static Map<String, TeleportCooldownHandler> cooldownMap = new HashMap();
 
-    public TeleportCooldownHandler(Player player, int coolDownTime){
+    public TeleportCooldownHandler(Player player, int coolDownTime) {
         this.player = player;
         this.coolDownTime = coolDownTime;
     }
 
-    public void start(){
+    public void start() {
         this.map.put(this.player.getUniqueId().toString(), System.currentTimeMillis());
         cooldownMap.put(this.player.getUniqueId().toString(), this);
     }
 
-    public void finalize(){
+    public void finalize() {
         this.map.remove(this.player.getUniqueId().toString());
         cooldownMap.remove(this.player.getUniqueId().toString());
     }
@@ -40,14 +40,14 @@ public class TeleportCooldownHandler {
     }
 
     public boolean check(Player player) {
-        if (((Long) this.map.get(player.getUniqueId().toString()) - System.currentTimeMillis()) / 1000L < this.coolDownTime) {
+        if ((this.map.get(player.getUniqueId().toString()) - System.currentTimeMillis()) / 1000L < this.coolDownTime) {
             return false;
         }
         return true;
     }
 
     public static TeleportCooldownHandler getCooldown(Player player) {
-        return (TeleportCooldownHandler)cooldownMap.get(player.getUniqueId().toString());
+        return cooldownMap.get(player.getUniqueId().toString());
     }
 
     public static boolean areTherePlayersInTheMap() {

@@ -14,7 +14,6 @@ import fr.volax.valkyacore.listener.ListenerManager;
 import fr.volax.valkyacore.listener.PlayerListener;
 import fr.volax.valkyacore.managers.*;
 import fr.volax.valkyacore.obsidianbreaker.*;
-import fr.volax.valkyacore.spawners.SpawnersManager;
 import fr.volax.valkyacore.tools.StaffInventory;
 import fr.volax.valkyacore.utils.*;
 import fr.volax.volaxapi.VolaxAPI;
@@ -22,7 +21,6 @@ import fr.volax.volaxapi.tool.config.ConfigBuilder;
 import fr.volax.volaxapi.tool.config.FileManager;
 import fr.volax.volaxapi.tool.database.Database;
 import fr.volax.volaxapi.tool.gui.GuiManager;
-import lombok.Getter;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -40,23 +38,22 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Volax
  */
 public class ValkyaCore extends JavaPlugin {
-    @Getter private static ValkyaCore instance;
-    @Getter private BanManager banManager;
-    @Getter private MuteManager muteManager;
-    @Getter private ReportManager reportManager;
-    @Getter private PlayerUtils playerUtils;
-    @Getter private PermissionsHelper permissionsHelper;
+    private static ValkyaCore instance;
+    private BanManager banManager;
+    private MuteManager muteManager;
+    private ReportManager reportManager;
+    private PlayerUtils playerUtils;
+    private PermissionsHelper permissionsHelper;
     public Database sql;
-    @Getter private GuiManager guiManager;
-    @Getter private EntityStackerManager entityStacker;
-    @Getter private PvPPlayerManager pvPPlayerManager;
-    @Getter private StackEntity stackEntity;
+    private GuiManager guiManager;
+    private EntityStackerManager entityStacker;
+    private PvPPlayerManager pvPPlayerManager;
+    private StackEntity stackEntity;
     public static Economy economy;
-    @Getter private StorageHandler storage;
-    @Getter private StaffMod staffMod;
+    private StorageHandler storage;
+    private StaffMod staffMod;
     private BukkitTask regenRunner;
-    @Getter private SpawnersManager spawnersManager;
-    @Getter private ConfigBuilder configBuilder;
+    private ConfigBuilder configBuilder;
 
     public Map<Player, StaffInventory> mode;
     public List<UUID> frozen;
@@ -93,7 +90,6 @@ public class ValkyaCore extends JavaPlugin {
         PlayerListener playerListener = new PlayerListener();
         staffMod = new StaffMod(this);
         storage = new StorageHandler();
-        spawnersManager = new SpawnersManager();
         cooldown = new HashMap<>();
         repair  = new HashMap<>();
         admin = new HashMap<>();
@@ -197,5 +193,61 @@ public class ValkyaCore extends JavaPlugin {
                 }
             } catch (Exception ignored) {}
         }
+    }
+
+    public static ValkyaCore getInstance() {
+        return instance;
+    }
+
+    public BanManager getBanManager() {
+        return banManager;
+    }
+
+    public MuteManager getMuteManager() {
+        return muteManager;
+    }
+
+    public ReportManager getReportManager() {
+        return reportManager;
+    }
+
+    public PlayerUtils getPlayerUtils() {
+        return playerUtils;
+    }
+
+    public PermissionsHelper getPermissionsHelper() {
+        return permissionsHelper;
+    }
+
+    public GuiManager getGuiManager() {
+        return guiManager;
+    }
+
+    public EntityStackerManager getEntityStacker() {
+        return entityStacker;
+    }
+
+    public PvPPlayerManager getPvPPlayerManager() {
+        return pvPPlayerManager;
+    }
+
+    public StackEntity getStackEntity() {
+        return stackEntity;
+    }
+
+    public StorageHandler getStorage() {
+        return storage;
+    }
+
+    public StaffMod getStaffMod() {
+        return staffMod;
+    }
+
+    public BukkitTask getRegenRunner() {
+        return regenRunner;
+    }
+
+    public ConfigBuilder getConfigBuilder() {
+        return configBuilder;
     }
 }

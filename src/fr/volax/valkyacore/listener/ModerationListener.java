@@ -49,7 +49,7 @@ public class ModerationListener implements Listener {
 
     @EventHandler
     public void click(InventoryClickEvent event) {
-        Player player = (Player)event.getWhoClicked();
+        Player player = (Player) event.getWhoClicked();
         if (ValkyaCore.getInstance().getStaffMod().isInStaffMode(player) || ValkyaCore.getInstance().getStaffMod().isFrozen(player))
             event.setCancelled(true);
     }
@@ -65,7 +65,7 @@ public class ModerationListener implements Listener {
     public void damage(EntityDamageEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof Player) {
-            Player player = (Player)entity;
+            Player player = (Player) entity;
             if (ValkyaCore.getInstance().getStaffMod().isInStaffMode(player) || ValkyaCore.getInstance().getStaffMod().isFrozen(player))
                 event.setCancelled(true);
         }
@@ -76,8 +76,8 @@ public class ModerationListener implements Listener {
         Entity entity = event.getEntity();
         Entity damager = event.getDamager();
         if (entity instanceof Player && damager instanceof Player) {
-            Player victim = (Player)entity;
-            Player killer = (Player)damager;
+            Player victim = (Player) entity;
+            Player killer = (Player) damager;
             if (ValkyaCore.getInstance().getStaffMod().isFrozen(killer))
                 event.setCancelled(true);
             if (ValkyaCore.getInstance().getStaffMod().isInStaffMode(killer) && !ValkyaCore.getInstance().getStaffMod().isInStaffMode(victim)) {
@@ -90,7 +90,7 @@ public class ModerationListener implements Listener {
 
     @EventHandler
     public void food(FoodLevelChangeEvent event) {
-        Player player = (Player)event.getEntity();
+        Player player = (Player) event.getEntity();
         if (ValkyaCore.getInstance().getStaffMod().isFrozen(player) || ValkyaCore.getInstance().getStaffMod().isInStaffMode(player))
             event.setCancelled(true);
     }
@@ -119,7 +119,7 @@ public class ModerationListener implements Listener {
                 if (!p.equals(player))
                     pls.add(p);
             }
-            if(pls.isEmpty()){
+            if (pls.isEmpty()) {
                 ValkyaUtils.sendChat(player, "§eIl n'y aucun joueur sur lequel se téléporter !");
                 event.setCancelled(true);
                 return;
@@ -136,7 +136,7 @@ public class ModerationListener implements Listener {
         ItemStack item = player.getInventory().getItemInHand();
         Entity entity = event.getRightClicked();
         if (entity instanceof Player && ValkyaCore.getInstance().getStaffMod().isInStaffMode(player)) {
-            final Player target = (Player)entity;
+            final Player target = (Player) entity;
             if (isValid(item, Material.PACKED_ICE, "&b&lFreeze")) {
                 event.setCancelled(true);
                 if (target.hasPermission("dev.moderation.freeze.bypass")) {
@@ -144,7 +144,7 @@ public class ModerationListener implements Listener {
                     return;
                 }
                 ValkyaCore.getInstance().getStaffMod().toggleFreeze(target, player);
-                ValkyaUtils.sendChat(player, "§eLe joueur §6§l" + target.getName() + " §Ea été "+ (ValkyaCore.getInstance().getStaffMod().isFrozen(target) ? "gelé" : "dégelé") + ".");
+                ValkyaUtils.sendChat(player, "§eLe joueur §6§l" + target.getName() + " §Ea été " + (ValkyaCore.getInstance().getStaffMod().isFrozen(target) ? "gelé" : "dégelé") + ".");
             } else if (isValid(item, Material.CHEST, "&c&lInvsee")) {
                 event.setCancelled(true);
                 final Inventory inventory = Bukkit.createInventory(null, 54, "§6§l" + target.getName());
@@ -198,7 +198,9 @@ public class ModerationListener implements Listener {
         Player player = event.getPlayer();
         if (ValkyaCore.getInstance().getStaffMod().isInStaffMode(player)) {
             ValkyaCore.getInstance().getStaffMod().byPlayer(player).give();
-            for (Player p : Bukkit.getServer().getOnlinePlayers()) { if (!p.equals(player)) p.showPlayer(player); }
+            for (Player p : Bukkit.getServer().getOnlinePlayers()) {
+                if (!p.equals(player)) p.showPlayer(player);
+            }
             ValkyaCore.getInstance().getStaffMod().getMode().remove(player);
             player.setHealth(player.getMaxHealth());
             player.setAllowFlight(false);
@@ -210,7 +212,7 @@ public class ModerationListener implements Listener {
     }
 
     @EventHandler
-    public void join(PlayerJoinEvent event){
+    public void join(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         for (Player p : ValkyaCore.getInstance().getStaffMod().getMode().keySet()) {
             player.hidePlayer(p);
