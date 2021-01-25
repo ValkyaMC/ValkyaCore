@@ -78,11 +78,8 @@ public class TeleportHandler {
 
     public Location getLocation() {
         Random random = new Random();
-        int x = random.nextInt(this.xCoord);
-        int z = random.nextInt(this.zCoord);
-
-        x = rdm(x);
-        z = rdm(z);
+        int x = rdm(random.nextInt(this.xCoord));
+        int z = rdm(random.nextInt(this.zCoord));
 
         Location loc = safeY(new Location(Bukkit.getWorld(ValkyaCore.getInstance().getConfigBuilder().getString("rtp.world")), x, 63, z));
         set(loc.getX(), loc.getY(), loc.getZ());
