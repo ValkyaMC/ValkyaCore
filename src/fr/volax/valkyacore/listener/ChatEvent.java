@@ -43,10 +43,8 @@ public class ChatEvent implements Listener {
                 event.setCancelled(true);
             }
         }
-        System.out.println("A");
         ValkyaCore.getInstance().getMuteManager().checkDuration(player.getName());
         if(ValkyaCore.getInstance().getMuteManager().isMuted(player.getName())){
-            System.out.println("C");
             player.sendMessage(ValkyaCore.getInstance().getConfigBuilder().getString("messages.mute.player-talking", ConfigType.MESSAGES.getConfigName()).replaceAll("%reason%", ValkyaCore.getInstance().getMuteManager().getReason(player.getName())).replaceAll("%time%", ValkyaCore.getInstance().getMuteManager().getTimeLeft(player.getName())));
             event.setCancelled(true);
         }
